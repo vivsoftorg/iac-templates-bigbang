@@ -1,0 +1,158 @@
+hostname: bigbang.dev
+
+# Toggle sourcing from external repos
+# TODO: All this does right now is toggle GitRepositories, it is _not_ fully functional
+offline: false
+
+# Registry credentials to use from pulling images from private registry, will create an appropriate imagePullSecret in all relevant namespaces
+registryCredentials:
+  registry: registry1.dsop.io
+  username: ""
+  password: ""
+  email: ""
+
+# Global git values
+# Order of precedence is:
+#   1. existingSecret
+#   2. http credentials (username/password)
+#   3. ssh credentials (privateKey/publicKey/knownHosts)
+git:
+  # Existing secret to use for git credentials, must be in the appropriate format: https://toolkit.fluxcd.io/components/source/gitrepositories/#https-authentication
+  existingSecret: ""
+
+  # Chart created secrets with user defined values
+  credentials:
+    # HTTP git credentials, both username and password must be provided
+    username: ""
+    password: ""
+
+    # SSH git credentials, privateKey, publicKey, and knownHosts must be provided
+    privateKey: ""
+    publicKey: ""
+    knownHosts: ""
+
+# Flux reconciliation parameters
+flux:
+  interval: 2m
+  install:
+    retries: 3
+  upgrade:
+    retries: 3
+  rollback:
+    timeout: 5m
+    cleanupOnFail: true
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Istio
+#
+istio:
+  enabled: true
+  git:
+    repo: https://repo1.dsop.io/platform-one/big-bang/apps/core/istio-controlplane.git
+    path: "./chart"
+    tag: "1.7.3-bb.4"
+  values: {}
+
+istiooperator:
+  enabled: true
+  git:
+    repo: https://repo1.dsop.io/platform-one/big-bang/apps/core/istio-operator.git
+    path: "./chart"
+    tag: "1.7.0-bb.0"
+  values: {}
+# ----------------------------------------------------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Cluster Auditor
+#
+clusterAuditor:
+  enabled: true
+  git: 
+    repo: https://repo1.dsop.io/platform-one/big-bang/apps/core/cluster-auditor.git
+    path: "./chart"
+    tag: "0.1.7-bb.0"
+  values: {}
+# ----------------------------------------------------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------------------------------------------------
+# OPA Gatekeeper
+#
+gatekeeper:
+  enabled: true
+  git:
+    repo: https://repo1.dsop.io/platform-one/big-bang/apps/core/policy.git
+    path: "./chart"
+    tag: "3.1.2-bb.2"
+  values: {}
+# ----------------------------------------------------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Logging
+#
+logging:
+  enabled: true
+  git:
+    repo: https://repo1.dsop.io/platform-one/big-bang/apps/core/elasticsearch-kibana.git
+    path: "./chart"
+    tag: "0.1.2-bb.0"
+  values: {}
+
+eckoperator:
+  enabled: true
+  git:
+    repo: https://repo1.dsop.io/platform-one/big-bang/apps/core/eck-operator.git
+    path: "./chart"
+    tag: "1.3.0-bb.2"
+  values: {}
+
+fluentbit:
+  enabled: true
+  git:
+    repo: https://repo1.dsop.io/platform-one/big-bang/apps/core/fluentbit.git
+    path: "./chart"
+    tag: "0.1.0-bb.0"
+  values: {}
+# ----------------------------------------------------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Monitoring
+#
+monitoring:
+  enabled: true
+  git:
+    repo: https://repo1.dsop.io/platform-one/big-bang/apps/core/monitoring.git
+    path: "./chart"
+    tag: "11.0.0-bb.4"
+  values: {}
+# ----------------------------------------------------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Twistlock
+#
+twistlock:
+  enabled: true
+  git:
+    repo: https://repo1.dsop.io/platform-one/big-bang/apps/security-tools/twistlock.git
+    path: "./chart"
+    tag: "0.0.2-bb.0"
+  values: {}
+# ----------------------------------------------------------------------------------------------------------------------
+
+addons:
+  argocd:
+    enabled: false
+    git:
+      repo: https://repo1.dsop.io/platform-one/big-bang/apps/core/argocd.git
+      path: "./chart"
+      tag: "2.9.5-bb.2"
+    values: {}
+
+  authservice:
+    enabled: false
+    git:
+      repo: https://repo1.dsop.io/platform-one/big-bang/apps/sandbox/authservice.git
+      path: "./chart"
+      tag: "0.1.6-bb.3"
+    values:
+      image:
+        repository: registry1.dsop.io/ironbank/istio-ecosystem/authservice

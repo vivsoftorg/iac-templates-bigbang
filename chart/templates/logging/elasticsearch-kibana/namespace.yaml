@@ -1,0 +1,23 @@
+{{- if or .Values.logging.enabled .Values.clusterAuditor.enabled }}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: logging
+  {{- if .Values.istio.enabled }}
+  labels:
+    istio-injection: enabled
+  {{- end}}
+
+---
+  {{- if and (ne .Values.registryCredentials.username "") (ne .Values.registryCredentials.password "") }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: private-registry
+  namespace: logging
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: {{ template "imagePullSecret" . }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,14 @@
+{{- if and (not .Values.offline) .Values.twistlock.enabled }}
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: twistlock
+  namespace: {{ .Release.Namespace }}
+spec:
+  interval: {{ .Values.flux.interval }}
+  url: {{ .Values.twistlock.git.repo }}
+  ref:
+    {{- include "validRef" .Values.twistlock.git | nindent 4 }}
+  {{ include "gitIgnore" . }}
+  {{- include "gitCreds" .Values.git | nindent 2 }}
+{{- end }}

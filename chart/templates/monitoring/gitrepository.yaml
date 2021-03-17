@@ -1,0 +1,14 @@
+{{- if and (not .Values.offline) .Values.monitoring.enabled }}
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: monitoring
+  namespace: {{ .Release.Namespace }}
+spec:
+  interval: {{ .Values.flux.interval }}
+  url: {{ .Values.monitoring.git.repo }}
+  ref:
+    {{- include "validRef" .Values.monitoring.git | nindent 4 }}
+  {{ include "gitIgnore" . }}
+  {{- include "gitCreds" .Values.git | nindent 2 }}
+{{- end }}
