@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -eu -o pipefail
 
 # Deploy flux and wait for it to be ready
 echo "Installing Flux"
@@ -16,9 +16,8 @@ kubectl delete secret private-registry -n flux-system || true
 # create flux private-registry secret
 kubectl create secret docker-registry private-registry -n flux-system \
    --docker-server=registry1.dso.mil \
-   --docker-username='robot$p1-dev' \
-   --docker-password=${REGISTRY1_PASSWORD} \
-   --docker-email=bigbang@bigbang.dev || true
+   --docker-username=${REGISTRY_USERNAME} \
+   --docker-password=${REGISTRY_PASSWORD} || true
 
 # install flux
 kubectl apply -f ./pb-reqs/flux.yaml
@@ -31,7 +30,9 @@ kubectl apply -f ./pb-reqs/namespace.yaml
 
 # create git repository credentials
 kubectl delete secret repository-credentials -n bigbang || true
-kubectl create secret generic repository-credentials -n bigbang --from-literal=username=${REPO_USER} --from-literal=password=${REPO_PASSWORD}
+kubectl create secret generic repository-credentials -n bigbang \
+   --from-literal=username=${REPO_USER} \
+   --from-literal=password=${REPO_PASSWORD}
 
 # # deploy bigbang
 kustomize build bigbang/envs/dev/ | kubectl apply -f -
