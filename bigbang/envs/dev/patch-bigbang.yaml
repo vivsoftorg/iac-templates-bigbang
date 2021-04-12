@@ -6,31 +6,31 @@ spec:
   valuesFrom:
     - name: registry-credentials
       kind: Secret
-    - name: argocd-values
-      kind: Secret
-    - name: cluster-auditor-values
-      kind: Secret
-    - name: eck-operator-values
-      kind: Secret
-    - name: fluentbit-values
-      kind: Secret
-    - name: gatekeeper-values
-      kind: Secret
-    - name: istio-values
-      kind: Secret
-    - name: logging-values
-      kind: Secret
-    - name: minio-values
-      kind: Secret
-    - name: minio-operator-values
-      kind: Secret
-    - name: monitoring-values
-      kind: Secret
-    - name: sonarqube-values
-      kind: Secret
-    - name: anchore-values
-      kind: Secret
-    - name: twislock-values
-      kind: Secret
+    # - name: argocd-values
+    #   kind: Secret
+    # - name: cluster-auditor-values
+    #   kind: Secret
+    # - name: eck-operator-values
+    #   kind: Secret
+    # - name: fluentbit-values
+    #   kind: Secret
+    # - name: gatekeeper-values
+    #   kind: Secret
+    # - name: istio-values
+    #   kind: Secret
+    # - name: logging-values
+    #   kind: Secret
+    # - name: minio-values
+    #   kind: Secret
+    # - name: minio-operator-values
+    #   kind: Secret
+    # - name: monitoring-values
+    #   kind: Secret
+    # - name: sonarqube-values
+    #   kind: Secret
+    # - name: anchore-values
+    #   kind: Secret
+    # - name: twislock-values
+    #   kind: Secret
   values:
     hostname: dev.dsop.io

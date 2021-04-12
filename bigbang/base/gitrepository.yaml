@@ -1,0 +1,12 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: bigbang
+spec:
+  interval: 1m0s
+  url: https://gitlab.com/enbuild-staging/charts/bb-pull-through.git
+  ref:
+    tag: 1.4.0
+  secretRef:
+    name: repository-credentials
