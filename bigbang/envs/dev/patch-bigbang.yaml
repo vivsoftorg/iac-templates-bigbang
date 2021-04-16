@@ -6,57 +6,37 @@ spec:
   valuesFrom:
     - name: repo-values
       kind: Secret
-    - name: argocd-values
+    - name: istio-values
+      kind: Secret
+    - name: istiooperator-values
       kind: Secret
     - name: clusterAuditor-values
       kind: Secret
-    - name: eck-operator-values
+    - name: gatekeeper-values
+      kind: Secret
+    - name: twislock-values
+      kind: Secret
+    - name: eckoperator-values
       kind: Secret
     - name: fluentbit-values
       kind: Secret
-    - name: gatekeeper-values
-      kind: Secret
-    - name: istio-values
-      kind: Secret
-    - name: logging-values
-      kind: Secret
-    - name: minio-values
-      kind: Secret
-    - name: minio-operator-values
-      kind: Secret
     - name: monitoring-values
-      kind: Secret
-    - name: sonarqube-values
-      kind: Secret
-    - name: anchore-values
-      kind: Secret
-    - name: twislock-values
       kind: Secret
     - name: repo-values
       kind: ConfigMap
-    - name: argocd-values
+    - name: istio-values
+      kind: ConfigMap
+    - name: istiooperator-values
       kind: ConfigMap
     - name: clusterAuditor-values
       kind: ConfigMap
-    - name: eck-operator-values
+    - name: gatekeeper-values
+      kind: ConfigMap
+    - name: twislock-values
+      kind: ConfigMap
+    - name: eckoperator-values
       kind: ConfigMap
     - name: fluentbit-values
       kind: ConfigMap
-    - name: gatekeeper-values
-      kind: ConfigMap
-    - name: istio-values
-      kind: ConfigMap
-    - name: logging-values
-      kind: ConfigMap
-    - name: minio-values
-      kind: ConfigMap
-    - name: minio-operator-values
-      kind: ConfigMap
     - name: monitoring-values
-      kind: ConfigMap
-    - name: sonarqube-values
-      kind: ConfigMap
-    - name: anchore-values
-      kind: ConfigMap
-    - name: twislock-values
       kind: ConfigMap
