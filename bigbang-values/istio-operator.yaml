@@ -1,0 +1,2 @@
+# -- Values to passthrough to the istio-operator chart
+values: {}

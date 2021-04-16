@@ -1,0 +1,80 @@
+# -- Domain used for BigBang created exposed services, can be overridden by individual packages.
+hostname: bigbang.dev
+
+# -- (experimental) Toggle sourcing from external repos.
+# All this does right now is toggle GitRepositories, it is _not_ fully functional
+offline: false
+
+# -- Single set of registry credentials used to pull all images deployed by BigBang.
+registryCredentials:
+  registry: registry.gitlab.com
+  username: ""
+  password: ""
+  email: ""
+
+# -- Multiple sets of registry credentials used to pull all images deployed by BigBang.
+# Credentials will only be created when a valid combination exists, registry, username, and password (email is optional)
+# Or a list of registires:
+#  - registry: registry1.dso.mil
+#    username: ""
+#    password: ""
+#    email: ""
+#  - registry: registry.dso.mil
+#    username: ""
+#    password: ""
+#    email: ""
+
+# Openshift Container Platform Feature Toggle
+openshift: false
+
+# -- Git credential settings for accessing private repositories
+# Order of precedence is:
+#   1. existingSecret
+#   2. http credentials (username/password)
+#   3. ssh credentials (privateKey/publicKey/knownHosts)
+git:
+  # -- Existing secret to use for git credentials, must be in the appropriate format: https://toolkit.fluxcd.io/components/source/gitrepositories/#https-authentication
+  existingSecret: ""
+
+  # -- Chart created secrets with user defined values
+  credentials:
+    # -- HTTP git credentials, both username and password must be provided
+    username: ""
+    password: ""
+
+    # -- SSH git credentials, privateKey, publicKey, and knownHosts must be provided
+    privateKey: ""
+    publicKey: ""
+    knownHosts: ""
+
+# -- Global SSO values used for BigBang deployments when sso is enabled, can be overridden by individual packages.
+sso:
+  oidc:
+    # -- Domain for keycloak used for configuring SSO
+    host: login.dso.mil
+    # -- Keycloak realm containing clients
+    realm: baby-yoda
+
+  # -- Keycloak's certificate authority (unencoded) used by authservice to support SSO for various packages
+  certificate_authority: ""
+
+  # -- Keycloak realm's json web key uri, obtained through https://<keycloak-server>/auth/realms/<realm>/.well-known/openid-configuration
+  jwks: ""
+
+  # -- OIDC client ID used for packages authenticated through authservice
+  client_id: ""
+
+  # -- OIDC client secret used for packages authenticated through authservice
+  client_secret: ""
+
+# -- (Advanced) Flux reconciliation parameters.
+# The default values provided will be sufficient for the majority of workloads.
+flux:
+  interval: 2m
+  install:
+    retries: 3
+  upgrade:
+    retries: 3
+  rollback:
+    timeout: 10m
+    cleanupOnFail: true

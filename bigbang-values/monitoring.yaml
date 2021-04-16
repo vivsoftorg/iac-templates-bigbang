@@ -1,0 +1,31 @@
+sso:
+  # -- Toggle SSO for monitoring components on and off
+  enabled: false
+  prometheus:
+    # -- Prometheus OIDC client ID
+    client_id: ""
+
+    # -- Prometheus OIDC client secret
+    client_secret: ""
+
+  alertmanager:
+    # -- Alertmanager OIDC client ID
+    client_id: ""
+
+    # -- Alertmanager OIDC client secret
+    client_secret: ""
+
+  grafana:
+    # -- Grafana OIDC client ID
+    client_id: ""
+
+    # -- Grafana OIDC client secret
+    client_secret: ""
+
+    # -- Grafana OIDC client scopes, comma separated
+    scopes: ""
+    allow_sign_up: "true"
+    role_attribute_path: "Viewer"
+
+# -- Values to passthrough to the monitoring chart
+values: {}

@@ -1,0 +1,24 @@
+# -- Certificate/Key pair to use as the default certificate for exposing BigBang created applications.
+# If nothing is provided, applications will expect a valid tls secret to exist in the `istio-system` namespace called `wildcard-cert`.
+ingress:
+  key: ""
+  cert: ""
+
+sso:
+  # -- Toggle SSO for kiali and jaeger on and off
+  enabled: false
+
+  kiali:
+    # -- OIDC Client ID use for kiali
+    client_id: ""
+    # -- OIDC Client Secret to use for kiali
+    client_secret: ""
+
+  jaeger:
+    # -- OIDC Client ID to use for jaeger
+    client_id: ""
+    # -- OIDC Client Secret to use for jaeger
+    client_secret: ""
+
+# -- Values to passthrough to the istio-controlplane chart
+values: {}

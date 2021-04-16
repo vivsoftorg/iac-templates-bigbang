@@ -1,0 +1,10 @@
+gitlabRunner:
+  # -- Toggle deployment of Gitlab Runner.
+  enabled: false
+  git:
+    repo: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/gitlab-runner.git
+    path: "./chart"
+    tag: "0.26.0-bb.0"
+
+  # -- Values to passthrough to the gitlab runner chart: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/gitlab-runner.git
+  values: {}

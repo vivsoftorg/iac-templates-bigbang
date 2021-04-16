@@ -1,0 +1,53 @@
+sonarqube:
+  # -- Toggle deployment of SonarQube.
+  enabled: false
+  git:
+    repo: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/sonarqube.git
+    path: "./chart"
+    tag: "9.2.6-bb.4"
+
+  sso:
+    # -- Toggle OIDC SSO for SonarQube.
+    # Enabling this option will auto-create any required secrets.
+    enabled: false
+
+    # -- SonarQube OIDC client ID
+    client_id: ""
+
+    # -- SonarQube SSO login button label
+    label: ""
+
+    # -- SonarQube plaintext SAML sso certificate.
+    # example: MITCAYCBFyIEUjNBkqhkiG9w0BA....
+    certificate: ""
+
+    # -- SonarQube login sso attribute.
+    login: login
+
+    # -- SonarQube name sso attribute.
+    name: name
+
+    # -- SonarQube email sso attribute.
+    email: email
+
+    # -- (optional) SonarQube group sso attribute.
+    group: group
+
+  database:
+    # -- Hostname of a pre-existing PostgreSQL database to use for SonarQube.
+    host: ""
+
+    # -- Port of a pre-existing PostgreSQL database to use for SonarQube.
+    port: 5432
+
+    # -- Database name to connect to on host.
+    database: ""
+
+    # -- Username to connect as to external database, the user must have all privileges on the database.
+    username: ""
+
+    # -- Database password for the username used to connect to the existing database.
+    password: ""
+
+  # -- Values to passthrough to the sonarqube chart: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/sonarqube.git
+  values: {}

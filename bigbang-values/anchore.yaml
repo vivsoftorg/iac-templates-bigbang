@@ -1,0 +1,67 @@
+anchore:
+  # -- Toggle deployment of Anchore.
+  enabled: false
+  git:
+    repo: https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/anchore-enterprise.git
+    path: "./chart"
+    tag: "1.12.7-bb.1"
+
+  # -- Initial admin password used to authenticate to Anchore.
+  adminPassword: ""
+
+  # -- Anchore Enterprise functionality.
+  enterprise:
+    # -- Toggle the installation of Anchore Enterprise.  This must be accompanied by a valid license.
+    enabled: false
+
+    # -- License for Anchore Enterprise.
+    # For formatting examples see https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/anchore-enterprise/-/blob/main/docs/CHART.md#enabling-enterprise-services
+    licenseYaml: |
+      FULL LICENSE
+
+  sso:
+    # -- Toggle OIDC SSO for Anchore on and off.
+    # Enabling this option will auto-create any required secrets.
+    enabled: false
+
+    # -- Anchore OIDC client ID
+    client_id: ""
+
+    # -- Anchore OIDC client role attribute
+    role_attribute: ""
+
+  database:
+    # -- Hostname of a pre-existing PostgreSQL database to use for Anchore.
+    # Entering connection info will disable the deployment of an internal database and will auto-create any required secrets.
+    host: ""
+
+    # -- Port of a pre-existing PostgreSQL database to use for Anchore.
+    port: ""
+
+    # -- Username to connect as to external database, the user must have all privileges on the database.
+    username: ""
+
+    # -- Database password for the username used to connect to the existing database.
+    password: ""
+
+    # -- Database name to connect to on host.
+    database: ""
+
+    # -- Feeds database name to connect to on host.
+    # Only required for enterprise edition of anchore.
+    feeds_database: ""
+
+  redis:
+    # -- Hostname of a pre-existing Redis to use for Anchore Enterprise.
+    # Entering connection info will enable external redis and will auto-create any required secrets.
+    # Anchore only requires redis for enterprise deployments and will not provision an instance if using external
+    host: ""
+
+    # -- Port of a pre-existing Redis to use for Anchore Enterprise.
+    port: ""
+
+    # -- Password to connect to pre-existing Redis.
+    password: ""
+
+  # -- Values to passthrough to the anchore chart: https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/anchore-enterprise.git
+  values: {}

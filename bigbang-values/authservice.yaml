@@ -1,0 +1,20 @@
+addons:
+  authservice:
+    # -- Toggle deployment of Authservice.
+    # if enabling authservice, a filter needs to be provided by either enabling
+    # sso for monitoring or istio, or manually adding a filter chain in the values here:
+    # values:
+    #   chain:
+    #     minimal:
+    #       callback_uri: "https://somecallback"
+    enabled: false
+    git:
+      repo: https://repo1.dso.mil/platform-one/big-bang/apps/core/authservice.git
+      path: "./chart"
+      tag: "0.1.6-bb.4"
+
+    # -- Values to passthrough to the authservice chart: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/authservice.git
+    values: {}
+
+    # -- Additional authservice chain configurations.
+    chains: {}

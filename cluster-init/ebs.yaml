@@ -11,6 +11,4 @@ parameters:
   encrypted: "true"
 reclaimPolicy: Retain
 allowVolumeExpansion: true
-mountOptions:
-  - debug
-volumeBindingMode: Immediate
+volumeBindingMode: WaitForFirstConsumer
