@@ -8,7 +8,7 @@ spec:
       kind: Secret
     - name: argocd-values
       kind: Secret
-    - name: cluster-auditor-values
+    - name: clusterAuditor-values
       kind: Secret
     - name: eck-operator-values
       kind: Secret
@@ -36,7 +36,7 @@ spec:
       kind: ConfigMap
     - name: argocd-values
       kind: ConfigMap
-    - name: cluster-auditor-values
+    - name: clusterAuditor-values
       kind: ConfigMap
     - name: eck-operator-values
       kind: ConfigMap
