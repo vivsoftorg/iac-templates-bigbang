@@ -1,3 +1,4 @@
+---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -10,11 +11,11 @@ spec:
       kind: Secret
     - name: istiooperator-values
       kind: Secret
-    - name: clusterAuditor-values
+    - name: clusterauditor-values
       kind: Secret
     - name: gatekeeper-values
       kind: Secret
-    - name: twislock-values
+    - name: twistlock-values
       kind: Secret
     - name: eckoperator-values
       kind: Secret
@@ -28,11 +29,11 @@ spec:
       kind: ConfigMap
     - name: istiooperator-values
       kind: ConfigMap
-    - name: clusterAuditor-values
+    - name: clusterauditor-values
       kind: ConfigMap
     - name: gatekeeper-values
       kind: ConfigMap
-    - name: twislock-values
+    - name: twistlock-values
       kind: ConfigMap
     - name: eckoperator-values
       kind: ConfigMap
