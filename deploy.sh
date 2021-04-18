@@ -18,3 +18,13 @@ sops -d bigbang/envs/dev/secrets/repository-credentials.enc.yaml | kubectl apply
 # install bigbang
 kustomize build bigbang/envs/dev/ | kubectl apply -f -
 
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases bigbang
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases gatekeeper
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases istio-operator
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases istio
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases ek
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases cluster-auditor
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases fluent-bit
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases eck-operator
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases monitoring
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases twistlock
