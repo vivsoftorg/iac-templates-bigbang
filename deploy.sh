@@ -17,3 +17,4 @@ flux check
 sops -d bigbang/envs/dev/secrets/repository-credentials.enc.yaml | kubectl apply -f -
 # install bigbang
 kustomize build bigbang/envs/dev/ | kubectl apply -f -
+
