@@ -1,14 +1,25 @@
 #!/usr/bin/env bash
 
-set -u
+set -ux
+
+istioctl operator remove --force
+istioctl manifest generate | kubectl delete -f -
+
+sleep 60
 
 kustomize build bigbang/envs/dev/ | kubectl delete -f -
 
-sleep 300
+sleep 30
+
+kubectl --namespace istio-system get istiooperator
 
 kubectl delete -k flux
 
-sleep 300
+sleep 60
+
+kubectl delete -k cluster-init
+
+sleep 100
 
 kubectl get ns
 
