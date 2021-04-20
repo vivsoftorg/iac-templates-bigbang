@@ -2,8 +2,11 @@
 
 set -ux
 
-istioctl operator remove --force
 istioctl manifest generate | kubectl delete -f -
+
+sleep 60
+
+istioctl operator remove --force
 
 sleep 60
 
