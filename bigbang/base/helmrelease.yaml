@@ -13,105 +13,105 @@ spec:
         namespace: bigbang
   interval: 2m0s
 
-  values:
-    istio:
-      git:
-        repo: https://gitlab.com/enbuild-staging/charts/istio-controlplane.git
-      values:
-        hub: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-istio
-        proxy:
-          image: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-istio-1.7/proxyv2-1.7:1.7.7
-        kiali:
-          image:
-            hub: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-kiali
-        tracing:
-          image:
-            hub: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-jaegertracing
-        cni:
-          image:
-            hub: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-istio-1.7
-    istiooperator:
-      git:
-        repo: https://gitlab.com/enbuild-staging/charts/istio-operator.git
-      values:
-        hub: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-istio
-    clusterAuditor:
-      git:
-        repo: https://gitlab.com/enbuild-staging/charts/cluster-auditor.git
-      values:
-        image:
-          repo: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/cluster-auditor/opa-collector
-    gatekeeper:
-      git:
-        repo: https://gitlab.com/enbuild-staging/charts/gatekeeper.git
-      values:
-        image:
-          repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-openpolicyagent/gatekeeper
-    logging:
-      git:
-        repo: https://gitlab.com/enbuild-staging/charts/elasticsearch-kibana.git
-      values:
-        kibana:
-          image:
-            repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/elastic-kibana/kibana
-        elasticsearch:
-          image:
-            repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/elastic-elasticsearch/elasticsearch
-    eckoperator:
-      git:
-        repo: https://gitlab.com/enbuild-staging/charts/eck-operator.git
-      values:
-        image:
-          repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/elastic-eck-operator/eck-operator
-    fluentbit:
-      git:
-        repo: https://gitlab.com/enbuild-staging/charts/fluentbit.git
-      values:
-        image:
-          repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-fluent/fluent-bit
-    monitoring:
-      git:
-        repo: https://gitlab.com/enbuild-staging/charts/monitoring.git
-      values:
-        alertmanager:
-          alertmanagerSpec:
-            image:
-              repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-prometheus/alertmanager
-        grafana:
-          image:
-            repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-grafana/grafana
-          testFramework:
-            image: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-bats/bats
-          sidecar:
-            image:
-              repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/kiwigrid/k8s-sidecar
-        kube-state-metrics:
-          image:
-            repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-coreos/kube-state-metrics
-        prometheus-node-exporter:
-          image:
-            repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-prometheus/node-exporter
-        prometheusOperator:
-          admissionWebhooks:
-            patch:
-              image:
-                repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-jet/kube-webhook-certgen
-          image:
-            repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-coreos/prometheus-operator
-          configmapReloadImage:
-            repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-jimmidyson/configmap-reload
-          prometheusConfigReloaderImage:
-            repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-coreos/prometheus-config-reloader
-          kubectlImage:
-            repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-kubernetes-1.19/kubectl-1.19
-        prometheus:
-          prometheusSpec:
-            image:
-              repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-prometheus/prometheus
-    twistlock:
-      git:
-        repo: https://gitlab.com/enbuild-staging/charts/twistlock.git
-      values:
-        console:
-          image:
-            repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/twistlock-console/console
+  # values:
+  #   istio:
+  #     git:
+  #       repo: https://gitlab.com/enbuild-staging/charts/istio-controlplane.git
+  #     values:
+  #       hub: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-istio
+  #       proxy:
+  #         image: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-istio-1.7/proxyv2-1.7:1.7.7
+  #       kiali:
+  #         image:
+  #           hub: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-kiali
+  #       tracing:
+  #         image:
+  #           hub: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-jaegertracing
+  #       cni:
+  #         image:
+  #           hub: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-istio-1.7
+  #   istiooperator:
+  #     git:
+  #       repo: https://gitlab.com/enbuild-staging/charts/istio-operator.git
+  #     values:
+  #       hub: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-istio
+  #   clusterAuditor:
+  #     git:
+  #       repo: https://gitlab.com/enbuild-staging/charts/cluster-auditor.git
+  #     values:
+  #       image:
+  #         repo: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/cluster-auditor/opa-collector
+  #   gatekeeper:
+  #     git:
+  #       repo: https://gitlab.com/enbuild-staging/charts/gatekeeper.git
+  #     values:
+  #       image:
+  #         repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-openpolicyagent/gatekeeper
+  #   logging:
+  #     git:
+  #       repo: https://gitlab.com/enbuild-staging/charts/elasticsearch-kibana.git
+  #     values:
+  #       kibana:
+  #         image:
+  #           repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/elastic-kibana/kibana
+  #       elasticsearch:
+  #         image:
+  #           repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/elastic-elasticsearch/elasticsearch
+  #   eckoperator:
+  #     git:
+  #       repo: https://gitlab.com/enbuild-staging/charts/eck-operator.git
+  #     values:
+  #       image:
+  #         repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/elastic-eck-operator/eck-operator
+  #   fluentbit:
+  #     git:
+  #       repo: https://gitlab.com/enbuild-staging/charts/fluentbit.git
+  #     values:
+  #       image:
+  #         repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-fluent/fluent-bit
+  #   monitoring:
+  #     git:
+  #       repo: https://gitlab.com/enbuild-staging/charts/monitoring.git
+  #     values:
+  #       alertmanager:
+  #         alertmanagerSpec:
+  #           image:
+  #             repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-prometheus/alertmanager
+  #       grafana:
+  #         image:
+  #           repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-grafana/grafana
+  #         testFramework:
+  #           image: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-bats/bats
+  #         sidecar:
+  #           image:
+  #             repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/kiwigrid/k8s-sidecar
+  #       kube-state-metrics:
+  #         image:
+  #           repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-coreos/kube-state-metrics
+  #       prometheus-node-exporter:
+  #         image:
+  #           repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-prometheus/node-exporter
+  #       prometheusOperator:
+  #         admissionWebhooks:
+  #           patch:
+  #             image:
+  #               repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-jet/kube-webhook-certgen
+  #         image:
+  #           repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-coreos/prometheus-operator
+  #         configmapReloadImage:
+  #           repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-jimmidyson/configmap-reload
+  #         prometheusConfigReloaderImage:
+  #           repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-coreos/prometheus-config-reloader
+  #         kubectlImage:
+  #           repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-kubernetes-1.19/kubectl-1.19
+  #       prometheus:
+  #         prometheusSpec:
+  #           image:
+  #             repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/opensource-prometheus/prometheus
+  #   twistlock:
+  #     git:
+  #       repo: https://gitlab.com/enbuild-staging/charts/twistlock.git
+  #     values:
+  #       console:
+  #         image:
+  #           repository: registry.gitlab.com/tkaza/test-ironbank_registry-mirror/twistlock-console/console
