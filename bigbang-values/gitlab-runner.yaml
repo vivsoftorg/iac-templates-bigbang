@@ -1,10 +1,17 @@
-gitlabRunner:
-  # -- Toggle deployment of Gitlab Runner.
-  enabled: false
-  git:
-    repo: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/gitlab-runner.git
-    path: "./chart"
-    tag: "0.26.0-bb.0"
+addons:
+  gitlabRunner:
+    # -- Toggle deployment of Gitlab Runner.
+    enabled: false
+    git:
+      repo: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/gitlab-runner.git
+      path: "./chart"
+      tag: "0.26.0-bb.3"
 
-  # -- Values to passthrough to the gitlab runner chart: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/gitlab-runner.git
-  values: {}
+    # -- Flux reconciliation overrides specifically for the Gitlab Runner Package
+    flux: {}
+
+    # -- Values to passthrough to the gitlab runner chart: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/gitlab-runner.git
+    values: {}
+
+    # -- Post Renderers.  See docs/postrenders.md
+    postRenderers: []

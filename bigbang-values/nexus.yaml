@@ -1,0 +1,52 @@
+addons:
+  nexus:
+    # -- Toggle deployment of Nexus.
+    enabled: false
+    git:
+      repo: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/nexus.git
+      path: "./chart"
+      tag: "29.1.0-bb.5"
+
+    # -- Base64 encoded license file.
+    license_key: ""
+
+    sso:
+      # -- Toggle SAML SSO for NXRM.
+      # -- handles SAML SSO, a Client must be configured in Keycloak or IdP
+      # -- to complete setup.
+      # -- https://support.sonatype.com/hc/en-us/articles/1500000976522-SAML-integration-for-Nexus-Repository-Manager-Pro-3-and-Nexus-IQ-Server-with-Keycloak#h_01EV7CWCYH3YKAPMAHG8XMQ599
+      enabled: false
+
+      # -- NXRM SAML SSO Integration data
+      idp_data:
+        # -- IdP Field Mappings
+        # -- NXRM username attribute
+        username: ""
+
+        # -- NXRM firstname attribute (optional)
+        firstName: ""
+
+        # -- NXRM lastname attribute (optional)
+        lastName: ""
+
+        # -- NXRM email attribute (optional)
+        email: ""
+
+        # -- NXRM groups attribute (optional)
+        groups: ""
+
+        # -- IDP SAML Metadata XML as a single line string in single quotes
+        # -- this information is public and does not require a secret
+        idpMetadata: ''
+
+      # -- NXRM Role
+      role:
+        id: ""
+        name: ""
+        description: ""
+
+    # -- Flux reconciliation overrides specifically for the Nexus Repository Manager Package
+    flux: {}
+
+    # -- Values to passthrough to the nxrm chart: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/nexus.git
+    values: {}

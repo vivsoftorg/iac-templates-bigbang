@@ -1,0 +1,18 @@
+# -- Flux reconciliation overrides specifically for the Jaeger Package
+flux: {}
+
+sso:
+# -- Toggle SSO for Jaeger on and off
+enabled: false
+
+# -- OIDC Client ID to use for Jaeger
+client_id: ""
+
+# -- OIDC Client Secret to use for Jaeger
+client_secret: ""
+
+# -- Values to pass through to Jaeger chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/jaeger.git
+values: {}
+
+# -- Post Renderers.  See docs/postrenders.md
+postRenderers: []

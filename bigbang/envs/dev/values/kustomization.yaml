@@ -7,8 +7,10 @@ resources:
   - eckoperator.yaml
   - fluentbit.yaml
   - gatekeeper.yaml
-  - istiooperator.yaml
   - istio.yaml
+  - istiooperator.yaml
+  - jaeger.yaml
+  - kiali.yaml
   - monitoring.yaml
   - repo.yaml
   - twistlock.yaml

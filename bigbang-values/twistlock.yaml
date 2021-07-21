@@ -1,2 +1,8 @@
-# -- Values to passthrough to the twistlock chart
+# -- Flux reconciliation overrides specifically for the Twistlock Package
+flux: {}
+
+# -- Values to passthrough to the twistlock chart: https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/twistlock.git
 values: {}
+
+# -- Post Renderers.  See docs/postrenders.md
+postRenderers: []

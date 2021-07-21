@@ -1,3 +1,7 @@
+# -- Flux reconciliation overrides specifically for the Logging (EFK) Package
+flux:
+  timeout: 20m
+
 sso:
   # -- Toggle OIDC SSO for Kibana/Elasticsearch on and off.
   # Enabling this option will auto-create any required secrets.
@@ -13,8 +17,11 @@ license:
   # -- Toggle trial license installation of elasticsearch.  Note that enterprise (non trial) is required for SSO to work.
   trial: false
 
-  # -- Elasticsearch license in json format
+  # -- Elasticsearch license in json format seen here: https://repo1.dso.mil/platform-one/big-bang/apps/core/elasticsearch-kibana#enterprise-license
   keyJSON: ""
 
-# -- Values to passthrough to the elasticsearch-kibana chart
+# -- Values to passthrough to the elasticsearch-kibana chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/elasticsearch-kibana.git
 values: {}
+
+# -- Post Renderers.  See docs/postrenders.md
+postRenderers: []

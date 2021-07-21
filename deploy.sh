@@ -11,7 +11,7 @@ kubectl apply -k cluster-init/
 # create private registry credentials
 sops -d bigbang/envs/dev/secrets/private-registry.enc.yaml | kubectl apply -f -
 # install flux
-kubectl apply -k flux/
+kustomize build flux/ | kubectl apply -f -
 flux check
 # create repository credentials
 sops -d bigbang/envs/dev/secrets/repository-credentials.enc.yaml | kubectl apply -f -

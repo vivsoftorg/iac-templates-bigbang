@@ -1,0 +1,21 @@
+addons:
+  redis:
+      # -- Hostname of a pre-existing Redis to use for Anchore Enterprise.
+      # Entering connection info will enable external redis and will auto-create any required secrets.
+      # Anchore only requires redis for enterprise deployments and will not provision an instance if using external
+      host: ""
+
+      # -- Port of a pre-existing Redis to use for Anchore Enterprise.
+      port: ""
+
+      # -- OPTIONAL: Username to connect to a pre-existing Redis (for password-only auth leave empty)
+      username: ""
+
+      # -- Password to connect to pre-existing Redis.
+      password: ""
+
+    # -- Values to passthrough to the anchore chart: https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/anchore-enterprise.git
+    values: {}
+
+    # -- Post Renderers.  See docs/postrenders.md
+    postRenderers: []

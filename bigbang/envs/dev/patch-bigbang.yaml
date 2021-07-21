@@ -11,17 +11,23 @@ spec:
       kind: Secret
     - name: istiooperator-values
       kind: Secret
+    - name: jaeger-values
+      kind: Secret
+    - name: kiali-values
+      kind: Secret
     - name: clusterauditor-values
       kind: Secret
     - name: gatekeeper-values
       kind: Secret
-    - name: twistlock-values
+    - name: logging-values
       kind: Secret
     - name: eckoperator-values
       kind: Secret
     - name: fluentbit-values
       kind: Secret
     - name: monitoring-values
+      kind: Secret
+    - name: twistlock-values
       kind: Secret
     - name: repo-values
       kind: ConfigMap
@@ -29,15 +35,21 @@ spec:
       kind: ConfigMap
     - name: istiooperator-values
       kind: ConfigMap
+    - name: jaeger-values
+      kind: ConfigMap
+    - name: kiali-values
+      kind: ConfigMap
     - name: clusterauditor-values
       kind: ConfigMap
     - name: gatekeeper-values
       kind: ConfigMap
-    - name: twistlock-values
+    - name: logging-values
       kind: ConfigMap
     - name: eckoperator-values
       kind: ConfigMap
     - name: fluentbit-values
       kind: ConfigMap
     - name: monitoring-values
+      kind: ConfigMap
+    - name: twistlock-values
       kind: ConfigMap

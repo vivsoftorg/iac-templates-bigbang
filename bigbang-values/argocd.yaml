@@ -5,7 +5,11 @@ addons:
     git:
       repo: https://repo1.dso.mil/platform-one/big-bang/apps/core/argocd.git
       path: "./chart"
-      tag: "2.14.7-bb.2"
+      tag: "3.6.8-bb.3"
+
+    # -- Flux reconciliation overrides specifically for the ArgoCD Package
+    flux: {}
+
     sso:
       # -- Toggle SSO for ArgoCD on and off
       enabled: false
@@ -25,3 +29,6 @@ addons:
 
     # -- Values to passthrough to the argocd chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/argocd.git
     values: {}
+
+    # -- Post Renderers.  See docs/postrenders.md
+    postRenderers: []

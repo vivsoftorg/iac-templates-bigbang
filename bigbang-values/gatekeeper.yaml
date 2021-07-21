@@ -1,2 +1,8 @@
-# -- Values to passthrough to the gatekeeper chart
+# -- Flux reconciliation overrides specifically for the OPA Gatekeeper Package
+flux: {}
+
+# -- Values to passthrough to the gatekeeper chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/policy.git
 values: {}
+
+# -- Post Renderers.  See docs/postrenders.md
+postRenderers: []

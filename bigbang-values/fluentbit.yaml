@@ -1,1 +1,8 @@
+# -- Flux reconciliation overrides specifically for the Fluent-Bit Package
+flux: {}
+
+# -- Values to passthrough to the fluentbit chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/fluentbit.git
 values: {}
+
+# -- Post Renderers.  See docs/postrenders.md
+postRenderers: []

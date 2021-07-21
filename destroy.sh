@@ -2,35 +2,42 @@
 
 set -ux
 
-istioctl manifest generate | kubectl delete -f -
+kubectl --namespace istio-system delete istiooperators.install.istio.io istiocontrolplane 
 
-sleep 60
-
-istioctl operator remove --force
-
-sleep 60
+until [[ $(kubectl --namespace istio-system get all --no-headers) == "" ]]; do
+    echo "Waiting for cleanup of istio..."
+    sleep 5
+done
 
 kustomize build bigbang/envs/dev/ | kubectl delete -f -
 
-sleep 30
+until [[ $(kubectl --namespace bigbang get helmreleases.helm.toolkit.fluxcd.io --no-headers) == "" ]]; do
+    echo "Waiting for cleanup of helmreleases..."
+    sleep 5
+done
 
-kubectl --namespace istio-system get istiooperator
+until [[ $(kubectl --namespace bigbang get gitrepositories.source.toolkit.fluxcd.io --no-headers) == "" ]]; do
+    echo "Waiting for cleanup of gitrepositories..."
+    sleep 5
+done
 
-kubectl delete -k flux
+kustomize build flux/ | kubectl delete -f -
 
-sleep 60
+until [[ $(kubectl --namespace flux-system get all --no-headers) == "" ]]; do
+    echo "Waiting for cleanup of flux components..."
+    sleep 5
+done
 
-kubectl delete -k cluster-init
+kustomize build cluster-init/ | kubectl delete -f -
 
-sleep 100
+until [[ $(kubectl get ns bigbang --no-headers) == "" ]]; do
+    echo "Waiting for cleanup of bigbang namespace..."
+    sleep 5
+done
+
+until [[ $(kubectl get ns flux-system --no-headers) == "" ]]; do
+    echo "Waiting for cleanup of flux-system namespace..."
+    sleep 5
+done
 
 kubectl get ns
-
-DEFAULT_NAMESPACES_COUNT="4"
-
-NAMESPACES_COUNT=$(kubectl get ns | sed 1d | wc -l)
-
-if [[ "${DEFAULT_NAMESPACES_COUNT}" != "${NAMESPACES_COUNT}"  ]]; then
-    echo "namespaces still pending cleanup"
-    exit 1
-fi

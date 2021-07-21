@@ -7,7 +7,7 @@ offline: false
 
 # -- Single set of registry credentials used to pull all images deployed by BigBang.
 registryCredentials:
-  registry: registry.gitlab.com
+  registry: registry1.dso.mil
   username: ""
   password: ""
   email: ""
@@ -56,7 +56,7 @@ sso:
     realm: baby-yoda
 
   # -- Keycloak's certificate authority (unencoded) used by authservice to support SSO for various packages
-  certificate_authority: ""
+  certificate_authority: ''
 
   # -- Keycloak realm's json web key uri, obtained through https://<keycloak-server>/auth/realms/<realm>/.well-known/openid-configuration
   jwks: ""
@@ -67,14 +67,36 @@ sso:
   # -- OIDC client secret used for packages authenticated through authservice
   client_secret: ""
 
+  # -- OIDC token URL template string (to be used as default)
+  token_url: "https://{{ .Values.sso.oidc.host }}/auth/realms/{{ .Values.sso.oidc.realm }}/protocol/openid-connect/token"
+
+  # -- OIDC auth URL template string (to be used as default)
+  auth_url: "https://{{ .Values.sso.oidc.host }}/auth/realms/{{ .Values.sso.oidc.realm }}/protocol/openid-connect/auth"
+
 # -- (Advanced) Flux reconciliation parameters.
 # The default values provided will be sufficient for the majority of workloads.
 flux:
+  timeout: 10m
   interval: 2m
+  test:
+    enable: false
   install:
-    retries: 3
+    remediation:
+      retries: 3
   upgrade:
-    retries: 3
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+    cleanupOnFail: true
   rollback:
     timeout: 10m
     cleanupOnFail: true
+
+# -- Global NetworkPolicies settings
+networkPolicies:
+  # -- Toggle all package NetworkPolicies, can disable specific packages with `package.networkPolicies.enabled`
+  enabled: true
+  # -- Control Plane CIDR, defaults to 0.0.0.0/0, use `kubectl get endpoints --namespace default kubernetes` to get the CIDR range needed for your cluster
+  # Must be an IP CIDR range (x.x.x.x/x - ideally with /32 for the specific IP of a single endpoint, broader range for multiple masters/endpoints)
+  # Used by package NetworkPolicies to allow Kube API access
+  controlPlaneCidr: 0.0.0.0/0

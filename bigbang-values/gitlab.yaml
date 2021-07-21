@@ -1,69 +1,76 @@
-gitlab:
-  # -- Toggle deployment of Gitlab.
-  enabled: false
-
-  hostnames:
-    gitlab: gitlab.bigbang.dev
-    registry: registry.bigbang.dev
-
-  git:
-    repo: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/gitlab.git
-    path: "./chart"
-    tag: "4.8.0-bb.3"
-
-  sso:
-    # -- Toggle OIDC SSO for Gitlab on and off.
-    # Enabling this option will auto-create any required secrets.
+addons:
+  gitlab:
+    # -- Toggle deployment of Gitlab.
     enabled: false
 
-    # -- Gitlab OIDC client ID
-    client_id: ""
+    hostnames:
+      gitlab: gitlab.bigbang.dev
+      registry: registry.bigbang.dev
 
-    # -- Gitlab OIDC client secret
-    client_secret: ""
+    git:
+      repo: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/gitlab.git
+      path: "./chart"
+      tag: "4.10.3-bb.13"
 
-    # -- Gitlab SSO login button label
-    label: ""
+    # -- Flux reconciliation overrides specifically for the Gitlab Package
+    flux: {}
 
-  database:
-    # -- Hostname of a pre-existing PostgreSQL database to use for Gitlab.
-    # Entering connection info will disable the deployment of an internal database and will auto-create any required secrets.
-    host: ""
+    sso:
+      # -- Toggle OIDC SSO for Gitlab on and off.
+      # Enabling this option will auto-create any required secrets.
+      enabled: false
 
-    # -- Port of a pre-existing PostgreSQL database to use for Gitlab.
-    port: 5432
+      # -- Gitlab OIDC client ID
+      client_id: ""
 
-    # -- Database name to connect to on host.
-    database: "" # example: gitlab
+      # -- Gitlab OIDC client secret
+      client_secret: ""
 
-    # -- Username to connect as to external database, the user must have all privileges on the database.
-    username: ""
+      # -- Gitlab SSO login button label
+      label: ""
 
-    # -- Database password for the username used to connect to the existing database.
-    password: ""
+    database:
+      # -- Hostname of a pre-existing PostgreSQL database to use for Gitlab.
+      # Entering connection info will disable the deployment of an internal database and will auto-create any required secrets.
+      host: ""
 
-  objectStorage:
-    # -- Type of object storage to use for Gitlab, setting to s3 will assume an external, pre-existing object storage is to be used.
-    # Entering connection info will enable this option and will auto-create any required secrets
-    type: ""         # supported types are "s3" or "minio"
+      # -- Port of a pre-existing PostgreSQL database to use for Gitlab.
+      port: 5432
 
-    # -- S3 compatible endpoint to use for connection information.
-    # examples: "https://s3.amazonaws.com" "https://s3.us-gov-west-1.amazonaws.com" "http://minio.minio.svc.cluster.local:9000"
-    endpoint: ""
+      # -- Database name to connect to on host.
+      database: "" # example: gitlab
 
-    # -- S3 compatible region to use for connection information.
-    region: ""
+      # -- Username to connect as to external database, the user must have all privileges on the database.
+      username: ""
 
-    # -- Access key for connecting to object storage endpoint.
-    accessKey: ""
+      # -- Database password for the username used to connect to the existing database.
+      password: ""
 
-    # -- Secret key for connecting to object storage endpoint.
-    # Unencoded string data. This should be placed in the secret values and then encrypted
-    accessSecret: ""
+    objectStorage:
+      # -- Type of object storage to use for Gitlab, setting to s3 will assume an external, pre-existing object storage is to be used.
+      # Entering connection info will enable this option and will auto-create any required secrets
+      type: "" # supported types are "s3" or "minio"
 
-    # -- Bucket prefix to use for identifying buckets.
-    # Example: "prod" will produce "prod-gitlab-bucket"
-    bucketPrefix: ""
+      # -- S3 compatible endpoint to use for connection information.
+      # examples: "https://s3.amazonaws.com" "https://s3.us-gov-west-1.amazonaws.com" "http://minio.minio.svc.cluster.local:9000"
+      endpoint: ""
 
-  # -- Values to passthrough to the gitlab chart: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/gitlab.git
-  values: {}
+      # -- S3 compatible region to use for connection information.
+      region: ""
+
+      # -- Access key for connecting to object storage endpoint.
+      accessKey: ""
+
+      # -- Secret key for connecting to object storage endpoint.
+      # Unencoded string data. This should be placed in the secret values and then encrypted
+      accessSecret: ""
+
+      # -- Bucket prefix to use for identifying buckets.
+      # Example: "prod" will produce "prod-gitlab-bucket"
+      bucketPrefix: ""
+
+    # -- Values to passthrough to the gitlab chart: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/gitlab.git
+    values: {}
+
+    # -- Post Renderers.  See docs/postrenders.md
+    postRenderers: []

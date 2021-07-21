@@ -1,1 +1,5 @@
+# -- Flux reconciliation overrides specifically for the ECK Operator Package
+flux: {}
+
+# -- Values to passthrough to the eck-operator chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/eck-operator.git
 values: {}

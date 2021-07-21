@@ -1,53 +1,60 @@
-sonarqube:
-  # -- Toggle deployment of SonarQube.
-  enabled: false
-  git:
-    repo: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/sonarqube.git
-    path: "./chart"
-    tag: "9.2.6-bb.4"
-
-  sso:
-    # -- Toggle OIDC SSO for SonarQube.
-    # Enabling this option will auto-create any required secrets.
+addons:
+  sonarqube:
+    # -- Toggle deployment of SonarQube.
     enabled: false
+    git:
+      repo: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/sonarqube.git
+      path: "./chart"
+      tag: "9.2.6-bb.13"
 
-    # -- SonarQube OIDC client ID
-    client_id: ""
+    # -- Flux reconciliation overrides specifically for the Sonarqube Package
+    flux: {}
 
-    # -- SonarQube SSO login button label
-    label: ""
+    sso:
+      # -- Toggle SAML SSO for SonarQube.
+      # Enabling this option will auto-create any required secrets.
+      enabled: false
 
-    # -- SonarQube plaintext SAML sso certificate.
-    # example: MITCAYCBFyIEUjNBkqhkiG9w0BA....
-    certificate: ""
+      # -- SonarQube SAML client ID
+      client_id: ""
 
-    # -- SonarQube login sso attribute.
-    login: login
+      # -- SonarQube SSO login button label
+      label: ""
 
-    # -- SonarQube name sso attribute.
-    name: name
+      # -- SonarQube plaintext SAML sso certificate.
+      # example: MITCAYCBFyIEUjNBkqhkiG9w0BA....
+      certificate: ""
 
-    # -- SonarQube email sso attribute.
-    email: email
+      # -- SonarQube login sso attribute.
+      login: login
 
-    # -- (optional) SonarQube group sso attribute.
-    group: group
+      # -- SonarQube name sso attribute.
+      name: name
 
-  database:
-    # -- Hostname of a pre-existing PostgreSQL database to use for SonarQube.
-    host: ""
+      # -- SonarQube email sso attribute.
+      email: email
 
-    # -- Port of a pre-existing PostgreSQL database to use for SonarQube.
-    port: 5432
+      # -- (optional) SonarQube group sso attribute.
+      group: group
 
-    # -- Database name to connect to on host.
-    database: ""
+    database:
+      # -- Hostname of a pre-existing PostgreSQL database to use for SonarQube.
+      host: ""
 
-    # -- Username to connect as to external database, the user must have all privileges on the database.
-    username: ""
+      # -- Port of a pre-existing PostgreSQL database to use for SonarQube.
+      port: 5432
 
-    # -- Database password for the username used to connect to the existing database.
-    password: ""
+      # -- Database name to connect to on host.
+      database: ""
 
-  # -- Values to passthrough to the sonarqube chart: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/sonarqube.git
-  values: {}
+      # -- Username to connect as to external database, the user must have all privileges on the database.
+      username: ""
+
+      # -- Database password for the username used to connect to the existing database.
+      password: ""
+
+    # -- Values to passthrough to the sonarqube chart: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/sonarqube.git
+    values: {}
+
+    # -- Post Renderers.  See docs/postrenders.md
+    postRenderers: []

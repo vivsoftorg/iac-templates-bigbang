@@ -1,2 +1,8 @@
-# -- Values to passthrough to the cluster auditor chart
+# -- Flux reconciliation overrides specifically for the Cluster Auditor Package
+flux: {}
+
+# -- Values to passthrough to the cluster auditor chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/cluster-auditor.git
 values: {}
+
+# -- Post Renderers.  See docs/postrenders.md
+postRenderers: []
