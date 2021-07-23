@@ -53,8 +53,9 @@ spec:
         image:
           repo: registry.gitlab.com/enbuild-staging/container_registry/opensource-kiali/kiali-operator
         cr:
-          deployment:
-            image_name: registry.gitlab.com/enbuild-staging/container_registry/opensource-kiali/kiali
+          spec:
+            deployment:
+              image_name: registry.gitlab.com/enbuild-staging/container_registry/opensource-kiali/kiali
         svcPatchJob:
           image:
             repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes-1.21/kubectl
