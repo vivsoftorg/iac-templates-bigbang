@@ -11,6 +11,7 @@ resources:
   - istiooperator.yaml
   - jaeger.yaml
   - kiali.yaml
+  - logging.yaml
   - monitoring.yaml
   - repo.yaml
   - twistlock.yaml
