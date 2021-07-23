@@ -34,24 +34,27 @@ spec:
           repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-operator
         retention:
           image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-es-index-cleaner:1.23.0
-        # jaeger:
-        #   spec:
-        #     allInOne:
-        #       image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/all-in-one:1.23.0
-        #     agent:
-        #       image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-agent:1.23.0
-        #     ingestor:
-        #       image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-ingestor:1.23.0
-        #     query:
-        #       image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-query:1.23.0
-        #     collector:
-        #       image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-collector:1.23.0
+        jaeger:
+          spec:
+            allInOne:
+              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/all-in-one:1.23.0
+            agent:
+              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-agent:1.23.0
+            ingestor:
+              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-ingestor:1.23.0
+            query:
+              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-query:1.23.0
+            collector:
+              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-collector:1.23.0
     kiali:
       git:
         repo: https://gitlab.com/enbuild-staging/charts/kiali.git
       values:
         image:
           repo: registry.gitlab.com/enbuild-staging/container_registry/opensource-kiali/kiali-operator
+        cr:
+          deployment:
+            image_name: registry.gitlab.com/enbuild-staging/container_registry/opensource-kiali/kiali
         svcPatchJob:
           image:
             repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes-1.21/kubectl
