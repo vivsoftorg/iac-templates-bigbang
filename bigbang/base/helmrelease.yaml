@@ -17,15 +17,15 @@ spec:
       git:
         repo: https://gitlab.com/enbuild-staging/charts/istio-controlplane.git
       values:
-        hub: registry.gitlab.com/enbuild-staging/container_registry/opensource-istio-1.8
+        hub: registry.gitlab.com/enbuild-staging/container_registry/opensource-istio
         cni:
           image:
-            hub: registry.gitlab.com/enbuild-staging/container_registry/opensource-istio-1.8
+            hub: registry.gitlab.com/enbuild-staging/container_registry/opensource-istio
     istiooperator:
       git:
         repo: https://gitlab.com/enbuild-staging/charts/istio-operator.git
       values:
-        hub: registry.gitlab.com/enbuild-staging/container_registry/opensource-istio-1.8
+        hub: registry.gitlab.com/enbuild-staging/container_registry/opensource-istio
     jaeger:
       git:
         repo: https://gitlab.com/enbuild-staging/charts/jaeger.git
@@ -33,19 +33,19 @@ spec:
         image:
           repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-operator
         retention:
-          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-es-index-cleaner:1.23.0
+          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-es-index-cleaner:1.24.0
         jaeger:
           spec:
             allInOne:
-              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/all-in-one:1.23.0
+              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/all-in-one:1.24.0
             agent:
-              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-agent:1.23.0
+              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-agent:1.24.0
             ingestor:
-              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-ingestor:1.23.0
+              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-ingestor:1.24.0
             query:
-              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-query:1.23.0
+              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-query:1.24.0
             collector:
-              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-collector:1.23.0
+              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-collector:1.24.0
     kiali:
       git:
         repo: https://gitlab.com/enbuild-staging/charts/kiali.git
@@ -71,6 +71,17 @@ spec:
       values:
         image:
           repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-openpolicyagent/gatekeeper
+        violations:
+          allowedDockerRegistries:
+            enabled: true
+            enforcementAction: deny
+            kind: K8sAllowedRepos
+            name: allowed-docker-registries
+            match: {}
+            parameters:
+              repos:
+                - registry.gitlab.com
+              excludedResources: []
     logging:
       git:
         repo: https://gitlab.com/enbuild-staging/charts/elasticsearch-kibana.git
@@ -124,11 +135,11 @@ spec:
               image:
                 repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-jet/kube-webhook-certgen
           image:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-coreos/prometheus-operator
+            repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-prometheus-operator/prometheus-operator
           configmapReloadImage:
             repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-jimmidyson/configmap-reload
           prometheusConfigReloaderImage:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-coreos/prometheus-config-reloader
+            repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-prometheus-operator/prometheus-config-reloader
           kubectlImage:
             repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes-1.19/kubectl-1.19
         prometheus:
