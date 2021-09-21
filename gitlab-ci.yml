@@ -1,0 +1,15 @@
+image: 
+  name: registry.gitlab.com/vivsoft-platform/hardened-gitlab-runner-ib:latest
+
+stages:
+    - deploy
+    - destroy
+
+deploy-bigbang:
+    stage: deploy
+    script: ./deploy.sh
+
+destroy-bigbang:
+    stage: destroy
+    when: manual
+    script: ./destroy.sh
