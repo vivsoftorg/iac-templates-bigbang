@@ -1,5 +1,5 @@
 image: 
-  name: registry.gitlab.com/vivsoft-platform/hardened-gitlab-runner-ib:latest
+  name: registry.gitlab.com/enbuild-staging/hardened-gitlab-runner:latest
 
 stages:
     - deploy
@@ -13,3 +13,4 @@ destroy-bigbang:
     stage: destroy
     when: manual
     script: ./destroy.sh
+
