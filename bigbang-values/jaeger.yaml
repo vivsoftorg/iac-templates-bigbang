@@ -1,5 +1,13 @@
 # -- Flux reconciliation overrides specifically for the Jaeger Package
-flux: {}
+flux:
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+
+# Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+ingress:
+  gateway: ""
 
 sso:
   # -- Toggle SSO for Jaeger on and off

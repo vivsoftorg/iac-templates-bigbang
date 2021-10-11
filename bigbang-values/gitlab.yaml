@@ -4,16 +4,21 @@ addons:
     enabled: false
 
     hostnames:
-      gitlab: gitlab.bigbang.dev
-      registry: registry.bigbang.dev
+      # host name only without the domain
+      gitlab: gitlab
+      registry: registry
 
     git:
       repo: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/gitlab.git
       path: "./chart"
-      tag: "4.10.3-bb.13"
+      tag: "4.12.9-bb.6"
 
     # -- Flux reconciliation overrides specifically for the Gitlab Package
     flux: {}
+
+    # Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+    ingress:
+      gateway: ""
 
     sso:
       # -- Toggle OIDC SSO for Gitlab on and off.

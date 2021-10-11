@@ -1,5 +1,5 @@
 # -- Domain used for BigBang created exposed services, can be overridden by individual packages.
-hostname: bigbang.dev
+domain: bigbang.dev
 
 # -- (experimental) Toggle sourcing from external repos.
 # All this does right now is toggle GitRepositories, it is _not_ fully functional
@@ -30,7 +30,7 @@ openshift: false
 # -- Git credential settings for accessing private repositories
 # Order of precedence is:
 #   1. existingSecret
-#   2. http credentials (username/password)
+#   2. http credentials (username/password/caFile)
 #   3. ssh credentials (privateKey/publicKey/knownHosts)
 git:
   # -- Existing secret to use for git credentials, must be in the appropriate format: https://toolkit.fluxcd.io/components/source/gitrepositories/#https-authentication
@@ -41,7 +41,8 @@ git:
     # -- HTTP git credentials, both username and password must be provided
     username: ""
     password: ""
-
+    # -- HTTPS certificate authority file.  Required for any repo with a self signed certificate
+    caFile: ""
     # -- SSH git credentials, privateKey, publicKey, and knownHosts must be provided
     privateKey: ""
     publicKey: ""
@@ -55,11 +56,11 @@ sso:
     # -- Keycloak realm containing clients
     realm: baby-yoda
 
-  # -- Keycloak's certificate authority (unencoded) used by authservice to support SSO for various packages
-  certificate_authority: ''
+  # -- Keycloak's certificate authority (PEM Format). Entered using chomp modifier (see chart/dev-sso-values.yaml for example). Used by authservice to support SSO for various packages
+  certificate_authority: ""
 
-  # -- Keycloak realm's json web key uri, obtained through https://<keycloak-server>/auth/realms/<realm>/.well-known/openid-configuration
-  jwks: ""
+  # -- Keycloak realm's json web key output, obtained at https://<keycloak-server>/auth/realms/<realm>/protocol/openid-connect/certs
+  jwks: ''
 
   # -- OIDC client ID used for packages authenticated through authservice
   client_id: ""
@@ -73,6 +74,9 @@ sso:
   # -- OIDC auth URL template string (to be used as default)
   auth_url: "https://{{ .Values.sso.oidc.host }}/auth/realms/{{ .Values.sso.oidc.realm }}/protocol/openid-connect/auth"
 
+  # -- Kubernetes Secret containing the sso.certificate_authority value for SSO enabled application namespaces
+  secretName: "tls-ca-sso"
+
 # -- (Advanced) Flux reconciliation parameters.
 # The default values provided will be sufficient for the majority of workloads.
 flux:
@@ -82,7 +86,7 @@ flux:
     enable: false
   install:
     remediation:
-      retries: 3
+      retries: -1
   upgrade:
     remediation:
       retries: 3
@@ -94,9 +98,13 @@ flux:
 
 # -- Global NetworkPolicies settings
 networkPolicies:
-  # -- Toggle all package NetworkPolicies, can disable specific packages with `package.networkPolicies.enabled`
+  # -- Toggle all package NetworkPolicies, can disable specific packages with `package.values.networkPolicies.enabled`
   enabled: true
-  # -- Control Plane CIDR, defaults to 0.0.0.0/0, use `kubectl get endpoints --namespace default kubernetes` to get the CIDR range needed for your cluster
+  # -- Control Plane CIDR, defaults to 0.0.0.0/0, use `kubectl get endpoints -n default kubernetes` to get the CIDR range needed for your cluster
   # Must be an IP CIDR range (x.x.x.x/x - ideally with /32 for the specific IP of a single endpoint, broader range for multiple masters/endpoints)
   # Used by package NetworkPolicies to allow Kube API access
   controlPlaneCidr: 0.0.0.0/0
+  # -- Node CIDR, defaults to allowing "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "100.64.0.0/10" networks.
+  # use `kubectl get nodes -owide` and review the `INTERNAL-IP` column to derive CIDR range.
+  # Must be an IP CIDR range (x.x.x.x/x - ideally a /16 or /24 to include multiple IPs)
+  nodeCidr: ""
