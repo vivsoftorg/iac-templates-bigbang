@@ -58,7 +58,7 @@ spec:
               image_name: registry.gitlab.com/enbuild-staging/container_registry/opensource-kiali/kiali
         svcPatchJob:
           image:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes-1.21/kubectl
+            repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang/base
     clusterAuditor:
       git:
         repo: https://gitlab.com/enbuild-staging/charts/cluster-auditor.git
@@ -69,6 +69,10 @@ spec:
       git:
         repo: https://gitlab.com/enbuild-staging/charts/gatekeeper.git
       values:
+        postInstall:
+          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes-1.21/kubectl
+        postUpgrade:
+          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes-1.21/kubectl
         image:
           repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-openpolicyagent/gatekeeper
         violations:
@@ -94,7 +98,7 @@ spec:
             repository: registry.gitlab.com/enbuild-staging/container_registry/elastic-elasticsearch/elasticsearch
         upgradeJob:
             image:
-              repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/kubectl
+              repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang/base
     eckoperator:
       git:
         repo: https://gitlab.com/enbuild-staging/charts/eck-operator.git

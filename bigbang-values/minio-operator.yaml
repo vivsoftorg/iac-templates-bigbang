@@ -5,35 +5,12 @@ addons:
     git:
       repo: https://repo1.dso.mil/platform-one/big-bang/apps/application-utilities/minio-operator.git
       path: "./chart"
-      tag: "2.0.9-bb.3"
+      tag: "4.1.2-bb.3"
 
     # -- Flux reconciliation overrides specifically for the Minio Operator Package
     flux: {}
 
     # -- Values to passthrough to the minio operator chart: https://repo1.dso.mil/platform-one/big-bang/apps/application-utilities/minio-operator.git
-    values: {}
-
-    # -- Post Renderers.  See docs/postrenders.md
-    postRenderers: []
-
-  minio:
-    # -- Toggle deployment of minio.
-    enabled: false
-    git:
-      repo: https://repo1.dso.mil/platform-one/big-bang/apps/application-utilities/minio.git
-      path: "./chart"
-      tag: "2.0.9-bb.12"
-
-    # -- Flux reconciliation overrides specifically for the Minio Package
-    flux: {}
-
-    # -- Default access key to use for minio.
-    accesskey: ""
-
-    # -- Default secret key to intstantiate with minio, you should change/delete this after installation.
-    secretkey: ""
-
-    # -- Values to passthrough to the minio instance chart: https://repo1.dso.mil/platform-one/big-bang/apps/application-utilities/minio.git
     values: {}
 
     # -- Post Renderers.  See docs/postrenders.md
