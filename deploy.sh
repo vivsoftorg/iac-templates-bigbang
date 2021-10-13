@@ -18,15 +18,15 @@ sops -d bigbang/envs/dev/secrets/repository-credentials.enc.yaml | kubectl apply
 # install bigbang
 kustomize build bigbang/envs/dev/ | kubectl apply -f -
 
-kubectl wait --for=condition=Ready=True --timeout 500s helmreleases bigbang
-kubectl wait --for=condition=Ready=True --timeout 700s helmreleases gatekeeper
-kubectl wait --for=condition=Ready=True --timeout 500s helmreleases istio-operator
-kubectl wait --for=condition=Ready=True --timeout 500s helmreleases istio
-kubectl wait --for=condition=Ready=True --timeout 500s helmreleases jaeger
-kubectl wait --for=condition=Ready=True --timeout 500s helmreleases kiali
-kubectl wait --for=condition=Ready=True --timeout 500s helmreleases ek
-kubectl wait --for=condition=Ready=True --timeout 500s helmreleases cluster-auditor
-kubectl wait --for=condition=Ready=True --timeout 500s helmreleases fluent-bit
-kubectl wait --for=condition=Ready=True --timeout 500s helmreleases eck-operator
-kubectl wait --for=condition=Ready=True --timeout 500s helmreleases monitoring
-kubectl wait --for=condition=Ready=True --timeout 500s helmreleases twistlock
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases bigbang -n bigbang
+kubectl wait --for=condition=Ready=True --timeout 700s helmreleases gatekeeper -n bigbang
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases istio-operator -n bigbang
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases istio -n bigbang
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases jaeger -n bigbang
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases kiali -n bigbang
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases ek -n bigbang
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases cluster-auditor -n bigbang
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases fluent-bit -n bigbang
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases eck-operator -n bigbang
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases monitoring -n bigbang
+kubectl wait --for=condition=Ready=True --timeout 500s helmreleases twistlock -n bigbang
