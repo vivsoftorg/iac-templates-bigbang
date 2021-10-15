@@ -1,17 +1,13 @@
 addons:
   keycloak:
     # -- Toggle deployment of Keycloak.
+    # if you enable Keycloak you should uncomment the istio passthrough configurations above
+      # istio.ingressGateways.passthrough-ingressgateway and istio.gateways.passthrough
     enabled: false
     git:
       repo: https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/keycloak.git
       path: "./chart"
-      tag: "11.0.1-bb.0"
-
-    # -- Certificate/Key pair to use as the certificate for exposing Keycloak
-    # Setting the ingress cert here will automatically create the volume and volumemounts in the Keycloak Package chart
-    ingress:
-      key: ""
-      cert: ""
+      tag: "11.0.1-bb.6"
 
     database:
       # -- Hostname of a pre-existing database to use for Keycloak.
@@ -35,6 +31,15 @@ addons:
 
     # -- Flux reconciliation overrides specifically for the OPA Gatekeeper Package
     flux: {}
+
+    # Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+    ingress:
+      # the istio gateway for keycloak must have tls.mode: PASSTHROUGH
+      gateway: "passthrough"
+      # -- Certificate/Key pair to use as the certificate for exposing Keycloak
+      # Setting the ingress cert here will automatically create the volume and volumemounts in the Keycloak Package chart
+      key: ""
+      cert: ""
 
     # -- Values to passthrough to the keycloak chart: https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/keycloak.git
     values: {}

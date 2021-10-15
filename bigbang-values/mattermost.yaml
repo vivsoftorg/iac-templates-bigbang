@@ -1,11 +1,11 @@
 addons:
-  mattermost:
+mattermost:
     # -- Toggle deployment of Mattermost.
     enabled: false
     git:
       repo: https://repo1.dso.mil/platform-one/big-bang/apps/collaboration-tools/mattermost.git
       path: "./chart"
-      tag: "0.1.6-bb.7"
+      tag: "0.2.0-bb.1"
 
     # -- Flux reconciliation overrides specifically for the Mattermost Package
     flux: {}
@@ -19,6 +19,10 @@ addons:
       # This should be the entire contents of the license file from Mattermost (should be one line), example below
       # license: "eyJpZCI6InIxM205bjR3eTdkYjludG95Z3RiOD---REST---IS---HIDDEN
       license: ""
+
+    # Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+    ingress:
+      gateway: ""
 
     sso:
       # -- Toggle OIDC SSO for Mattermost on and off.
