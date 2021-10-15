@@ -1,10 +1,50 @@
-flux: {}
+# Ingress gateways are created based on the key name.  Adding more keys will add ingress gateways.
+# Ingress gateways are setup in a Horizontal Pod Autoscaler with 1 to 5 replicas
+# Besides some ports needed by Istio, only ports 80 and 443 are opened
+# Ingress gateways that require more configuration can be completed using `istio.values`
+ingressGateways:
+  public-ingressgateway:
+    type: "LoadBalancer" # or "NodePort"
+    kubernetesResourceSpec: {} # https://istio.io/latest/docs/reference/config/istio.operator.v1alpha1/#KubernetesResourcesSpec
 
-# -- Certificate/Key pair to use as the default certificate for exposing BigBang created applications.
-# If nothing is provided, applications will expect a valid tls secret to exist in the `istio-system` namespace called `wildcard-cert`.
-ingress:
-  key: ""
-  cert: ""
+  # private-ingressgateway:
+  #   type: "LoadBalancer" # or "NodePort"
+  #   kubernetesResourceSpec: # https://istio.io/latest/docs/reference/config/istio.operator.v1alpha1/#KubernetesResourcesSpec
+  #     serviceAnnotations: # Example for AWS internal load balancer
+  #       service.beta.kubernetes.io/aws-load-balancer-type: nlb
+  #       service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+
+  # passthrough-ingressgateway:
+  #   type: "NodePort" # or "LoadBalancer"
+  #   # Node ports are assigned starting from nodePortBase.  The nodePortBase specifies the start of a range of 4 unused node ports.
+  #   # Node port will be assigned as follows: Port 15021 (Status) = nodePortBase, Port 80 = nodePortBase+1, Port 443 = nodePortBase+2, Port 15443 (SNI) = nodePortBase+3
+  #   # Node port base should be in the range from 30000 to 32764
+  #   nodePortBase: 32000  # Alternatively, the kubernetesResourceSpec can be used to configure all port parameters
+
+gateways:
+  public:
+    ingressGateway: "public-ingressgateway"
+    hosts:
+    - "*.{{ .Values.domain }}"
+    tls:
+      key: ""
+      cert: ""
+  # private:
+  #   ingressGateway: "private-ingressgateway"
+  #   hosts:
+  #   - "*.{{ .Values.domain }}"
+  #   tls:
+  #     key: ""
+  #     cert: ""
+  # passthrough:
+  #   ingressGateway: "passthrough-ingressgateway"
+  #   hosts:
+  #   - "*.{{ .Values.domain }}"
+  #   tls:
+  #     mode: "PASSTHROUGH"
+
+# -- Flux reconciliation overrides specifically for the Istio Package
+flux: {}
 
 # -- Values to passthrough to the istio-controlplane chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/istio-controlplane.git
 values: {}
