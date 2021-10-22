@@ -14,5 +14,6 @@ deploy-bigbang:
 
 destroy-bigbang:
     stage: destroy
+    when: manual
     script: ./destroy.sh
 
