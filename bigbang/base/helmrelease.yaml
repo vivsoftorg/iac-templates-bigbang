@@ -21,6 +21,8 @@ spec:
         cni:
           image:
             hub: registry.gitlab.com/enbuild-staging/container_registry/opensource-istio
+        postInstallHook:
+          image: registry.gitlab.com/enbuild-staging/container_registry/big-bang/base:8.4
     istiooperator:
       git:
         repo: https://gitlab.com/enbuild-staging/charts/istio-operator.git
@@ -128,6 +130,8 @@ spec:
           sidecar:
             image:
               repository: registry.gitlab.com/enbuild-staging/container_registry/kiwigrid/k8s-sidecar
+          downloadDashboardsImage:
+            repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang/base
         kube-state-metrics:
           image:
             repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-coreos/kube-state-metrics
@@ -139,6 +143,9 @@ spec:
             patch:
               image:
                 repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-jet/kube-webhook-certgen
+            cleanupProxy:
+              image:
+                repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang/base
           image:
             repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-prometheus-operator/prometheus-operator
           configmapReloadImage:
