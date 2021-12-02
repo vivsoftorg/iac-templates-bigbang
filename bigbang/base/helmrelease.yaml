@@ -33,19 +33,19 @@ spec:
         image:
           repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-operator
         retention:
-          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-es-index-cleaner:1.24.0
+          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-es-index-cleaner:1.27.0
         jaeger:
           spec:
             allInOne:
-              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/all-in-one:1.24.0
+              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/all-in-one:1.27.0
             agent:
-              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-agent:1.24.0
+              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-agent:1.27.0
             ingestor:
-              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-ingestor:1.24.0
+              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-ingestor:1.27.0
             query:
-              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-query:1.24.0
+              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-query:1.27.0
             collector:
-              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-collector:1.24.0
+              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-collector:1.27.0
     kiali:
       git:
         repo: https://gitlab.com/enbuild-staging/charts/kiali.git
@@ -145,7 +145,7 @@ spec:
           prometheusConfigReloaderImage:
             repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-prometheus-operator/prometheus-config-reloader
           kubectlImage:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes-1.19/kubectl-1.19
+            repository: registry.gitlab.com/enbuild-staging/container_registry/kubernetes-1.21/kubectl:v1.21.1
         prometheus:
           prometheusSpec:
             image:
