@@ -1,6 +1,8 @@
 # BigBang
 
-The BigBang module deploys standard components on top of an existing Kubernetes cluster.
+The BigBang module deploys standard BigBang components on top of an existing Kubernetes cluster.
+The BigBang Chart version being used is 1.21.0
+
 
 ## Mandatory Components
 

@@ -26,6 +26,9 @@ gateways:
     ingressGateway: "public-ingressgateway"
     hosts:
     - "*.{{ .Values.domain }}"
+    # -- Controls default HTTP/8080 server entry with HTTP to HTTPS Redirect.
+    autoHttpRedirect:
+      enabled: true
     tls:
       key: ""
       cert: ""
@@ -33,6 +36,9 @@ gateways:
   #   ingressGateway: "private-ingressgateway"
   #   hosts:
   #   - "*.{{ .Values.domain }}"
+  #   # -- Controls default HTTP/8080 server entry with HTTP to HTTPS Redirect.
+  #   autoHttpRedirect:
+  #     enabled: true
   #   tls:
   #     key: ""
   #     cert: ""
@@ -40,6 +46,9 @@ gateways:
   #   ingressGateway: "passthrough-ingressgateway"
   #   hosts:
   #   - "*.{{ .Values.domain }}"
+  #   # -- Controls default HTTP/8080 server entry with HTTP to HTTPS Redirect.
+  #   autoHttpRedirect:
+  #     enabled: true
   #   tls:
   #     mode: "PASSTHROUGH"
 
