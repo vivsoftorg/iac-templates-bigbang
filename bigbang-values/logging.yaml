@@ -2,6 +2,10 @@
 flux:
   timeout: 20m
 
+# Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+ingress:
+  gateway: ""
+
 sso:
   # -- Toggle OIDC SSO for Kibana/Elasticsearch on and off.
   # Enabling this option will auto-create any required secrets.

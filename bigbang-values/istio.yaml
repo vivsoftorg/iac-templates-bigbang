@@ -1,3 +1,5 @@
+
+
 # Ingress gateways are created based on the key name.  Adding more keys will add ingress gateways.
 # Ingress gateways are setup in a Horizontal Pod Autoscaler with 1 to 5 replicas
 # Besides some ports needed by Istio, only ports 80 and 443 are opened
@@ -35,10 +37,17 @@ gateways:
   # private:
   #   ingressGateway: "private-ingressgateway"
   #   hosts:
-  #   - "*.{{ .Values.domain }}"
+  #   - "example.bigbang.dev"
+  #   ports:
+  #     - name: tls-2
+  #       number: 1234
+  #       protocol: TCP
+  #     - name: tls
+  #       number: 5678
+  #       protocol: TCP
   #   # -- Controls default HTTP/8080 server entry with HTTP to HTTPS Redirect.
   #   autoHttpRedirect:
-  #     enabled: true
+  #     enabled: false
   #   tls:
   #     key: ""
   #     cert: ""
