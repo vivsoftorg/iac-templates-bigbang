@@ -138,9 +138,9 @@ spec:
           image:
             registry: registry.gitlab.com/enbuild-staging/container_registry
             repository: big-bang-apps-security-tools-keycloak/busybox
-          image:
-            registry: registry.gitlab.com
-            repository: enbuild-staging/container_registry/opensource-grafana/promtail
+        image:
+          registry: registry.gitlab.com
+          repository: enbuild-staging/container_registry/opensource-grafana/promtail
     loki:
         git:
           repo: https://gitlab.com/enbuild-staging/charts/loki.git
