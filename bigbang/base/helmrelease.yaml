@@ -35,19 +35,19 @@ spec:
         image:
           repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-operator
         retention:
-          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-es-index-cleaner:1.27.0
+          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-es-index-cleaner:1.28.0
         jaeger:
           spec:
             allInOne:
-              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/all-in-one:1.27.0
+              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/all-in-one:1.28.0
             agent:
-              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-agent:1.27.0
+              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-agent:1.28.0
             ingestor:
-              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-ingestor:1.27.0
+              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-ingestor:1.28.0
             query:
-              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-query:1.27.0
+              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-query:1.28.0
             collector:
-              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-collector:1.27.0
+              image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-collector:1.28.0
     kiali:
       git:
         repo: https://gitlab.com/enbuild-staging/charts/kiali.git
@@ -89,6 +89,19 @@ spec:
               repos:
                 - registry.gitlab.com
               excludedResources: []
+    kyverno:
+      git:
+        repo: https://gitlab.com/enbuild-staging/charts/kyverno.git
+      values:
+        image:
+          repository: registry.gitlab.com/enbuild-staging/container_registry/nirmata/kyverno
+        initImage:
+          repository: registry.gitlab.com/enbuild-staging/container_registry/nirmata/kyvernopre
+        testImage:
+          repository: registry.gitlab.com/enbuild-staging/container_registry/redhat-ubi/ubi8-minimal
+        bbtests:
+          scripts:
+            image: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes-1.21/kubectl:v1.21.5
     logging:
       git:
         repo: https://gitlab.com/enbuild-staging/charts/elasticsearch-kibana.git
@@ -108,12 +121,32 @@ spec:
       values:
         image:
           repository: registry.gitlab.com/enbuild-staging/container_registry/elastic-eck-operator/eck-operator
+        upgradeCrds:
+          image:
+            repository: registry1.dso.mil/ironbank/big-bang/base
     fluentbit:
       git:
         repo: https://gitlab.com/enbuild-staging/charts/fluentbit.git
       values:
         image:
           repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-fluent/fluent-bit
+    promtail:
+        git:
+          repo: https://gitlab.com/enbuild-staging/charts/promtail.git
+        values:
+        initContainer:
+          image:
+            registry: registry.gitlab.com/enbuild-staging/container_registry
+            repository: big-bang-apps-security-tools-keycloak/busybox
+          image:
+            registry: registry.gitlab.com
+            repository: enbuild-staging/container_registry/opensource-grafana/promtail
+    loki:
+        git:
+          repo: https://gitlab.com/enbuild-staging/charts/loki.git
+        values:
+          image:
+            repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-grafana/grafana-loki
     monitoring:
       git:
         repo: https://gitlab.com/enbuild-staging/charts/monitoring.git

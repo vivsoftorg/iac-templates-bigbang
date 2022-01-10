@@ -5,7 +5,7 @@ addons:
     git:
       repo: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/nexus.git
       path: "./chart"
-      tag: "34.0.0-bb.0"
+      tag: "34.1.0-bb.6"
 
     # -- Base64 encoded license file.
     license_key: ""
@@ -23,6 +23,9 @@ addons:
 
       # -- NXRM SAML SSO Integration data
       idp_data:
+        # Nexus saml URL. example: "https://nexus.example.mil/service/rest/v1/security/saml/metadata"
+        entityId: ""
+
         # -- IdP Field Mappings
         # -- NXRM username attribute
         username: ""
@@ -45,9 +48,12 @@ addons:
 
       # -- NXRM Role
       role:
-        id: ""
-        name: ""
-        description: ""
+        # the id must match the Keycloak group name (case sensitive)
+        - id: ""
+          name: ""
+          description: ""
+          privileges: []
+          roles: []
 
     # -- Flux reconciliation overrides specifically for the Nexus Repository Manager Package
     flux: {}
