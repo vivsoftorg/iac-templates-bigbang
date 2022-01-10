@@ -175,7 +175,7 @@ spec:
           admissionWebhooks:
             patch:
               image:
-                repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-jet/kube-webhook-certgen
+                repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-ingress-nginx/kube-webhook-certgen
             cleanupProxy:
               image:
                 repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang/base
