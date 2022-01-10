@@ -123,7 +123,7 @@ spec:
           repository: registry.gitlab.com/enbuild-staging/container_registry/elastic-eck-operator/eck-operator
         upgradeCrds:
           image:
-            repository: registry1.dso.mil/ironbank/big-bang/base
+            repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang/base:8.4
     fluentbit:
       git:
         repo: https://gitlab.com/enbuild-staging/charts/fluentbit.git
@@ -151,6 +151,8 @@ spec:
       git:
         repo: https://gitlab.com/enbuild-staging/charts/monitoring.git
       values:
+        cleanUpgrade:
+          image: "registry1.dso.mil/ironbank/big-bang/base:8.4"
         alertmanager:
           alertmanagerSpec:
             image:
@@ -181,10 +183,11 @@ spec:
                 repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang/base
           image:
             repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-prometheus-operator/prometheus-operator
-          configmapReloadImage:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-jimmidyson/configmap-reload
-          prometheusConfigReloaderImage:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-prometheus-operator/prometheus-config-reloader
+          prometheusConfigReloader:
+            image:
+              repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-prometheus-operator/prometheus-config-reloader:v0.52.1
+          thanosImage:
+            repository: registry1.dso.mil/ironbank/opensource/thanos/thanos
           kubectlImage:
             repository: registry.gitlab.com/enbuild-staging/container_registry/kubernetes-1.21/kubectl:v1.21.1
         prometheus:
