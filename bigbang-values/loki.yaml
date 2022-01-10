@@ -1,0 +1,8 @@
+# -- Flux reconciliation overrides specifically for the Loki Package
+flux: {}
+
+# -- Values to passthrough to the Loki chart: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/loki.git
+values: {}
+
+# -- Post Renderers.  See docs/postrenders.md
+postRenderers: []
