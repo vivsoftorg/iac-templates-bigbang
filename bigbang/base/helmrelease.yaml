@@ -167,7 +167,7 @@ spec:
             repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang/base
         kube-state-metrics:
           image:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-coreos/kube-state-metrics
+            repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes/kube-state-metrics
         prometheus-node-exporter:
           image:
             repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-prometheus/node-exporter
