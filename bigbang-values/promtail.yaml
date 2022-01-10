@@ -1,0 +1,8 @@
+# -- Flux reconciliation overrides specifically for the Promtail Package
+flux: {}
+
+# -- Values to passthrough to the promtail chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/fluentbit.git
+values: {}
+
+# -- Post Renderers.  See docs/postrenders.md
+postRenderers: []
