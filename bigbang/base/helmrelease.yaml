@@ -152,7 +152,7 @@ spec:
         repo: https://gitlab.com/enbuild-staging/charts/monitoring.git
       values:
         cleanUpgrade:
-          image: "registry1.dso.mil/ironbank/big-bang/base:8.4"
+          image: "registry.gitlab.com/enbuild-staging/container_registry/big-bang/base:8.4"
         alertmanager:
           alertmanagerSpec:
             image:
