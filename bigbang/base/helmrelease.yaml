@@ -187,7 +187,7 @@ spec:
             image:
               repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-prometheus-operator/prometheus-config-reloader
           thanosImage:
-            repository: registry1.dso.mil/ironbank/opensource/thanos/thanos
+            repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-thanos/thanos
           kubectlImage:
             repository: registry.gitlab.com/enbuild-staging/container_registry/kubernetes-1.21/kubectl:v1.21.1
         prometheus:
