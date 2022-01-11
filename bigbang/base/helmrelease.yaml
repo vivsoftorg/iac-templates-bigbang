@@ -74,7 +74,9 @@ spec:
         postInstall:
           image: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes-1.21/kubectl
         postUpgrade:
-          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes-1.21/kubectl
+          cleanupCRD:
+            image:
+              repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes-1.21/kubectl
         image:
           repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-openpolicyagent/gatekeeper
           crdRepository: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes-1.21/kubectl
