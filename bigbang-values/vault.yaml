@@ -3,7 +3,7 @@ addons:
     # -- Toggle deployment of Vault.
     enabled: false
     git:
-      repo: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/vault.git
+      repo: https://gitlab.com/enbuild-staging/charts/vault.git
       path: "./chart"
       tag: "0.18.0-bb.1"
 
@@ -14,7 +14,7 @@ addons:
     ingress:
       gateway: ""
 
-    # -- Values to passthrough to the vault chart: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/vault.git
+    # -- Values to passthrough to the vault chart: https://gitlab.com/enbuild-staging/charts/vault.git
     values: {}
 
     # -- Post Renderers.  See docs/postrenders.md
