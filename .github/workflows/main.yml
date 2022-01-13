@@ -16,8 +16,8 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   deploy_bb:
-    #runs-on: self-hosted
-     runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
+    # runs-on:  self-hosted
     container:
       image: registry.gitlab.com/enbuild-staging/hardened-gitlab-runner:latest
       credentials:
