@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ dev ]
   pull_request:
-    branches: [ main ]
+    branches: [ dev ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -18,6 +18,7 @@ jobs:
   deploy_bb:
     runs-on: ubuntu-latest
     # runs-on:  self-hosted
+    if: ${{ contains(github.event.head_commit.message, 'run-ci') }}
     container:
       image: registry.gitlab.com/enbuild-staging/hardened-gitlab-runner:latest
       credentials:
