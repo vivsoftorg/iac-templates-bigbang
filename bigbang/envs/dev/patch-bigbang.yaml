@@ -29,12 +29,12 @@ spec:
       kind: ConfigMap
     - name: twistlock-values
       kind: ConfigMap
-    # - name: kyverno-values
-    #   kind: ConfigMap
-    # - name: promtail-values
-    #   kind: ConfigMap
-    # - name: loki-values
-    #   kind: ConfigMap
+    - name: kyverno-values
+      kind: ConfigMap
+    - name: promtail-values
+      kind: ConfigMap
+    - name: loki-values
+      kind: ConfigMap
     - name: repo-values
       kind: Secret
     - name: istio-values
@@ -59,9 +59,9 @@ spec:
       kind: Secret
     - name: twistlock-values
       kind: Secret
-    # - name: promtail-values
-    #   kind: Secret
-    # - name: loki-values
-    #   kind: Secret
-    # - name: kyverno-values
-    #   kind: Secret
+    - name: promtail-values
+      kind: Secret
+    - name: loki-values
+      kind: Secret
+    - name: kyverno-values
+      kind: Secret
