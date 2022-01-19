@@ -9,7 +9,7 @@ addons:
       registry: registry
 
     git:
-      repo: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/gitlab.git
+      repo: https://gitlab.com/enbuild-staging/charts/gitlab.git
       path: "./chart"
       tag: "5.3.1-bb.10"
 
@@ -80,7 +80,7 @@ addons:
       # -- If using an AWS IAM profile, the accessKey and accessSecret values must be left as empty strings eg: ""
       iamProfile: ""
 
-    # -- Values to passthrough to the gitlab chart: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/gitlab.git
+    # -- Values to passthrough to the gitlab chart: https://gitlab.com/enbuild-staging/charts/gitlab.git
     values: {}
 
     # -- Post Renderers.  See docs/postrenders.md
