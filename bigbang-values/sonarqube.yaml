@@ -3,7 +3,7 @@ addons:
     # -- Toggle deployment of SonarQube.
     enabled: false
     git:
-      repo: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/sonarqube.git
+      repo: https://gitlab.com/enbuild-staging/charts/sonarqube.git
       path: "./chart"
       tag: "9.6.3-bb.12"
 
@@ -57,7 +57,7 @@ addons:
       # -- Database password for the username used to connect to the existing database.
       password: ""
 
-    # -- Values to passthrough to the sonarqube chart: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/sonarqube.git
+    # -- Values to passthrough to the sonarqube chart: https://gitlab.com/enbuild-staging/charts/sonarqube.git
     values: {}
 
     # -- Post Renderers.  See docs/postrenders.md

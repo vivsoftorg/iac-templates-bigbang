@@ -3,7 +3,7 @@ addons:
     # -- Toggle deployment of Anchore.
     enabled: false
     git:
-      repo: https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/anchore-enterprise.git
+      repo: https://gitlab.com/enbuild-staging/charts/anchore-enterprise.git
       path: "./chart"
       tag: "1.15.0-bb.0"
 
@@ -77,7 +77,7 @@ addons:
       # -- Password to connect to pre-existing Redis.
       password: ""
 
-    # -- Values to passthrough to the anchore chart: https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/anchore-enterprise.git
+    # -- Values to passthrough to the anchore chart: https://gitlab.com/enbuild-staging/charts/anchore-enterprise.git
     values: {}
 
     # -- Post Renderers.  See docs/postrenders.md

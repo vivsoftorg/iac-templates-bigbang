@@ -21,4 +21,4 @@ destroy-bigbang:
     rules:
         # Enabled CI pipeline testing it commit message contains "run-ci"
     - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_MESSAGE =~ /.*run-ci.*/i
-      when: never
+      when: manual

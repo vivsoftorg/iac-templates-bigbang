@@ -1,7 +1,14 @@
+# -- Toggle deployment of Fluent-Bit.
+enabled: true
+git:
+  repo: https://gitlab.com/enbuild-staging/charts/fluentbit.git
+  path: "./chart"
+  tag: "0.19.9-bb.0"
+
 # -- Flux reconciliation overrides specifically for the Fluent-Bit Package
 flux: {}
 
-# -- Values to passthrough to the fluentbit chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/fluentbit.git
+# -- Values to passthrough to the fluentbit chart: https://gitlab.com/enbuild-staging/charts/fluentbit.git
 values: {}
 
 # -- Post Renderers.  See docs/postrenders.md

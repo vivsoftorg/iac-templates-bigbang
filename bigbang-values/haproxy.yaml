@@ -3,7 +3,7 @@ addons:
     # -- Toggle deployment of HAProxy.
     enabled: false
     git:
-      repo: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/haproxy
+      repo: https://gitlab.com/enbuild-staging/charts/haproxy.git
       path: "./chart"
       tag: 1.1.2-bb.1
 

@@ -74,7 +74,9 @@ spec:
         postInstall:
           image: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes-1.21/kubectl
         postUpgrade:
-          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes-1.21/kubectl
+          cleanupCRD:
+            image:
+              repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes-1.21/kubectl
         image:
           repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-openpolicyagent/gatekeeper
           crdRepository: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes-1.21/kubectl
@@ -134,13 +136,13 @@ spec:
         git:
           repo: https://gitlab.com/enbuild-staging/charts/promtail.git
         values:
-        initContainer:
+          initContainer:
+            image:
+              registry: registry.gitlab.com/enbuild-staging/container_registry
+              repository: big-bang-apps-security-tools-keycloak/busybox
           image:
-            registry: registry.gitlab.com/enbuild-staging/container_registry
-            repository: big-bang-apps-security-tools-keycloak/busybox
-        image:
-          registry: registry.gitlab.com
-          repository: enbuild-staging/container_registry/opensource-grafana/promtail
+            registry: registry.gitlab.com
+            repository: enbuild-staging/container_registry/opensource-grafana/promtail
     loki:
         git:
           repo: https://gitlab.com/enbuild-staging/charts/loki.git
@@ -152,7 +154,7 @@ spec:
         repo: https://gitlab.com/enbuild-staging/charts/monitoring.git
       values:
         cleanUpgrade:
-          image: "registry1.dso.mil/ironbank/big-bang/base:8.4"
+          image: "registry.gitlab.com/enbuild-staging/container_registry/big-bang/base:8.4"
         alertmanager:
           alertmanagerSpec:
             image:
@@ -187,7 +189,7 @@ spec:
             image:
               repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-prometheus-operator/prometheus-config-reloader
           thanosImage:
-            repository: registry1.dso.mil/ironbank/opensource/thanos/thanos
+            repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-thanos/thanos
           kubectlImage:
             repository: registry.gitlab.com/enbuild-staging/container_registry/kubernetes-1.21/kubectl:v1.21.1
         prometheus:

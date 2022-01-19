@@ -1,0 +1,41 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  deploy_bb:
+    runs-on: ubuntu-latest
+    # runs-on:  self-hosted
+    if: ${{ contains(github.event.head_commit.message, 'run-ci') }}
+    container:
+      image: registry.gitlab.com/enbuild-staging/hardened-gitlab-runner:latest
+      credentials:
+        username: ${{ secrets.registry_user}}
+        password: ${{ secrets.registry_password}}
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: kubeconfig
+        run: echo "${{ secrets.KUBECONFIG }}" >> kubeconfig
+
+      - name: Run deploy script
+        run: |
+          bash deploy.sh
+        env:
+          KUBECONFIG: './kubeconfig'
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID}}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION}}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
