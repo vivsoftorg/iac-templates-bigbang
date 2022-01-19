@@ -15,6 +15,6 @@ resources:
   - monitoring.yaml
   - repo.yaml
   - twistlock.yaml
-  - kyverno.yaml
-  - promtail.yaml
-  - loki.yaml
+  # - kyverno.yaml
+  # - promtail.yaml
+  # - loki.yaml
