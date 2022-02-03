@@ -4,7 +4,7 @@ addons:
     enabled: false
 
     git:
-      repo: https://repo1.dso.mil/platform-one/big-bang/apps/cluster-utilities/velero.git
+      repo: https://gitlab.com/enbuild-staging/charts/velero.git
       path: "./chart"
       tag: "2.23.6-bb.3"
 

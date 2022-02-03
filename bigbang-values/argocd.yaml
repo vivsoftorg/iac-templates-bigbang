@@ -3,7 +3,7 @@ addons:
     # -- Toggle deployment of ArgoCD.
     enabled: false
     git:
-      repo: https://repo1.dso.mil/platform-one/big-bang/apps/core/argocd.git
+      repo: https://gitlab.com/enbuild-staging/charts/argocd.git
       path: "./chart"
       tag: "3.27.1-bb.0"
 
@@ -31,7 +31,7 @@ addons:
       groups: |
         g, Impact Level 2 Authorized, role:admin
 
-    # -- Values to passthrough to the argocd chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/argocd.git
+    # -- Values to passthrough to the argocd chart: https://gitlab.com/enbuild-staging/charts/argocd.git
     values: {}
 
     # -- Post Renderers.  See docs/postrenders.md
