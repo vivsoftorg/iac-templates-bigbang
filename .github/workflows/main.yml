@@ -20,7 +20,7 @@ jobs:
     # runs-on:  self-hosted
     if: ${{ contains(github.event.head_commit.message, 'run-ci') }}
     container:
-      image: registry.gitlab.com/enbuild-staging/hardened-gitlab-runner:latest
+      image: registry.gitlab.com/enbuild-staging/container_registry/hardened-github-runner:latest
       credentials:
         username: ${{ secrets.registry_user}}
         password: ${{ secrets.registry_password}}
