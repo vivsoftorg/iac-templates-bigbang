@@ -7,6 +7,6 @@ spec:
   interval: 1m0s
   url: https://gitlab.com/enbuild-staging/charts/bigbang.git
   ref:
-    tag: 1.24.0
+    tag: 1.42.0
   secretRef:
     name: repository-credentials
