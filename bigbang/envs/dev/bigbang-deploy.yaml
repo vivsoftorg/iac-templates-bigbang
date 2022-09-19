@@ -19,7 +19,7 @@ metadata:
   name: bigbang-secrets
   namespace: bigbang
 spec:
-  interval: 5m0s
+  interval: 1440m0s
   sourceRef:
     kind: GitRepository
     name: bigbang-deploy
