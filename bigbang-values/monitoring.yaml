@@ -1,9 +1,9 @@
 # -- Toggle deployment of Monitoring (Prometheus, Grafana, and Alertmanager).
 enabled: true
 git:
-  repo: https://gitlab.com/enbuild-staging/charts/monitoring.git
+  repo: https://repo1.dso.mil/platform-one/big-bang/apps/core/monitoring.git
   path: "./chart"
-  tag: "23.1.6-bb.1"
+  tag: "39.9.0-bb.1"
 
 # -- Flux reconciliation overrides specifically for the Monitoring Package
 flux:
@@ -12,7 +12,7 @@ flux:
   upgrade:
     crds: CreateReplace
 
-# Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+# -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
 ingress:
   gateway: ""
 
@@ -48,7 +48,7 @@ sso:
     role_attribute_path: "Viewer"
     # -- Other options available, see package Documentation.
 
-# -- Values to passthrough to the monitoring chart: https://gitlab.com/enbuild-staging/charts/monitoring.git
+# -- Values to passthrough to the monitoring chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/monitoring.git
 values: {}
 
 # -- Post Renderers.  See docs/postrenders.md
