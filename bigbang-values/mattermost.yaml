@@ -3,7 +3,7 @@ addons:
     # -- Toggle deployment of Mattermost.
     enabled: false
     git:
-      repo: https://repo1.dso.mil/platform-one/big-bang/apps/collaboration-tools/mattermost.git
+      repo: https://gitlab.com/enbuild-staging/charts/mattermost.git
       path: "./chart"
       tag: "7.2.0-bb.0"
 
@@ -36,15 +36,15 @@ addons:
       client_secret: ""
 
       # -- Mattermost OIDC auth endpoint
-      # To get endpoint values, see here: https://repo1.dso.mil/platform-one/big-bang/apps/collaboration-tools/mattermost/-/blob/main/docs/keycloak.md#helm-values
+      # To get endpoint values, see here: https://gitlab.com/enbuild-staging/charts/mattermost/-/blob/main/docs/keycloak.md#helm-values
       auth_endpoint: ""
 
       # -- Mattermost OIDC token endpoint
-      # To get endpoint values, see here: https://repo1.dso.mil/platform-one/big-bang/apps/collaboration-tools/mattermost/-/blob/main/docs/keycloak.md#helm-values
+      # To get endpoint values, see here: https://gitlab.com/enbuild-staging/charts/mattermost/-/blob/main/docs/keycloak.md#helm-values
       token_endpoint: ""
 
       # -- Mattermost OIDC user API endpoint
-      # To get endpoint values, see here: https://repo1.dso.mil/platform-one/big-bang/apps/collaboration-tools/mattermost/-/blob/main/docs/keycloak.md#helm-values
+      # To get endpoint values, see here: https://gitlab.com/enbuild-staging/charts/mattermost/-/blob/main/docs/keycloak.md#helm-values
       user_api_endpoint: ""
 
     database:
@@ -86,12 +86,12 @@ addons:
 
     # -- Mattermost Elasticsearch integration - requires enterprise E20 license - https://docs.mattermost.com/deployment/elasticsearch.html
     # Connection info defaults to the BB deployed Elastic, all values can be overridden via the "values" passthrough for other connections.
-    # See values spec in MM chart "elasticsearch" yaml block - https://repo1.dso.mil/platform-one/big-bang/apps/collaboration-tools/mattermost/-/blob/main/chart/values.yaml
+    # See values spec in MM chart "elasticsearch" yaml block - https://gitlab.com/enbuild-staging/charts/mattermost/-/blob/main/chart/values.yaml
     elasticsearch:
       # -- Toggle interaction with Elastic for optimized search indexing
       enabled: false
 
-    # -- Values to passthrough to the Mattermost chart: https://repo1.dso.mil/platform-one/big-bang/apps/collaboration-tools/mattermost/-/blob/main/chart/values.yaml
+    # -- Values to passthrough to the Mattermost chart: https://gitlab.com/enbuild-staging/charts/mattermost/-/blob/main/chart/values.yaml
     values: {}
 
     # -- Post Renderers.  See docs/postrenders.md

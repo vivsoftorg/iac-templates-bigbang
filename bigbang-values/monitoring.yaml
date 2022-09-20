@@ -1,7 +1,7 @@
 # -- Toggle deployment of Monitoring (Prometheus, Grafana, and Alertmanager).
 enabled: true
 git:
-  repo: https://repo1.dso.mil/platform-one/big-bang/apps/core/monitoring.git
+  repo: https://gitlab.com/enbuild-staging/charts/monitoring.git
   path: "./chart"
   tag: "39.9.0-bb.1"
 
@@ -48,7 +48,7 @@ sso:
     role_attribute_path: "Viewer"
     # -- Other options available, see package Documentation.
 
-# -- Values to passthrough to the monitoring chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/monitoring.git
+# -- Values to passthrough to the monitoring chart: https://gitlab.com/enbuild-staging/charts/monitoring.git
 values: {}
 
 # -- Post Renderers.  See docs/postrenders.md

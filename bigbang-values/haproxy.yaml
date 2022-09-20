@@ -1,7 +1,7 @@
 addons:
   haproxy:
     git:
-      repo: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/haproxy.git
+      repo: https://gitlab.com/enbuild-staging/charts/haproxy.git
       path: "./chart"
       tag: "1.12.0-bb.0"
 
@@ -12,7 +12,7 @@ addons:
     ingress:
       gateway: ""
 
-    # -- Values to passthrough to the haproxy chart: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/haproxy.git
+    # -- Values to passthrough to the haproxy chart: https://gitlab.com/enbuild-staging/charts/haproxy.git
     values: {}
 
     # -- Post Renderers.  See docs/postrenders.md

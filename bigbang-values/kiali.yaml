@@ -1,7 +1,7 @@
 # -- Toggle deployment of Kiali.
 enabled: true
 git:
-  repo: https://repo1.dso.mil/platform-one/big-bang/apps/core/kiali.git
+  repo: https://gitlab.com/enbuild-staging/charts/kiali.git
   path: "./chart"
   tag: "1.55.0-bb.0"
 
@@ -22,7 +22,7 @@ sso:
   # -- OIDC Client Secret to use for Kiali
   client_secret: ""
 
-# -- Values to pass through to Kiali chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/kiali
+# -- Values to pass through to Kiali chart: https://gitlab.com/enbuild-staging/charts/kiali
 values: {}
 
 # -- Post Renderers.  See docs/postrenders.md

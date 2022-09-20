@@ -3,7 +3,7 @@ addons:
     # -- Toggle deployment of Nexus.
     enabled: false
     git:
-      repo: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/nexus.git
+      repo: https://gitlab.com/enbuild-staging/charts/nexus.git
       path: "./chart"
       tag: "41.0.0-bb.0"
 

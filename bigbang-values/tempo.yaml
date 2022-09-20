@@ -1,7 +1,7 @@
 # -- Toggle deployment of Tempo.
 enabled: false
 git:
-  repo: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/tempo.git
+  repo: https://gitlab.com/enbuild-staging/charts/tempo.git
   path: "./chart"
   tag: "0.16.1-bb.1"
 
@@ -46,7 +46,7 @@ objectStorage:
   # storage on port 80/9000 set this value to true.
   insecure: false
 
-# -- Values to passthrough to the Tempo chart: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/tempo.git
+# -- Values to passthrough to the Tempo chart: https://gitlab.com/enbuild-staging/charts/tempo.git
 values: {}
 
 # -- Post Renderers.  See docs/postrenders.md

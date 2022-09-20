@@ -9,14 +9,14 @@ addons:
     #       callback_uri: "https://somecallback"
     enabled: false
     git:
-      repo: https://repo1.dso.mil/platform-one/big-bang/apps/core/authservice.git
+      repo: https://gitlab.com/enbuild-staging/charts/authservice.git
       path: "./chart"
       tag: "0.5.2-bb.0"
 
     # -- Flux reconciliation overrides specifically for the Authservice Package
     flux: {}
 
-    # -- Values to passthrough to the authservice chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/authservice.git
+    # -- Values to passthrough to the authservice chart: https://gitlab.com/enbuild-staging/charts/authservice.git
     values: {}
 
     # -- Post Renderers.  See docs/postrenders.md

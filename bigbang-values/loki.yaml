@@ -1,7 +1,7 @@
 # -- Toggle deployment of Loki.
 enabled: false
 git:
-  repo: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/loki.git
+  repo: https://gitlab.com/enbuild-staging/charts/loki.git
   path: "./chart"
   tag: "1.8.10-bb.2"
 
@@ -32,7 +32,7 @@ objectStorage:
   # admin: loki-admin
   bucketNames: {}
 
-# -- Values to passthrough to the Loki chart: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/loki.git
+# -- Values to passthrough to the Loki chart: https://gitlab.com/enbuild-staging/charts/loki.git
 values: {}
 
 # -- Post Renderers.  See docs/postrenders.md

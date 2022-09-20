@@ -3,7 +3,7 @@ addons:
     # -- Toggle deployment of Anchore.
     enabled: false
     git:
-      repo: https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/anchore-enterprise.git
+      repo: https://gitlab.com/enbuild-staging/charts/anchore-enterprise.git
       path: "./chart"
       tag: "1.19.2-bb.0"
 
@@ -21,7 +21,7 @@ addons:
       enabled: false
 
       # -- License for Anchore Enterprise.
-      # For formatting examples see https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/anchore-enterprise/-/blob/main/docs/CHART.md#enabling-enterprise-services
+      # For formatting examples see https://gitlab.com/enbuild-staging/charts/anchore-enterprise/-/blob/main/docs/CHART.md#enabling-enterprise-services
       licenseYaml: |
         FULL LICENSE
 
@@ -59,7 +59,7 @@ addons:
 
       # -- Feeds database name to connect to on host (Note: feeds database name CANNOT contain hyphens).
       # Only required for enterprise edition of anchore.
-      # By default, feeds database will be configured with the same username and password as the main database. For formatting examples on how to use a separate username and password for the feeds database see https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/anchore-enterprise/-/blob/main/docs/CHART.md#handling-dependencies
+      # By default, feeds database will be configured with the same username and password as the main database. For formatting examples on how to use a separate username and password for the feeds database see https://gitlab.com/enbuild-staging/charts/anchore-enterprise/-/blob/main/docs/CHART.md#handling-dependencies
       feeds_database: ""
 
     redis:
@@ -77,7 +77,7 @@ addons:
       # -- Password to connect to pre-existing Redis.
       password: ""
 
-    # -- Values to passthrough to the anchore chart: https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/anchore-enterprise.git
+    # -- Values to passthrough to the anchore chart: https://gitlab.com/enbuild-staging/charts/anchore-enterprise.git
     values: {}
 
     # -- Post Renderers.  See docs/postrenders.md

@@ -5,7 +5,7 @@ addons:
     # istio.ingressGateways.passthrough-ingressgateway and istio.gateways.passthrough
     enabled: false
     git:
-      repo: https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/keycloak.git
+      repo: https://gitlab.com/enbuild-staging/charts/keycloak.git
       path: "./chart"
       tag: "18.2.1-bb.3"
 
@@ -41,7 +41,7 @@ addons:
       key: ""
       cert: ""
 
-    # -- Values to passthrough to the keycloak chart: https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/keycloak.git
+    # -- Values to passthrough to the keycloak chart: https://gitlab.com/enbuild-staging/charts/keycloak.git
     values: {}
 
     # -- Post Renderers.  See docs/postrenders.md

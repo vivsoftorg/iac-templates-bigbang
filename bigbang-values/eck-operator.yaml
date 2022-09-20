@@ -3,7 +3,7 @@ enabled: true
 git:
   repo: https://gitlab.com/enbuild-staging/charts/eck-operator.git
   path: "./chart"
-  tag: "1.7.1-bb.0"
+  tag: "2.3.0-bb.0"
 
 # -- Flux reconciliation overrides specifically for the ECK Operator Package
 flux: {}

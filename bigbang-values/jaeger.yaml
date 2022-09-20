@@ -1,7 +1,7 @@
 # -- Toggle deployment of Jaeger.
 enabled: true
 git:
-  repo: https://repo1.dso.mil/platform-one/big-bang/apps/core/jaeger.git
+  repo: https://gitlab.com/enbuild-staging/charts/jaeger.git
   path: "./chart"
   tag: "2.35.0-bb.0"
 
@@ -26,7 +26,7 @@ sso:
   # -- OIDC Client Secret to use for Jaeger
   client_secret: ""
 
-# -- Values to pass through to Jaeger chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/jaeger.git
+# -- Values to pass through to Jaeger chart: https://gitlab.com/enbuild-staging/charts/jaeger.git
 values: {}
 
 # -- Post Renderers.  See docs/postrenders.md

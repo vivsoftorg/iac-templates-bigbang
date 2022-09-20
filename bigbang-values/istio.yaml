@@ -2,7 +2,7 @@
 enabled: true
 
 git:
-  repo: https://repo1.dso.mil/platform-one/big-bang/apps/core/istio-controlplane.git
+  repo: https://gitlab.com/enbuild-staging/charts/istio-controlplane.git
   path: "./chart"
   tag: "1.14.3-bb.3"
 
@@ -108,7 +108,7 @@ gateways:
 # -- Flux reconciliation overrides specifically for the Istio Package
 flux: {}
 
-# -- Values to passthrough to the istio-controlplane chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/istio-controlplane.git
+# -- Values to passthrough to the istio-controlplane chart: https://gitlab.com/enbuild-staging/charts/istio-controlplane.git
 values: {}
 
 # -- Post Renderers.  See docs/postrenders.md

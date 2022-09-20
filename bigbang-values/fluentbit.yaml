@@ -3,7 +3,7 @@ enabled: true
 git:
   repo: https://gitlab.com/enbuild-staging/charts/fluentbit.git
   path: "./chart"
-  tag: "0.19.9-bb.0"
+  tag: "0.20.6-bb.0"
 
 # -- Flux reconciliation overrides specifically for the Fluent-Bit Package
 flux: {}

@@ -1,14 +1,14 @@
 # -- Toggle deployment of Kyverno.
 enabled: false
 git:
-  repo: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/kyverno.git
+  repo: https://gitlab.com/enbuild-staging/charts/kyverno.git
   path: "./chart"
   tag: "2.5.3-bb.0"
 
 # -- Flux reconciliation overrides specifically for the Kyverno Package
 flux: {}
 
-# -- Values to passthrough to the kyverno chart: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/kyverno.git
+# -- Values to passthrough to the kyverno chart: https://gitlab.com/enbuild-staging/charts/kyverno.git
 values: {}
 
 # -- Post Renderers.  See docs/postrenders.md

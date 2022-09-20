@@ -1,7 +1,7 @@
 # -- Toggle deployment of Twistlock.
 enabled: true
 git:
-  repo: https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/twistlock.git
+  repo: https://gitlab.com/enbuild-staging/charts/twistlock.git
   path: "./chart"
   tag: "0.9.1-bb.0"
 
@@ -12,7 +12,7 @@ flux: {}
 ingress:
   gateway: ""
 
-# -- Values to passthrough to the twistlock chart: https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/twistlock.git
+# -- Values to passthrough to the twistlock chart: https://gitlab.com/enbuild-staging/charts/twistlock.git
 values: {}
 
 # -- Post Renderers.  See docs/postrenders.md
