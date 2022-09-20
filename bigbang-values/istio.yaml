@@ -109,7 +109,14 @@ gateways:
 flux: {}
 
 # -- Values to passthrough to the istio-controlplane chart: https://gitlab.com/enbuild-staging/charts/istio-controlplane.git
-values: {}
+values:
+  hub: registry.gitlab.com/enbuild-staging/container_registry/opensource-istio
+  tidHub: registry.gitlab.com/enbuild-staging/container_registry/tetrate-istio
+  cni:
+    image:
+      hub: registry.gitlab.com/enbuild-staging/container_registry/opensource-istio
+  postInstallHook:
+    image: registry.gitlab.com/enbuild-staging/container_registry/big-bang/base:2.0.0
 
 # -- Post Renderers.  See docs/postrenders.md
 postRenderers: []
