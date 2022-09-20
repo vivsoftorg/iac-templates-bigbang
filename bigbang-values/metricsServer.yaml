@@ -1,0 +1,19 @@
+addons:
+  metricsServer:
+      # -- Toggle deployment of metrics server
+      # Acceptable options are enabled: true, enabled: false, enabled: auto
+      # true = enabled / false = disabled / auto = automatic (Installs only if metrics API endpoint is not present)
+      enabled: auto
+      git:
+        repo: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/metrics-server.git
+        path: "./chart"
+        tag: "3.8.0-bb.4"
+
+      # -- Flux reconciliation overrides specifically for the metrics server Package
+      flux: {}
+
+      # -- Values to passthrough to the metrics server chart: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/metrics-server.git
+      values: {}
+
+      # -- Post Renderers.  See docs/postrenders.md
+      postRenderers: []

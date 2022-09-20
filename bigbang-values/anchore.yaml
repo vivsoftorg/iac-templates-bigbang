@@ -3,9 +3,9 @@ addons:
     # -- Toggle deployment of Anchore.
     enabled: false
     git:
-      repo: https://gitlab.com/enbuild-staging/charts/anchore-enterprise.git
+      repo: https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/anchore-enterprise.git
       path: "./chart"
-      tag: "1.15.0-bb.0"
+      tag: "1.19.2-bb.0"
 
     # -- Flux reconciliation overrides specifically for the Anchore Package
     flux:
@@ -25,7 +25,7 @@ addons:
       licenseYaml: |
         FULL LICENSE
 
-    # Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+    # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
     ingress:
       gateway: ""
 
@@ -77,7 +77,7 @@ addons:
       # -- Password to connect to pre-existing Redis.
       password: ""
 
-    # -- Values to passthrough to the anchore chart: https://gitlab.com/enbuild-staging/charts/anchore-enterprise.git
+    # -- Values to passthrough to the anchore chart: https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/anchore-enterprise.git
     values: {}
 
     # -- Post Renderers.  See docs/postrenders.md

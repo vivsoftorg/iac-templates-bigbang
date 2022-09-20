@@ -3,16 +3,24 @@ addons:
     # -- Toggle deployment of ArgoCD.
     enabled: false
     git:
-      repo: https://gitlab.com/enbuild-staging/charts/argocd.git
+      repo: https://repo1.dso.mil/platform-one/big-bang/apps/core/argocd.git
       path: "./chart"
-      tag: "3.27.1-bb.0"
+      tag: "4.10.8-bb.0"
 
     # -- Flux reconciliation overrides specifically for the ArgoCD Package
     flux: {}
 
-    # Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+    # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
     ingress:
       gateway: ""
+
+    redis:
+      # -- Hostname of a pre-existing Redis to use for ArgoCD.
+      # Entering connection info will enable external Redis and will auto-create any required secrets.
+      host: ""
+
+      # -- Port of a pre-existing Redis to use for ArgoCD.
+      port: ""
 
     sso:
       # -- Toggle SSO for ArgoCD on and off
@@ -31,7 +39,7 @@ addons:
       groups: |
         g, Impact Level 2 Authorized, role:admin
 
-    # -- Values to passthrough to the argocd chart: https://gitlab.com/enbuild-staging/charts/argocd.git
+    # -- Values to passthrough to the argocd chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/argocd.git
     values: {}
 
     # -- Post Renderers.  See docs/postrenders.md

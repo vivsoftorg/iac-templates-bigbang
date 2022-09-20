@@ -1,4 +1,4 @@
-addons:
+addons:  
   gitlab:
     # -- Toggle deployment of Gitlab
     enabled: false
@@ -9,14 +9,14 @@ addons:
       registry: registry
 
     git:
-      repo: https://gitlab.com/enbuild-staging/charts/gitlab.git
+      repo: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/gitlab.git
       path: "./chart"
-      tag: "5.3.1-bb.10"
+      tag: "6.3.1-bb.0"
 
     # -- Flux reconciliation overrides specifically for the Gitlab Package
     flux: {}
 
-    # Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+    # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
     ingress:
       gateway: ""
 
@@ -33,6 +33,21 @@ addons:
 
       # -- Gitlab SSO login button label
       label: ""
+
+      # -- Gitlab SSO Scopes, default is ["Gitlab"]
+      scopes:
+      - Gitlab
+
+      # -- GitLab SSO Issuer URI,
+      # Only needed if your SSO is non-Keycloak
+      issuer_uri: ""
+
+      # -- GitLab SSO End Session URI,
+      # Only needed if your SSO is non-Keycloak
+      end_session_uri: ""
+
+      # -- Gitlab SSO UID field
+      uid_field: preferred_username
 
     database:
       # -- Hostname of a pre-existing PostgreSQL database to use for Gitlab.
@@ -80,7 +95,18 @@ addons:
       # -- If using an AWS IAM profile, the accessKey and accessSecret values must be left as empty strings eg: ""
       iamProfile: ""
 
-    # -- Values to passthrough to the gitlab chart: https://gitlab.com/enbuild-staging/charts/gitlab.git
+    smtp:
+      # -- Passwords should be placed in an encrypted file. Example: environment-bb-secret.enc.yaml
+      # If a value is provided BigBang will create a k8s secret named gitlab-smtp-password in the gitlab namespace
+      password: ""
+
+    redis:
+      # -- Redis plain text password to connect to the redis server.  If empty (""), the gitlab charts will create the gitlab-redis-secret
+      # with a random password.
+      # -- This needs to be set to a non-empty value in order for the Grafana Redis Datasource and Dashboards to be installed.
+      password: ""
+
+    # -- Values to passthrough to the gitlab chart: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/gitlab.git
     values: {}
 
     # -- Post Renderers.  See docs/postrenders.md

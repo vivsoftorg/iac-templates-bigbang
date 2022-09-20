@@ -3,18 +3,22 @@ addons:
     # -- Toggle deployment of Vault.
     enabled: false
     git:
-      repo: https://gitlab.com/enbuild-staging/charts/vault.git
+      repo: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/vault.git
       path: "./chart"
-      tag: "0.18.0-bb.1"
+      tag: "0.21.0-bb.0"
 
     # -- Flux reconciliation overrides specifically for the Vault Package
     flux: {}
 
-    # Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+    # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
     ingress:
       gateway: ""
+      # -- Certificate/Key pair to use as the certificate for exposing Vault
+      # Setting the ingress cert here will automatically create the volume and volumemounts in the Vault package chart
+      key: ""
+      cert: ""
 
-    # -- Values to passthrough to the vault chart: https://gitlab.com/enbuild-staging/charts/vault.git
+    # -- Values to passthrough to the vault chart: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/vault.git
     values: {}
 
     # -- Post Renderers.  See docs/postrenders.md

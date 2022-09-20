@@ -3,14 +3,14 @@ addons:
     # -- Toggle deployment of SonarQube.
     enabled: false
     git:
-      repo: https://gitlab.com/enbuild-staging/charts/sonarqube.git
+      repo: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/sonarqube.git
       path: "./chart"
-      tag: "9.6.3-bb.12"
+      tag: "1.0.29-bb.2"
 
     # -- Flux reconciliation overrides specifically for the Sonarqube Package
     flux: {}
 
-    # Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+    # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
     ingress:
       gateway: ""
 
@@ -57,7 +57,7 @@ addons:
       # -- Database password for the username used to connect to the existing database.
       password: ""
 
-    # -- Values to passthrough to the sonarqube chart: https://gitlab.com/enbuild-staging/charts/sonarqube.git
+    # -- Values to passthrough to the sonarqube chart: https://repo1.dso.mil/platform-one/big-bang/apps/developer-tools/sonarqube.git
     values: {}
 
     # -- Post Renderers.  See docs/postrenders.md

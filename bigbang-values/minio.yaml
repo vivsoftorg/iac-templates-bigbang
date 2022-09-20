@@ -3,14 +3,14 @@ addons:
     # -- Toggle deployment of minio.
     enabled: false
     git:
-      repo: https://gitlab.com/enbuild-staging/charts/minio.git
+      repo: https://repo1.dso.mil/platform-one/big-bang/apps/application-utilities/minio.git
       path: "./chart"
-      tag: "4.2.3-bb.8"
+      tag: "4.4.28-bb.0"
 
     # -- Flux reconciliation overrides specifically for the Minio Package
     flux: {}
 
-    # Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+    # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
     ingress:
       gateway: ""
 
@@ -20,7 +20,7 @@ addons:
     # -- Default secret key to intstantiate with minio, you should change/delete this after installation.
     secretkey: ""
 
-    # -- Values to passthrough to the minio instance chart: https://gitlab.com/enbuild-staging/charts/minio.git
+    # -- Values to passthrough to the minio instance chart: https://repo1.dso.mil/platform-one/big-bang/apps/application-utilities/minio.git
     values: {}
 
     # -- Post Renderers.  See docs/postrenders.md
