@@ -1,14 +1,14 @@
 # -- Toggle deployment of Kiali.
 enabled: true
 git:
-  repo: https://gitlab.com/enbuild-staging/charts/kiali.git
+  repo: https://repo1.dso.mil/platform-one/big-bang/apps/core/kiali.git
   path: "./chart"
-  tag: "1.44.0-bb.1"
+  tag: "1.55.0-bb.0"
 
 # -- Flux reconciliation overrides specifically for the Kiali Package
 flux: {}
 
-# Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+# -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
 ingress:
   gateway: ""
 

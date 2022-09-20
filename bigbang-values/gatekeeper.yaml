@@ -1,9 +1,9 @@
 # -- Toggle deployment of OPA Gatekeeper.
 enabled: true
 git:
-  repo: https://gitlab.com/enbuild-staging/charts/gatekeeper.git
+  repo: https://repo1.dso.mil/platform-one/big-bang/apps/core/policy.git
   path: "./chart"
-  tag: "3.6.0-bb.2"
+  tag: "3.9.0-bb.0"
 
 # -- Flux reconciliation overrides specifically for the OPA Gatekeeper Package
 flux:
@@ -12,7 +12,7 @@ flux:
   upgrade:
     crds: CreateReplace
 
-# -- Values to passthrough to the gatekeeper chart: https://gitlab.com/enbuild-staging/charts/gatekeeper.git
+# -- Values to passthrough to the gatekeeper chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/policy.git
 values: {}
 
 # -- Post Renderers.  See docs/postrenders.md

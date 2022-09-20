@@ -1,15 +1,15 @@
 # -- Toggle deployment of Logging (EFK).
 enabled: true
 git:
-  repo: https://gitlab.com/enbuild-staging/charts/elasticsearch-kibana.git
+  repo: https://repo1.dso.mil/platform-one/big-bang/apps/core/elasticsearch-kibana.git
   path: "./chart"
-  tag: "0.4.0-bb.0"
+  tag: "0.10.0-bb.1"
 
 # -- Flux reconciliation overrides specifically for the Logging (EFK) Package
 flux:
   timeout: 20m
 
-# Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+# -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
 ingress:
   gateway: ""
 
@@ -31,7 +31,7 @@ license:
   # -- Elasticsearch license in json format seen here: https://repo1.dso.mil/platform-one/big-bang/apps/core/elasticsearch-kibana#enterprise-license
   keyJSON: ""
 
-# -- Values to passthrough to the elasticsearch-kibana chart: https://gitlab.com/enbuild-staging/charts/elasticsearch-kibana.git
+# -- Values to passthrough to the elasticsearch-kibana chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/elasticsearch-kibana.git
 values: {}
 
 # -- Post Renderers.  See docs/postrenders.md
