@@ -6,7 +6,7 @@ addons:
     git:
       repo: https://gitlab.com/enbuild-staging/charts/velero.git
       path: "./chart"
-      tag: "2.23.6-bb.3"
+      tag: "2.31.3-bb.0"
 
     # -- Flux reconciliation overrides specifically for the Velero Package
     flux: {}
@@ -15,7 +15,7 @@ addons:
     plugins: []
     # - aws
 
-    # -- Values to passthrough to the Velero chart: https://repo1.dso.mil/platform-one/big-bang/apps/cluster-utilities/velero/-/blob/main/chart/values.yaml
+    # -- Values to passthrough to the Velero chart: https://gitlab.com/enbuild-staging/charts/velero/-/blob/main/chart/values.yaml
     values: {}
 
     # -- Post Renderers.  See docs/postrenders.md
