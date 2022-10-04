@@ -1,55 +1,86 @@
 # -- Toggle deployment of Monitoring (Prometheus, Grafana, and Alertmanager).
 enabled: true
 git:
-  repo: https://gitlab.com/enbuild-staging/charts/monitoring.git
+  repo: "https://gitlab.com/enbuild-staging/charts/monitoring.git"
   path: "./chart"
   tag: "39.9.0-bb.1"
-
 # -- Flux reconciliation overrides specifically for the Monitoring Package
 flux:
   install:
     crds: CreateReplace
   upgrade:
     crds: CreateReplace
-
 # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
 ingress:
   gateway: ""
-
 sso:
   # -- Toggle SSO for monitoring components on and off
   enabled: false
   prometheus:
     # -- Prometheus OIDC client ID
     client_id: ""
-
     # -- Prometheus OIDC client secret
     client_secret: ""
-
   alertmanager:
     # -- Alertmanager OIDC client ID
     client_id: ""
-
     # -- Alertmanager OIDC client secret
     client_secret: ""
-
   grafana:
     # -- Grafana OIDC client ID
     client_id: ""
-
     # -- Grafana OIDC client secret
     client_secret: ""
-
     # -- Grafana OIDC client scopes, comma separated, see https://grafana.com/docs/grafana/latest/auth/generic-oauth/
     scopes: ""
-
     allow_sign_up: "true"
-
     role_attribute_path: "Viewer"
     # -- Other options available, see package Documentation.
-
 # -- Values to passthrough to the monitoring chart: https://gitlab.com/enbuild-staging/charts/monitoring.git
-values: {}
-
+values:
+  cleanUpgrade:
+    image:
+      repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang-base
+  alertmanager:
+    alertmanagerSpec:
+      image:
+        repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-prometheus/alertmanager
+  grafana:
+    image:
+      repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang-grafana/grafana-plugins
+    testFramework:
+      image: registry.gitlab.com/enbuild-staging/container_registry/opensource-bats/bats
+    sidecar:
+      image:
+        repository: registry.gitlab.com/enbuild-staging/container_registry/kiwigrid-k8s-sidecar
+    downloadDashboardsImage:
+      repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang-base
+  kube-state-metrics:
+    image:
+      repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes/kube-state-metrics
+  prometheus-node-exporter:
+    image:
+      repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-prometheus/node-exporter
+  prometheusOperator:
+    admissionWebhooks:
+      patch:
+        image:
+          repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-ingress-nginx/kube-webhook-certgen
+      cleanupProxy:
+        image:
+          repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang-base
+    image:
+      repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-prometheus-operator/prometheus-operator
+    prometheusConfigReloader:
+      image:
+        repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-prometheus-operator/prometheus-config-reloader
+    thanosImage:
+      repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-thanos/thanos
+    kubectlImage:
+      repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes/kubectl
+  prometheus:
+    prometheusSpec:
+      image:
+        repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-prometheus/prometheus
 # -- Post Renderers.  See docs/postrenders.md
 postRenderers: []

@@ -1,20 +1,18 @@
 addons:
   haproxy:
     git:
-      repo: https://gitlab.com/enbuild-staging/charts/haproxy.git
+      repo: "https://gitlab.com/enbuild-staging/charts/haproxy.git"
       path: "./chart"
       tag: "1.12.0-bb.0"
-
     # -- Flux reconciliation overrides specifically for the HAProxy Package
     flux: {}
-
     # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
     ingress:
       gateway: ""
-
     # -- Values to passthrough to the haproxy chart: https://gitlab.com/enbuild-staging/charts/haproxy.git
     values: {}
-
     # -- Post Renderers.  See docs/postrenders.md
     postRenderers: []
-
+values:
+  image:
+    repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-haproxy/haproxy22
