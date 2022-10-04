@@ -32,9 +32,15 @@ values:
     crdRepository: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes/kubectl
   violations:
     allowedDockerRegistries:
+      enabled: true
+      enforcementAction: deny
+      kind: K8sAllowedRepos
+      name: allowed-docker-registries
+      match: {}
       parameters:
         repos:
-          0: registry.gitlab.com
+          - registry.gitlab.com
+        excludedResources: []
   bbtests:
     scripts:
       image: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes/kubectl:v1.22.2
