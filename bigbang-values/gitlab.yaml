@@ -97,9 +97,9 @@ addons:
       redis:
         metrics:
           image:
-            registry: registry.gitlab.com/enbuild-staging/container_registry/bitnami-
+            registry: registry.gitlab.com/enbuild-staging/container_registry/bitnami
         image:
-          registry: registry.gitlab.com/enbuild-staging/container_registry/bitnami-
+          registry: registry.gitlab.com/enbuild-staging/container_registry/bitnami
       postgresql:
         image:
           registry: registry.gitlab.com

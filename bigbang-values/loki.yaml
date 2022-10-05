@@ -33,7 +33,7 @@ values:
   enterprise:
     image:
       registry: registry.gitlab.com
-      repository: enbuild-staging/container_registry/grafana/grafana-enterprise-logs-
+      repository: enbuild-staging/container_registry/grafana/grafana-enterprise-logs
     tokengen:
       image: registry.gitlab.com/enbuild-staging/container_registry/big-bang-base:2.0.0
   gateway:
