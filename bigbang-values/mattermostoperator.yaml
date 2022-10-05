@@ -8,9 +8,8 @@ addons:
     # -- Flux reconciliation overrides specifically for the Mattermost Operator Package
     flux: {}
     # -- Values to passthrough to the mattermost operator chart: https://gitlab.com/enbuild-staging/charts/mattermost-operator/-/blob/main/chart/values.yaml
-    values: {}
+    values:
+      image:
+        repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-mattermost/mattermost-operator
     # -- Post Renderers.  See docs/postrenders.md
     postRenderers: []
-values:
-  image:
-    repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-mattermost/mattermost-operator

@@ -80,71 +80,70 @@ addons:
       # -- This needs to be set to a non-empty value in order for the Grafana Redis Datasource and Dashboards to be installed.
       password: ""
     # -- Values to passthrough to the gitlab chart: https://gitlab.com/enbuild-staging/charts/gitlab.git
-    values: {}
+    values:
+      global:
+        certificates:
+          image:
+            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/alpine-certificates
+        kubectl:
+          image:
+            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/kubectl
+        busybox:
+          image:
+            repository: registry.gitlab.com/enbuild-staging/container_registry/redhat-ubi/ubi8
+      upgradeCheck:
+        image:
+          repository: registry.gitlab.com/enbuild-staging/container_registry/redhat-ubi/ubi8
+      redis:
+        metrics:
+          image:
+            registry: registry.gitlab.com/enbuild-staging/container_registry/bitnami-
+        image:
+          registry: registry.gitlab.com/enbuild-staging/container_registry/bitnami-
+      postgresql:
+        image:
+          registry: registry.gitlab.com
+          repository: enbuild-staging/container_registry/opensource/postgres-postgresql12
+      registry:
+        image:
+          repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-container-registry
+      shared-secrets:
+        selfsign:
+          image:
+            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/cfssl-self-sign
+      gitlab:
+        toolbox:
+          image:
+            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-toolbox
+        gitlab-exporter:
+          image:
+            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-exporter
+        migrations:
+          image:
+            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-toolbox
+        webservice:
+          image:
+            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-webservice
+          workhorse:
+            image: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-workhorse
+        sidekiq:
+          image:
+            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-sidekiq
+        gitaly:
+          image:
+            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitaly
+        gitlab-shell:
+          image:
+            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-shell
+        mailroom:
+          image:
+            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-mailroom
+        praefect:
+          image:
+            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitaly
+      minio:
+        image: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/minio
+        minioMc:
+          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/mc
     # -- Post Renderers.  See docs/postrenders.md
     postRenderers: []
-values:
-  global:
-    certificates:
-      image:
-        repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/alpine-certificates
-    kubectl:
-      image:
-        repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/kubectl
-    busybox:
-      image:
-        repository: registry.gitlab.com/enbuild-staging/container_registry/redhat-ubi/ubi8
-  upgradeCheck:
-    image:
-      repository: registry.gitlab.com/enbuild-staging/container_registry/redhat-ubi/ubi8
-  redis:
-    metrics:
-      image:
-        registry: registry.gitlab.com/enbuild-staging/container_registry/bitnami-
-    image:
-      registry: registry.gitlab.com/enbuild-staging/container_registry/bitnami-
-  postgresql:
-    image:
-      registry: registry.gitlab.com
-      repository: enbuild-staging/container_registry/opensource/postgres-postgresql12
-  registry:
-    image:
-      repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-container-registry
-  shared-secrets:
-    selfsign:
-      image:
-        repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/cfssl-self-sign
-  gitlab:
-    toolbox:
-      image:
-        repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-toolbox
-    gitlab-exporter:
-      image:
-        repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-exporter
-    migrations:
-      image:
-        repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-toolbox
-    webservice:
-      image:
-        repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-webservice
-      workhorse:
-        image: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-workhorse
-    sidekiq:
-      image:
-        repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-sidekiq
-    gitaly:
-      image:
-        repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitaly
-    gitlab-shell:
-      image:
-        repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-shell
-    mailroom:
-      image:
-        repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-mailroom
-    praefect:
-      image:
-        repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitaly
-  minio:
-    image: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/minio
-    minioMc:
-      image: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/mc

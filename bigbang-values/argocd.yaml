@@ -30,16 +30,15 @@ addons:
       groups: |
         g, Impact Level 2 Authorized, role:admin
     # -- Values to passthrough to the argocd chart: https://gitlab.com/enbuild-staging/charts/argocd.git
-    values: {}
+    values:
+      global:
+        image:
+          repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang-argocd
+      dex:
+        image:
+          repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-dexidp/dex
+      redis:
+        image:
+          repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-redis/redis6
     # -- Post Renderers.  See docs/postrenders.md
     postRenderers: []
-values:
-  global:
-    image:
-      repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang-argocd
-  dex:
-    image:
-      repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-dexidp/dex
-  redis:
-    image:
-      repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-redis/redis6

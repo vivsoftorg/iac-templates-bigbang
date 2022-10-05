@@ -42,17 +42,16 @@ addons:
       # -- Database password for the username used to connect to the existing database.
       password: ""
     # -- Values to passthrough to the sonarqube chart: https://gitlab.com/enbuild-staging/charts/sonarqube.git
-    values: {}
+    values:
+      image:
+        repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang-sonarqube
+      waitForDb:
+        image: registry.gitlab.com/enbuild-staging/container_registry/opensource-postgres/postgresql12:12.11
+      plugins:
+        image: registry.gitlab.com/enbuild-staging/container_registry/big-bang-sonarqube:8.9.9-community
+      postgresql:
+        image:
+          registry: registry.gitlab.com
+          repository: enbuild-staging/container_registry/opensource/postgres-postgresql12
     # -- Post Renderers.  See docs/postrenders.md
     postRenderers: []
-values:
-  image:
-    repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang-sonarqube
-  waitForDb:
-    image: registry.gitlab.com/enbuild-staging/container_registry/opensource-postgres/postgresql12:12.11
-  plugins:
-    image: registry.gitlab.com/enbuild-staging/container_registry/big-bang-sonarqube:8.9.9-community
-  postgresql:
-    image:
-      registry: registry.gitlab.com
-      repository: enbuild-staging/container_registry/opensource/postgres-postgresql12

@@ -59,24 +59,23 @@ addons:
       # -- Password to connect to pre-existing Redis.
       password: ""
     # -- Values to passthrough to the anchore chart: https://gitlab.com/enbuild-staging/charts/anchore-enterprise.git
-    values: {}
+    values:
+      postgresql:
+        image:
+          registry: registry.gitlab.com
+          repository: enbuild-staging/container_registry/opensource/postgres-postgresql12
+      anchoreGlobal:
+        image: registry.gitlab.com/enbuild-staging/container_registry/anchore-engine/engine:1.1.0
+      anchoreEnterpriseGlobal:
+        image: registry.gitlab.com/enbuild-staging/container_registry/anchore-enterprise/enterprise:4.0.3
+      anchore-feeds-db:
+        image:
+          registry: registry.gitlab.com
+          repository: enbuild-staging/container_registry/opensource/postgres-postgresql12
+      anchoreEnterpriseUi:
+        image: registry.gitlab.com/enbuild-staging/container_registry/anchore-enterpriseui/enterpriseui:4.0.3
+      bbtests:
+        scripts:
+          image: registry.gitlab.com/enbuild-staging/container_registry/anchore-cli/cli:0.9.4
     # -- Post Renderers.  See docs/postrenders.md
     postRenderers: []
-values:
-  postgresql:
-    image:
-      registry: registry.gitlab.com
-      repository: enbuild-staging/container_registry/opensource/postgres-postgresql12
-  anchoreGlobal:
-    image: registry.gitlab.com/enbuild-staging/container_registry/anchore-engine/engine:1.1.0
-  anchoreEnterpriseGlobal:
-    image: registry.gitlab.com/enbuild-staging/container_registry/anchore-enterprise/enterprise:4.0.3
-  anchore-feeds-db:
-    image:
-      registry: registry.gitlab.com
-      repository: enbuild-staging/container_registry/opensource/postgres-postgresql12
-  anchoreEnterpriseUi:
-    image: registry.gitlab.com/enbuild-staging/container_registry/anchore-enterpriseui/enterpriseui:4.0.3
-  bbtests:
-    scripts:
-      image: registry.gitlab.com/enbuild-staging/container_registry/anchore-cli/cli:0.9.4

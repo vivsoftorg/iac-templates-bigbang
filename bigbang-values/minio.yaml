@@ -16,13 +16,12 @@ addons:
     # -- Default secret key to intstantiate with minio, you should change/delete this after installation.
     secretkey: ""
     # -- Values to passthrough to the minio instance chart: https://gitlab.com/enbuild-staging/charts/minio.git
-    values: {}
+    values:
+      tenant:
+        image:
+          repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/minio
+      bbtests:
+        scripts:
+          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/mc:RELEASE.2022-02-26T03-58-31Z
     # -- Post Renderers.  See docs/postrenders.md
     postRenderers: []
-values:
-  tenant:
-    image:
-      repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/minio
-  bbtests:
-    scripts:
-      image: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/mc:RELEASE.2022-02-26T03-58-31Z

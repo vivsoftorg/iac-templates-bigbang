@@ -9,16 +9,15 @@ addons:
     # -- Flux reconciliation overrides specifically for the Gitlab Runner Package
     flux: {}
     # -- Values to passthrough to the gitlab runner chart: https://gitlab.com/enbuild-staging/charts/gitlab-runner.git
-    values: {}
+    values:
+      registry: registry.gitlab.com
+      repository: enbuild-staging/container_registry/gitlab/gitlab-runner-gitlab-runner
+      runners:
+        job:
+          registry: registry.gitlab.com
+          repository: enbuild-staging/container_registry/redhat/ubi-ubi8
+        helper:
+          registry: registry.gitlab.com
+          repository: enbuild-staging/container_registry/gitlab/gitlab-runner-gitlab-runner-helper
     # -- Post Renderers.  See docs/postrenders.md
     postRenderers: []
-values:
-  registry: registry.gitlab.com
-  repository: enbuild-staging/container_registry/gitlab/gitlab-runner-gitlab-runner
-  runners:
-    job:
-      registry: registry.gitlab.com
-      repository: enbuild-staging/container_registry/redhat/ubi-ubi8
-    helper:
-      registry: registry.gitlab.com
-      repository: enbuild-staging/container_registry/gitlab/gitlab-runner-gitlab-runner-helper

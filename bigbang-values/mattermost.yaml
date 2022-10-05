@@ -70,17 +70,16 @@ addons:
       # -- Toggle interaction with Elastic for optimized search indexing
       enabled: false
     # -- Values to passthrough to the Mattermost chart: https://gitlab.com/enbuild-staging/charts/mattermost/-/blob/main/chart/values.yaml
-    values: {}
+    values:
+      image:
+        name: registry.gitlab.com/enbuild-staging/container_registry/opensource-mattermost/mattermost
+      minio:
+        bucketCreationImage: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/mc:RELEASE.2022-08-23T05-45-20Z
+      postgresql:
+        image:
+          registry: registry.gitlab.com/enbuild-staging/container_registry
+      database:
+        readinessCheck:
+          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-postgres/postgresql12:12.8
     # -- Post Renderers.  See docs/postrenders.md
     postRenderers: []
-values:
-  image:
-    name: registry.gitlab.com/enbuild-staging/container_registry/opensource-mattermost/mattermost
-  minio:
-    bucketCreationImage: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/mc:RELEASE.2022-08-23T05-45-20Z
-  postgresql:
-    image:
-      registry: registry.gitlab.com/enbuild-staging/container_registry
-  database:
-    readinessCheck:
-      image: registry.gitlab.com/enbuild-staging/container_registry/opensource-postgres/postgresql12:12.8

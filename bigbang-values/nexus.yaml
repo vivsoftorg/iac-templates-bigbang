@@ -46,11 +46,10 @@ addons:
     # -- Flux reconciliation overrides specifically for the Nexus Repository Manager Package
     flux: {}
     # -- Values to passthrough to the nxrm chart: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/nexus.git
-    values: {}
+    values:
+      job_image:
+        repository: registry.gitlab.com/enbuild-staging/container_registry/redhat-ubi/ubi8-minimal
+      image:
+        repository: registry.gitlab.com/enbuild-staging/container_registry/sonatype-nexus/nexus
     # -- Post Renderers.  See docs/postrenders.md
     postRenderers: []
-values:
-  job_image:
-    repository: registry.gitlab.com/enbuild-staging/container_registry/redhat-ubi/ubi8-minimal
-  image:
-    repository: registry.gitlab.com/enbuild-staging/container_registry/sonatype-nexus/nexus
