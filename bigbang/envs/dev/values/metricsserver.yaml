@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: metricsserver-values
+data:
+  values.yaml: |-
+    addons:
+      metricsServer:
+        enabled: auto
+        git:
+          repo: 'https://gitlab.com/enbuild-staging/charts/metrics-server.git'
+          path: ./chart
+          tag: 3.8.0-bb.4
+        flux: {}
+        values:
+          image:
+            repository: >-
+              registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes-sigs/metrics-server
+        postRenderers: []
