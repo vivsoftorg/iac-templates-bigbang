@@ -1,0 +1,54 @@
+apiVersion: v1
+data:
+  keycloak.yaml: |
+    addons:
+      keycloak:
+        # -- Toggle deployment of Keycloak.
+        # if you enable Keycloak you should uncomment the istio passthrough configurations above
+        # istio.ingressGateways.passthrough-ingressgateway and istio.gateways.passthrough
+        enabled: false
+        git:
+          repo: "https://gitlab.com/enbuild-staging/charts/keycloak.git"
+          path: "./chart"
+          tag: "18.2.1-bb.3"
+        database:
+          # -- Hostname of a pre-existing database to use for Keycloak.
+          # Entering connection info will disable the deployment of an internal database and will auto-create any required secrets.
+          host: ""
+          # -- Pre-existing database type (e.g. postgres) to use for Keycloak.
+          type: postgres
+          # -- Port of a pre-existing database to use for Keycloak.
+          port: 5432
+          # -- Database name to connect to on host.
+          database: "" # example: keycloak
+          # -- Username to connect as to external database, the user must have all privileges on the database.
+          username: ""
+          # -- Database password for the username used to connect to the existing database.
+          password: ""
+        # -- Flux reconciliation overrides specifically for the OPA Gatekeeper Package
+        flux: {}
+        # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+        ingress:
+          # the istio gateway for keycloak must have tls.mode: PASSTHROUGH
+          gateway: "passthrough"
+          # -- Certificate/Key pair to use as the certificate for exposing Keycloak
+          # Setting the ingress cert here will automatically create the volume and volumemounts in the Keycloak Package chart
+          key: ""
+          cert: ""
+        # -- Values to passthrough to the keycloak chart: https://gitlab.com/enbuild-staging/charts/keycloak.git
+        values:
+          pgchecker:
+            image:
+              repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-postgres/postgresql12
+          postgresql:
+            image:
+              registry: registry.gitlab.com
+              repository: enbuild-staging/container_registry/opensource/postgres-postgresql12
+          bbtests:
+            image: registry.gitlab.com/enbuild-staging/container_registry/big-bang-base:2.0.0
+        # -- Post Renderers.  See docs/postrenders.md
+        postRenderers: []
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: keycloak-values

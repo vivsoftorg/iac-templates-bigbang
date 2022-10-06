@@ -1,0 +1,24 @@
+apiVersion: v1
+data:
+  fluentbit.yaml: |
+    # -- Toggle deployment of Fluent-Bit.
+    enabled: true
+    git:
+      repo: "https://gitlab.com/enbuild-staging/charts/fluentbit.git"
+      path: "./chart"
+      tag: "0.20.6-bb.0"
+    # -- Flux reconciliation overrides specifically for the Fluent-Bit Package
+    flux: {}
+    # -- Values to passthrough to the fluentbit chart: https://gitlab.com/enbuild-staging/charts/fluentbit.git
+    values:
+      image:
+        repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-fluent/fluent-bit
+      bbtests:
+        scripts:
+          image: registry.gitlab.com/enbuild-staging/container_registry/stedolan-jq:1.6
+    # -- Post Renderers.  See docs/postrenders.md
+    postRenderers: []
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: fluentbit-values
