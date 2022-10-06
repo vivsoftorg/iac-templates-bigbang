@@ -6,16 +6,16 @@ resources:
 images:
 - name: ghcr.io/fluxcd/helm-controller
   newName: registry.gitlab.com/enbuild-staging/container_registry/fluxcd/helm-controller
-  newTag: v0.11.0
+  newTag: v0.22.2
 - name: ghcr.io/fluxcd/kustomize-controller
   newName: registry.gitlab.com/enbuild-staging/container_registry/fluxcd/kustomize-controller
-  newTag: v0.13.0
+  newTag: v0.27.0
 - name: ghcr.io/fluxcd/notification-controller
   newName: registry.gitlab.com/enbuild-staging/container_registry/fluxcd/notification-controller
-  newTag: v0.15.0
+  newTag: v0.25.1
 - name: ghcr.io/fluxcd/source-controller
   newName: registry.gitlab.com/enbuild-staging/container_registry/fluxcd/source-controller
-  newTag: v0.14.0
+  newTag: v0.26.1
 
 patches:
   - target:
@@ -52,6 +52,7 @@ patches:
                   capabilities:
                     drop:
                       - ALL
+                  $patch: replace
   - target:
       kind: Deployment
       name: helm-controller
@@ -68,10 +69,10 @@ patches:
               resources:
                 limits:
                   cpu: 500m
-                  memory: 750Mi
+                  memory: 1Gi
                 requests:
                   cpu: 500m
-                  memory: 750Mi
+                  memory: 1Gi
   - target:
       kind: Deployment
       name: kustomize-controller
@@ -88,10 +89,10 @@ patches:
               resources:
                 limits:
                   cpu: 100m
-                  memory: 200Mi
+                  memory: 600Mi
                 requests:
                   cpu: 100m
-                  memory: 200Mi
+                  memory: 600Mi
   - target:
       kind: Deployment
       name: notification-controller
@@ -108,10 +109,10 @@ patches:
               resources:
                 limits:
                   cpu: 100m
-                  memory: 100Mi
+                  memory: 200Mi
                 requests:
                   cpu: 100m
-                  memory: 100Mi
+                  memory: 200Mi
   - target:
       kind: Deployment
       name: source-controller
@@ -128,7 +129,7 @@ patches:
               resources:
                 limits:
                   cpu: 100m
-                  memory: 150Mi
+                  memory: 250Mi
                 requests:
                   cpu: 100m
-                  memory: 150Mi
+                  memory: 250Mi
