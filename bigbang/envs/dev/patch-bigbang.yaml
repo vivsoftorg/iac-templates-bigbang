@@ -61,11 +61,11 @@ spec:
       kind: Secret
     - name: twistlock-values
       kind: Secret
-    - name: metricsserver-values
-      kind: Secret
-    - name: promtail-values
-      kind: Secret
-    - name: loki-values
-      kind: Secret
-    - name: kyverno-values
-      kind: Secret
+    # - name: metricsserver-values
+    #   kind: Secret
+    # - name: promtail-values
+    #   kind: Secret
+    # - name: loki-values
+    #   kind: Secret
+    # - name: kyverno-values
+    #   kind: Secret
