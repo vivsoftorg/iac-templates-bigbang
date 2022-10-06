@@ -1,0 +1,23 @@
+# -- Toggle deployment of Kyverno policies
+enabled: false
+git:
+  repo: "https://gitlab.com/enbuild-staging/charts/kyverno-policies.git"
+  path: ./chart
+  tag: "1.0.1-bb.4"
+# -- Flux reconciliation overrides specifically for the Kyverno Package
+flux: {}
+# -- Values to passthrough to the kyverno policies chart: https://gitlab.com/enbuild-staging/charts/kyverno-policies.git
+values:
+  waitforready:
+    image:
+      repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes/kubectl
+  policies:
+    restrict-image-registries:
+      parameters:
+        allow:
+          - registry.gitlab.com
+  bbtests:
+    scripts:
+      image: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes/kubectl:v1.24.4
+# -- Post Renderers.  See docs/postrenders.md
+postRenderers: []
