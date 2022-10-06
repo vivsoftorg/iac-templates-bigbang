@@ -1,17 +1,14 @@
 # -- Domain used for BigBang created exposed services, can be overridden by individual packages.
 domain: bigbang.dev
-
 # -- (experimental) Toggle sourcing from external repos.
 # All this does right now is toggle GitRepositories, it is _not_ fully functional
 offline: false
-
 # -- Single set of registry credentials used to pull all images deployed by BigBang.
 registryCredentials:
   registry: registry1.dso.mil
   username: ""
   password: ""
   email: ""
-
 # -- Multiple sets of registry credentials used to pull all images deployed by BigBang.
 # Credentials will only be created when a valid combination exists, registry, username, and password (email is optional)
 # Or a list of registires:
@@ -26,7 +23,6 @@ registryCredentials:
 
 # Openshift Container Platform Feature Toggle
 openshift: false
-
 # -- Git credential settings for accessing private repositories
 # Order of precedence is:
 #   1. existingSecret
@@ -35,7 +31,6 @@ openshift: false
 git:
   # -- Existing secret to use for git credentials, must be in the appropriate format: https://toolkit.fluxcd.io/components/source/gitrepositories/#https-authentication
   existingSecret: ""
-
   # -- Chart created secrets with user defined values
   credentials:
     # -- HTTP git credentials, both username and password must be provided
@@ -47,7 +42,6 @@ git:
     privateKey: ""
     publicKey: ""
     knownHosts: ""
-
 # -- Global SSO values used for BigBang deployments when sso is enabled, can be overridden by individual packages.
 sso:
   oidc:
@@ -55,28 +49,20 @@ sso:
     host: login.dso.mil
     # -- Keycloak realm containing clients
     realm: baby-yoda
-
-  # -- Keycloak's certificate authority (PEM Format). Entered using chomp modifier (see ./docs/example_configs/dev-sso-values.yaml for example). Used by authservice to support SSO for various packages
+  # -- Keycloak's certificate authority (PEM Format). Entered using chomp modifier (see docs/assets/configs/example/dev-sso-values.yaml for example). Used by authservice to support SSO for various packages
   certificate_authority: ""
-
   # -- Keycloak realm's json web key output, obtained at https://<keycloak-server>/auth/realms/<realm>/protocol/openid-connect/certs
   jwks: ''
-
   # -- OIDC client ID used for packages authenticated through authservice
   client_id: ""
-
   # -- OIDC client secret used for packages authenticated through authservice
   client_secret: ""
-
   # -- OIDC token URL template string (to be used as default)
   token_url: "https://{{ .Values.sso.oidc.host }}/auth/realms/{{ .Values.sso.oidc.realm }}/protocol/openid-connect/token"
-
   # -- OIDC auth URL template string (to be used as default)
   auth_url: "https://{{ .Values.sso.oidc.host }}/auth/realms/{{ .Values.sso.oidc.realm }}/protocol/openid-connect/auth"
-
   # -- Kubernetes Secret containing the sso.certificate_authority value for SSO enabled application namespaces
   secretName: "tls-ca-sso"
-
 # -- (Advanced) Flux reconciliation parameters.
 # The default values provided will be sufficient for the majority of workloads.
 flux:
@@ -95,7 +81,6 @@ flux:
   rollback:
     timeout: 10m
     cleanupOnFail: true
-
 # -- Global NetworkPolicies settings
 networkPolicies:
   # -- Toggle all package NetworkPolicies, can disable specific packages with `package.values.networkPolicies.enabled`
@@ -108,7 +93,11 @@ networkPolicies:
   # use `kubectl get nodes -owide` and review the `INTERNAL-IP` column to derive CIDR range.
   # Must be an IP CIDR range (x.x.x.x/x - ideally a /16 or /24 to include multiple IPs)
   nodeCidr: ""
-
+  # -- VPC CIDR, defaults to 0.0.0.0/0
+  # In a production environment, it is recommended to setup a Private Endpoint for your AWS services like KMS or S3.
+  # Please review https://docs.aws.amazon.com/kms/latest/developerguide/kms-vpc-endpoint.html to setup routing to AWS services that never leave the AWS network.
+  # Once created update `networkPolicies.vpcCidr` to match the CIDR of your VPC so Vault will be able to reach your VPCs DNS and new KMS endpoint.
+  vpcCidr: 0.0.0.0/0
 # -- Global ImagePullPolicy value for all packages
 # Permitted values are: None, Always, IfNotPresent
 imagePullPolicy: IfNotPresent
