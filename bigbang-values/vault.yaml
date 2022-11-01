@@ -3,7 +3,7 @@ addons:
     # -- Toggle deployment of Vault.
     enabled: false
     git:
-      repo: "https://gitlab.com/enbuild-staging/charts/vault.git"
+      repo: "https://github.com/VivSoftOrg/vault.git"
       path: "./chart"
       tag: "0.21.0-bb.0"
     # -- Flux reconciliation overrides specifically for the Vault Package
@@ -15,7 +15,7 @@ addons:
       # Setting the ingress cert here will automatically create the volume and volumemounts in the Vault package chart
       key: ""
       cert: ""
-    # -- Values to passthrough to the vault chart: https://gitlab.com/enbuild-staging/charts/vault.git
+    # -- Values to passthrough to the vault chart: https://github.com/VivSoftOrg/vault.git
     values:
       injector:
         image:

@@ -1,7 +1,7 @@
 # -- Toggle deployment of Promtail.
 enabled: false
 git:
-  repo: "https://gitlab.com/enbuild-staging/charts/promtail.git"
+  repo: "https://github.com/VivSoftOrg/promtail.git"
   path: "./chart"
   tag: "6.2.2-bb.1"
 # -- Flux reconciliation overrides specifically for the Promtail Package

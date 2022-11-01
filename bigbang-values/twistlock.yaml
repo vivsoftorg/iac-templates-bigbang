@@ -1,7 +1,7 @@
 # -- Toggle deployment of Twistlock.
 enabled: true
 git:
-  repo: "https://gitlab.com/enbuild-staging/charts/twistlock.git"
+  repo: "https://github.com/VivSoftOrg/twistlock.git"
   path: "./chart"
   tag: "0.9.1-bb.0"
 # -- Flux reconciliation overrides specifically for the Twistlock Package
@@ -9,7 +9,7 @@ flux: {}
 # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
 ingress:
   gateway: ""
-# -- Values to passthrough to the twistlock chart: https://gitlab.com/enbuild-staging/charts/twistlock.git
+# -- Values to passthrough to the twistlock chart: https://github.com/VivSoftOrg/twistlock.git
 values:
   console:
     image:

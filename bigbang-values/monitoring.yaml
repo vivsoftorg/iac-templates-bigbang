@@ -1,7 +1,7 @@
 # -- Toggle deployment of Monitoring (Prometheus, Grafana, and Alertmanager).
 enabled: true
 git:
-  repo: "https://gitlab.com/enbuild-staging/charts/monitoring.git"
+  repo: "https://github.com/VivSoftOrg/monitoring.git"
   path: "./chart"
   tag: "39.9.0-bb.1"
 # -- Flux reconciliation overrides specifically for the Monitoring Package
@@ -36,7 +36,7 @@ sso:
     allow_sign_up: "true"
     role_attribute_path: "Viewer"
     # -- Other options available, see package Documentation.
-# -- Values to passthrough to the monitoring chart: https://gitlab.com/enbuild-staging/charts/monitoring.git
+# -- Values to passthrough to the monitoring chart: https://github.com/VivSoftOrg/monitoring.git
 values:
   cleanUpgrade:
     image:

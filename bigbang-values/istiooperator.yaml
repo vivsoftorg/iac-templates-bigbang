@@ -1,12 +1,12 @@
 # -- Toggle deployment of Istio Operator.
 enabled: true
 git:
-  repo: "https://gitlab.com/enbuild-staging/charts/istio-operator.git"
+  repo: "https://github.com/VivSoftOrg/istio-operator.git"
   path: "./chart"
   tag: "1.14.3-bb.0"
 # -- Flux reconciliation overrides specifically for the Istio Operator Package
 flux: {}
-# -- Values to passthrough to the istio-operator chart: https://gitlab.com/enbuild-staging/charts/istio-operator.git
+# -- Values to passthrough to the istio-operator chart: https://github.com/VivSoftOrg/istio-operator.git
 values:
   hub: registry.gitlab.com/enbuild-staging/container_registry/opensource-istio
   tidHub: registry.gitlab.com/enbuild-staging/container_registry/tetrate-istio

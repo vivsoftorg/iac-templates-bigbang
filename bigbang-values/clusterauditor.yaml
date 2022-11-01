@@ -1,12 +1,12 @@
 # -- Toggle deployment of Cluster Auditor.
 enabled: true
 git:
-  repo: "https://gitlab.com/enbuild-staging/charts/cluster-auditor.git"
+  repo: "https://github.com/VivSoftOrg/cluster-auditor.git"
   path: "./chart"
   tag: "1.4.0-bb.9"
 # -- Flux reconciliation overrides specifically for the Cluster Auditor Package
 flux: {}
-# -- Values to passthrough to the cluster auditor chart: https://gitlab.com/enbuild-staging/charts/cluster-auditor.git
+# -- Values to passthrough to the cluster auditor chart: https://github.com/VivSoftOrg/cluster-auditor.git
 values:
   image:
     repo: registry.gitlab.com/enbuild-staging/container_registry/bigbang-cluster-auditor/opa-exporter

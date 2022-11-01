@@ -1,12 +1,12 @@
 # -- Toggle deployment of Kyverno.
 enabled: false
 git:
-  repo: "https://gitlab.com/enbuild-staging/charts/kyverno.git"
+  repo: "https://github.com/VivSoftOrg/kyverno.git"
   path: "./chart"
   tag: "2.5.3-bb.0"
 # -- Flux reconciliation overrides specifically for the Kyverno Package
 flux: {}
-# -- Values to passthrough to the kyverno chart: https://gitlab.com/enbuild-staging/charts/kyverno.git
+# -- Values to passthrough to the kyverno chart: https://github.com/VivSoftOrg/kyverno.git
 values:
   image:
     repository: registry.gitlab.com/enbuild-staging/container_registry/nirmata-kyverno

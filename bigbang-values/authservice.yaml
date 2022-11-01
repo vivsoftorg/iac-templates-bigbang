@@ -9,12 +9,12 @@ addons:
     #       callback_uri: "https://somecallback"
     enabled: false
     git:
-      repo: "https://gitlab.com/enbuild-staging/charts/authservice.git"
+      repo: "https://github.com/VivSoftOrg/authservice.git"
       path: "./chart"
       tag: "0.5.2-bb.0"
     # -- Flux reconciliation overrides specifically for the Authservice Package
     flux: {}
-    # -- Values to passthrough to the authservice chart: https://gitlab.com/enbuild-staging/charts/authservice.git
+    # -- Values to passthrough to the authservice chart: https://github.com/VivSoftOrg/authservice.git
     values:
       image:
         repository: registry.gitlab.com/enbuild-staging/container_registry/istio-ecosystem-authservice

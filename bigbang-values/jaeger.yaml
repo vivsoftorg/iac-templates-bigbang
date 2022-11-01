@@ -1,7 +1,7 @@
 # -- Toggle deployment of Jaeger.
 enabled: true
 git:
-  repo: "https://gitlab.com/enbuild-staging/charts/jaeger.git"
+  repo: "https://github.com/VivSoftOrg/jaeger.git"
   path: "./chart"
   tag: "2.35.0-bb.0"
 # -- Flux reconciliation overrides specifically for the Jaeger Package
@@ -20,7 +20,7 @@ sso:
   client_id: ""
   # -- OIDC Client Secret to use for Jaeger
   client_secret: ""
-# -- Values to pass through to Jaeger chart: https://gitlab.com/enbuild-staging/charts/jaeger.git
+# -- Values to pass through to Jaeger chart: https://github.com/VivSoftOrg/jaeger.git
 values:
   cleanSvcMonitor:
     image:

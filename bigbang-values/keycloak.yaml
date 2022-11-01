@@ -5,7 +5,7 @@ addons:
     # istio.ingressGateways.passthrough-ingressgateway and istio.gateways.passthrough
     enabled: false
     git:
-      repo: "https://gitlab.com/enbuild-staging/charts/keycloak.git"
+      repo: "https://github.com/VivSoftOrg/keycloak.git"
       path: "./chart"
       tag: "18.2.1-bb.3"
     database:
@@ -32,7 +32,7 @@ addons:
       # Setting the ingress cert here will automatically create the volume and volumemounts in the Keycloak Package chart
       key: ""
       cert: ""
-    # -- Values to passthrough to the keycloak chart: https://gitlab.com/enbuild-staging/charts/keycloak.git
+    # -- Values to passthrough to the keycloak chart: https://github.com/VivSoftOrg/keycloak.git
     values:
       pgchecker:
         image:

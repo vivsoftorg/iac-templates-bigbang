@@ -7,7 +7,7 @@ addons:
       gitlab: gitlab
       registry: registry
     git:
-      repo: "https://gitlab.com/enbuild-staging/charts/gitlab.git"
+      repo: "https://github.com/VivSoftOrg/gitlab.git"
       path: "./chart"
       tag: "6.3.1-bb.0"
     # -- Flux reconciliation overrides specifically for the Gitlab Package
@@ -79,7 +79,7 @@ addons:
       # with a random password.
       # -- This needs to be set to a non-empty value in order for the Grafana Redis Datasource and Dashboards to be installed.
       password: ""
-    # -- Values to passthrough to the gitlab chart: https://gitlab.com/enbuild-staging/charts/gitlab.git
+    # -- Values to passthrough to the gitlab chart: https://github.com/VivSoftOrg/gitlab.git
     values:
       global:
         certificates:
