@@ -1,0 +1,56 @@
+jaeger:
+  # -- Toggle deployment of Jaeger.
+  enabled: true
+  git:
+    repo: "https://gitlab.com/enbuild-staging/charts/jaeger.git"
+    path: "./chart"
+    tag: "2.37.0-bb.0"
+  # -- Flux reconciliation overrides specifically for the Jaeger Package
+  flux:
+    install:
+      crds: CreateReplace
+    upgrade:
+      crds: CreateReplace
+  # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+  ingress:
+    gateway: ""
+  sso:
+    # -- Toggle SSO for Jaeger on and off
+    enabled: false
+    # -- OIDC Client ID to use for Jaeger
+    client_id: ""
+    # -- OIDC Client Secret to use for Jaeger
+    client_secret: ""
+  # -- Values to pass through to Jaeger chart: https://gitlab.com/enbuild-staging/charts/jaeger.git
+  values:
+    cleanSvcMonitor:
+      image:
+        repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang-base
+    webhookCertGen:
+      image:
+        repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-ingress-nginx/kube-webhook-certgen
+      cleanupProxy:
+        image:
+          repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang-base
+    image:
+      repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-operator
+    elasticsearch:
+      indexTemplateCreation:
+        image:
+          repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang-base
+    retention:
+      image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-es-index-cleaner:1.39.0
+    jaeger:
+      spec:
+        allInOne:
+          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/all-in-one:1.39.0
+        agent:
+          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-agent:1.39.0
+        ingester:
+          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-ingester:1.39.0
+        query:
+          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-query:1.39.0
+        collector:
+          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-jaegertracing/jaeger-collector:1.39.0
+  # -- Post Renderers.  See docs/postrenders.md
+  postRenderers: []

@@ -1,0 +1,47 @@
+addons:
+  argocd:
+    # -- Toggle deployment of ArgoCD.
+    enabled: false
+    git:
+      repo: "https://gitlab.com/enbuild-staging/charts/argocd.git"
+      path: "./chart"
+      tag: "5.5.7-bb.6"
+    # -- Flux reconciliation overrides specifically for the ArgoCD Package
+    flux: {}
+    # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+    ingress:
+      gateway: ""
+    redis:
+      # -- Hostname of a pre-existing Redis to use for ArgoCD.
+      # Entering connection info will enable external Redis and will auto-create any required secrets.
+      host: ""
+      # -- Port of a pre-existing Redis to use for ArgoCD.
+      port: ""
+    sso:
+      # -- Toggle SSO for ArgoCD on and off
+      enabled: false
+      # -- ArgoCD OIDC client ID
+      client_id: ""
+      # -- ArgoCD OIDC client secret
+      client_secret: ""
+      # -- ArgoCD SSO login text
+      provider_name: ""
+      # -- ArgoCD SSO group roles, see docs for more details: https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/
+      groups: |
+        g, Impact Level 2 Authorized, role:admin
+    # -- Values to passthrough to the argocd chart: https://gitlab.com/enbuild-staging/charts/argocd.git
+    values:
+      global:
+        image:
+          repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang-argocd
+      dex:
+        image:
+          repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-dexidp/dex
+      redis:
+        image:
+          repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-redis/redis6
+      upgradeJob:
+        image:
+          repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang-base
+    # -- Post Renderers.  See docs/postrenders.md
+    postRenderers: []

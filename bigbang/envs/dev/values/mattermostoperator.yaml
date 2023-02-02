@@ -1,0 +1,15 @@
+addons:
+  mattermostoperator:
+    enabled: false
+    git:
+      repo: "https://gitlab.com/enbuild-staging/charts/mattermost-operator.git"
+      path: "./chart"
+      tag: "1.19.0-bb.0"
+    # -- Flux reconciliation overrides specifically for the Mattermost Operator Package
+    flux: {}
+    # -- Values to passthrough to the mattermost operator chart: https://gitlab.com/enbuild-staging/charts/mattermost-operator/-/blob/main/chart/values.yaml
+    values:
+      image:
+        repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-mattermost/mattermost-operator
+    # -- Post Renderers.  See docs/postrenders.md
+    postRenderers: []
