@@ -1,6 +1,6 @@
 promtail:
   # -- Toggle deployment of Promtail.
-  enabled: false
+  enabled: true
   git:
     repo: "https://gitlab.com/enbuild-staging/charts/promtail.git"
     path: "./chart"
