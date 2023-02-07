@@ -1,0 +1,16 @@
+promtail:
+  # -- Toggle deployment of Promtail.
+  enabled: true
+  git:
+    repo: "https://gitlab.com/enbuild-staging/charts/promtail.git"
+    path: "./chart"
+    tag: "6.7.2-bb.0"
+  # -- Flux reconciliation overrides specifically for the Promtail Package
+  flux: {}
+  # -- Values to passthrough to the promtail chart: https://repo1.dso.mil/platform-one/big-bang/apps/core/fluentbit.git
+  values:
+    image:
+      registry: registry.gitlab.com
+      repository: enbuild-staging/container_registry/opensource-grafana/promtail
+  # -- Post Renderers.  See docs/postrenders.md
+  postRenderers: []

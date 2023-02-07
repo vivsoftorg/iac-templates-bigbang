@@ -1,0 +1,90 @@
+addons:
+  mattermost:
+    # -- Toggle deployment of Mattermost.
+    enabled: false
+    git:
+      repo: "https://github.com/VivSoftOrg/mattermost.git"
+      path: "./chart"
+      tag: "7.5.1-bb.0"
+    # -- Flux reconciliation overrides specifically for the Mattermost Package
+    flux: {}
+    # -- Mattermost Enterprise functionality.
+    enterprise:
+      # -- Toggle the Mattermost Enterprise.  This must be accompanied by a valid license unless you plan to start a trial post-install.
+      enabled: false
+      # -- License for Mattermost.
+      # This should be the entire contents of the license file from Mattermost (should be one line), example below
+      # license: "eyJpZCI6InIxM205bjR3eTdkYjludG95Z3RiOD---REST---IS---HIDDEN
+      license: ""
+    # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+    ingress:
+      gateway: ""
+    sso:
+      # -- Toggle OIDC SSO for Mattermost on and off.
+      # Enabling this option will auto-create any required secrets.
+      enabled: false
+      # -- Mattermost OIDC client ID
+      client_id: ""
+      # -- Mattermost OIDC client secret
+      client_secret: ""
+      # -- Mattermost OIDC auth endpoint
+      # To get endpoint values, see here: https://github.com/VivSoftOrg/mattermost/-/blob/main/docs/keycloak.md#helm-values
+      auth_endpoint: ""
+      # -- Mattermost OIDC token endpoint
+      # To get endpoint values, see here: https://github.com/VivSoftOrg/mattermost/-/blob/main/docs/keycloak.md#helm-values
+      token_endpoint: ""
+      # -- Mattermost OIDC user API endpoint
+      # To get endpoint values, see here: https://github.com/VivSoftOrg/mattermost/-/blob/main/docs/keycloak.md#helm-values
+      user_api_endpoint: ""
+    database:
+      # -- Hostname of a pre-existing PostgreSQL database to use for Mattermost.
+      # Entering connection info will disable the deployment of an internal database and will auto-create any required secrets.
+      host: ""
+      # -- Port of a pre-existing PostgreSQL database to use for Mattermost.
+      port: ""
+      # -- Username to connect as to external database, the user must have all privileges on the database.
+      username: ""
+      # -- Database password for the username used to connect to the existing database.
+      password: ""
+      # -- Database name to connect to on host.
+      database: ""
+      # -- SSL Mode to use when connecting to the database.
+      # Allowable values for this are viewable in the postgres documentation: https://www.postgresql.org/docs/current/libpq-ssl.html#LIBPQ-SSL-SSLMODE-STATEMENTS
+      ssl_mode: ""
+    objectStorage:
+      # -- S3 compatible endpoint to use for connection information.
+      # Entering connection info will enable this option and will auto-create any required secrets.
+      # examples: "s3.amazonaws.com" "s3.us-gov-west-1.amazonaws.com" "minio.minio.svc.cluster.local:9000"
+      endpoint: ""
+      # -- Access key for connecting to object storage endpoint.
+      accessKey: ""
+      # -- Secret key for connecting to object storage endpoint.
+      # Unencoded string data. This should be placed in the secret values and then encrypted
+      accessSecret: ""
+      # -- Bucket name to use for Mattermost - will be auto-created.
+      bucket: ""
+    # -- Mattermost Elasticsearch integration - requires enterprise E20 license - https://docs.mattermost.com/deployment/elasticsearch.html
+    # Connection info defaults to the BB deployed Elastic, all values can be overridden via the "values" passthrough for other connections.
+    # See values spec in MM chart "elasticsearch" yaml block - https://github.com/VivSoftOrg/mattermost/-/blob/main/chart/values.yaml
+    elasticsearch:
+      # -- Toggle interaction with Elastic for optimized search indexing
+      enabled: false
+    # -- Values to passthrough to the Mattermost chart: https://github.com/VivSoftOrg/mattermost/-/blob/main/chart/values.yaml
+    values:
+      image:
+        name: registry.gitlab.com/enbuild-staging/container_registry/opensource-mattermost/mattermost
+      minio:
+        bucketCreationImage: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/mc:RELEASE.2022-08-23T05-45-20Z
+        tenant:
+          image:
+            repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/minio
+
+      postgresql:
+        image:
+          registry: registry.gitlab.com/enbuild-staging/container_registry
+          repository: opensource-postgres/postgresql11
+      database:
+        readinessCheck:
+          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-postgres/postgresql12:12.13
+    # -- Post Renderers.  See docs/postrenders.md
+    postRenderers: []

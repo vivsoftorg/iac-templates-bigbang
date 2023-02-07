@@ -1,0 +1,23 @@
+addons:
+  minioOperator:
+    # -- Toggle deployment of minio operator and instance.
+    enabled: false
+    git:
+      repo: "https://github.com/VivSoftOrg/minio-operator.git"
+      path: "./chart"
+      tag: "4.5.4-bb.0"
+    # -- Flux reconciliation overrides specifically for the Minio Operator Package
+    flux: {}
+    # -- Values to passthrough to the minio operator chart: https://github.com/VivSoftOrg/minio-operator.git
+    values:
+      operator:
+        image:
+          repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/operator
+      console:
+        image:
+          repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/console
+      tenantPatchJob:
+        image:
+          repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang-base
+    # -- Post Renderers.  See docs/postrenders.md
+    postRenderers: []

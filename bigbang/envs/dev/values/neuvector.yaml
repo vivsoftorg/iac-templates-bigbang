@@ -1,0 +1,33 @@
+neuvector:
+  # -- Toggle deployment of Neuvector.
+  enabled: false
+  git:
+    repo: "https://gitlab.com/enbuild-staging/charts/neuvector.git"
+    path: "./chart"
+    tag: "2.2.2-bb.2"
+  # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+  ingress:
+    gateway: ""
+  # -- Flux reconciliation overrides specifically for the Neuvector Package
+  flux: {}
+  # -- Values to passthrough to the Neuvector chart: https://gitlab.com/enbuild-staging/charts/neuvector.git
+  values:
+    registry: registry.gitlab.com
+    controller:
+      image:
+        repository: enbuild-staging/container_registry/neuvector-neuvector/controller
+    enforcer:
+      image:
+        repository: enbuild-staging/container_registry/neuvector-neuvector/enforcer
+    manager:
+      image:
+        repository: enbuild-staging/container_registry/neuvector-neuvector/manager
+    cve:
+      updater:
+        image:
+          repository: enbuild-staging/container_registry/big-bang-base
+      scanner:
+        image:
+          repository: enbuild-staging/container_registry/neuvector-neuvector/scanner
+  # -- Post Renderers.  See docs/postrenders.md
+  postRenderers: []

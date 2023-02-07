@@ -1,0 +1,16 @@
+kyvernoreporter:
+  # -- Toggle deployment of Kyverno Reporter
+  enabled: false
+  git:
+    repo: "https://gitlab.com/enbuild-staging/charts/kyverno-reporter.git"
+    path: ./chart
+    tag: "2.13.4-bb.1"
+  # -- Flux reconciliation overrides specifically for the Kyverno Reporter Package
+  flux: {}
+  # -- Values to passthrough to the kyverno reporter chart: https://gitlab.com/enbuild-staging/charts/kyverno-reporter.git
+  values:
+    image:
+      registry: registry.gitlab.com
+      repository: enbuild-staging/container_registry/nirmata-policy-reporter/policy-reporter
+  # -- Post Renderers.  See docs/postrenders.md
+  postRenderers: []

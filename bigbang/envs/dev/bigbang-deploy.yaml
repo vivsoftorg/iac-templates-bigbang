@@ -11,34 +11,16 @@ spec:
     branch: main
   secretRef:
     name: repository-credentials
-
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
-kind: Kustomization
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
 metadata:
-  name: bigbang-secrets
-  namespace: bigbang
+  name: bigbang
 spec:
-  interval: 1440m0s
-  sourceRef:
-    kind: GitRepository
-    name: bigbang-deploy
-    namespace: bigbang
-  path: "./bigbang/envs/dev/secrets/"
-  prune: true
-  decryption:
-    provider: sops
+  interval: 1m0s
+  url: https://gitlab.com/enbuild-staging/charts/bigbang.git
+  ref:
+    tag: 1.50.0
+  secretRef:
+    name: repository-credentials
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
-kind: Kustomization
-metadata:
-  name: bigbang-configmaps
-  namespace: bigbang
-spec:
-  interval: 5m0s
-  sourceRef:
-    kind: GitRepository
-    name: bigbang-deploy
-    namespace: bigbang
-  path: "./bigbang/envs/dev/values/"
-  prune: true

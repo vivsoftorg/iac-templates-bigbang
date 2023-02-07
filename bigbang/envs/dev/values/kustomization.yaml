@@ -2,20 +2,45 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: bigbang
-resources:
-  - clusterauditor.yaml
-  - eckoperator.yaml
-  - fluentbit.yaml
-  - gatekeeper.yaml
-  - istio.yaml
-  - istiooperator.yaml
-  - jaeger.yaml
-  - kiali.yaml
-  - logging.yaml
-  - monitoring.yaml
-  - repo.yaml
-  - twistlock.yaml
-  - metricsserver.yaml
-  - kyverno.yaml
-  - promtail.yaml
-  - loki.yaml
+generatorOptions:
+  disableNameSuffixHash: true
+  labels:
+    app.kubernetes.io/part-of: bigbang
+configMapGenerator:
+- name: bb-helm-values
+  files:
+    - anchore.yaml
+    - argocd.yaml
+    - authservice.yaml
+    - clusterauditor.yaml
+    - eckoperator.yaml
+    - fluentbit.yaml
+    - gatekeeper.yaml
+    - gitlab.yaml
+    - gitlabrunner.yaml
+    - haproxy.yaml
+    - istio.yaml
+    - istiooperator.yaml
+    - jaeger.yaml
+    - keycloak.yaml
+    - kiali.yaml
+    - kyverno.yaml
+    - kyvernopolicies.yaml
+    - kyvernoreporter.yaml
+    - logging.yaml
+    - loki.yaml
+    - mattermost.yaml
+    - mattermostoperator.yaml
+    - metricsserver.yaml
+    - minio.yaml
+    - miniooperator.yaml
+    - monitoring.yaml
+    - neuvector.yaml
+    - nexus.yaml
+    - promtail.yaml
+    - repo.yaml
+    - sonarqube.yaml
+    - tempo.yaml
+    - twistlock.yaml
+    - vault.yaml
+    - velero.yaml

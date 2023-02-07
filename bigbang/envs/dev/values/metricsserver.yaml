@@ -1,25 +1,21 @@
-apiVersion: v1
-data:
-  values.yaml: |
-    addons:
-      metricsServer:
-        # -- Toggle deployment of metrics server
-        # Acceptable options are enabled: true, enabled: false, enabled: auto
-        # true = enabled / false = disabled / auto = automatic (Installs only if metrics API endpoint is not present)
-        enabled: auto
-        git:
-          repo: "https://gitlab.com/enbuild-staging/charts/metrics-server.git"
-          path: "./chart"
-          tag: "3.8.0-bb.4"
-        # -- Flux reconciliation overrides specifically for the metrics server Package
-        flux: {}
-        # -- Values to passthrough to the metrics server chart: https://gitlab.com/enbuild-staging/charts/metrics-server.git
-        values:
-          image:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes-sigs/metrics-server
-        # -- Post Renderers.  See docs/postrenders.md
-        postRenderers: []
-kind: ConfigMap
-metadata:
-  creationTimestamp: null
-  name: metricsserver-values
+addons:
+  metricsServer:
+    # -- Toggle deployment of metrics server
+    # Acceptable options are enabled: true, enabled: false, enabled: auto
+    # true = enabled / false = disabled / auto = automatic (Installs only if metrics API endpoint is not present)
+    enabled: auto
+    git:
+      repo: "https://gitlab.com/enbuild-staging/charts/metrics-server.git"
+      path: "./chart"
+      tag: "3.8.3-bb.0"
+    # -- Flux reconciliation overrides specifically for the metrics server Package
+    flux: {}
+    # -- Values to passthrough to the metrics server chart: https://gitlab.com/enbuild-staging/charts/metrics-server.git
+    values:
+      image:
+        repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes-sigs/metrics-server
+      bbtests:
+        scripts:
+          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes/kubectl:v1.25.5
+    # -- Post Renderers.  See docs/postrenders.md
+    postRenderers: []
