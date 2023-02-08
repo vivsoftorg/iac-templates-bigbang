@@ -3,12 +3,12 @@ addons:
     # -- Toggle deployment of minio operator and instance.
     enabled: false
     git:
-      repo: "https://github.com/VivSoftOrg/minio-operator.git"
+      repo: "https://gitlab.com/enbuild-staging/charts/minio-operator.git"
       path: "./chart"
       tag: "4.5.4-bb.0"
     # -- Flux reconciliation overrides specifically for the Minio Operator Package
     flux: {}
-    # -- Values to passthrough to the minio operator chart: https://github.com/VivSoftOrg/minio-operator.git
+    # -- Values to passthrough to the minio operator chart: https://gitlab.com/enbuild-staging/charts/minio-operator.git
     values:
       operator:
         image:

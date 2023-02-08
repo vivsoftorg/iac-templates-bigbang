@@ -3,7 +3,7 @@ addons:
     # -- Toggle deployment of Nexus.
     enabled: false
     git:
-      repo: "https://github.com/VivSoftOrg/nexus.git"
+      repo: "https://gitlab.com/enbuild-staging/charts/nexus.git"
       path: "./chart"
       tag: "42.0.0-bb.4"
     # -- Base64 encoded license file.

@@ -3,7 +3,7 @@ addons:
     # -- Toggle deployment of SonarQube.
     enabled: false
     git:
-      repo: "https://github.com/VivSoftOrg/sonarqube.git"
+      repo: "https://gitlab.com/enbuild-staging/charts/sonarqube.git"
       path: "./chart"
       tag: "1.0.31-bb.3"
     # -- Flux reconciliation overrides specifically for the Sonarqube Package
@@ -41,7 +41,7 @@ addons:
       username: ""
       # -- Database password for the username used to connect to the existing database.
       password: ""
-    # -- Values to passthrough to the sonarqube chart: https://github.com/VivSoftOrg/sonarqube.git
+    # -- Values to passthrough to the sonarqube chart: https://gitlab.com/enbuild-staging/charts/sonarqube.git
     values:
       image:
         repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang-sonarqube
