@@ -2,7 +2,7 @@ kiali:
   # -- Toggle deployment of Kiali.
   enabled: true
   git:
-    repo: "https://gitlab.com/enbuild-staging/charts/kiali.git"
+    repo: "https://github.com/VivSoftOrg/kiali.git"
     path: "./chart"
     tag: "1.60.0-bb.0"
   # -- Flux reconciliation overrides specifically for the Kiali Package
@@ -17,7 +17,7 @@ kiali:
     client_id: ""
     # -- OIDC Client Secret to use for Kiali
     client_secret: ""
-  # -- Values to pass through to Kiali chart: https://gitlab.com/enbuild-staging/charts/kiali
+  # -- Values to pass through to Kiali chart: https://github.com/VivSoftOrg/kiali
   values:
     image:
       repo: registry.gitlab.com/enbuild-staging/container_registry/opensource-kiali/kiali-operator

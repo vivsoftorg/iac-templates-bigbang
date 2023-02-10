@@ -3,7 +3,7 @@ addons:
     # -- Toggle deployment of ArgoCD.
     enabled: false
     git:
-      repo: "https://gitlab.com/enbuild-staging/charts/argocd.git"
+      repo: "https://github.com/VivSoftOrg/argocd.git"
       path: "./chart"
       tag: "5.5.7-bb.6"
     # -- Flux reconciliation overrides specifically for the ArgoCD Package
@@ -29,7 +29,7 @@ addons:
       # -- ArgoCD SSO group roles, see docs for more details: https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/
       groups: |
         g, Impact Level 2 Authorized, role:admin
-    # -- Values to passthrough to the argocd chart: https://gitlab.com/enbuild-staging/charts/argocd.git
+    # -- Values to passthrough to the argocd chart: https://github.com/VivSoftOrg/argocd.git
     values:
       global:
         image:

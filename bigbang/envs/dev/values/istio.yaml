@@ -2,7 +2,7 @@ istio:
   # -- Toggle deployment of Istio.
   enabled: true
   git:
-    repo: "https://gitlab.com/enbuild-staging/charts/istio-controlplane.git"
+    repo: "https://github.com/VivSoftOrg/istio-controlplane.git"
     path: "./chart"
     tag: "1.16.1-bb.0"
   # -- Tetrate Istio Distribution - Tetrate provides FIPs verified Istio and Envoy software and support,
@@ -102,7 +102,7 @@ istio:
 
   # -- Flux reconciliation overrides specifically for the Istio Package
   flux: {}
-  # -- Values to passthrough to the istio-controlplane chart: https://gitlab.com/enbuild-staging/charts/istio-controlplane.git
+  # -- Values to passthrough to the istio-controlplane chart: https://github.com/VivSoftOrg/istio-controlplane.git
   values:
     hub: registry.gitlab.com/enbuild-staging/container_registry/opensource-istio
     tidHub: registry.gitlab.com/enbuild-staging/container_registry/tetrate-istio

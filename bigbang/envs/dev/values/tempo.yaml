@@ -2,7 +2,7 @@ tempo:
   # -- Toggle deployment of Tempo.
   enabled: false
   git:
-    repo: "https://gitlab.com/enbuild-staging/charts/tempo.git"
+    repo: "https://github.com/VivSoftOrg/tempo.git"
     path: "./chart"
     tag: "0.16.1-bb.2"
   # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
@@ -35,7 +35,7 @@ tempo:
     # -- Whether or not objectStorage connection should require HTTPS, if connecting to in-cluster object
     # storage on port 80/9000 set this value to true.
     insecure: false
-  # -- Values to passthrough to the Tempo chart: https://gitlab.com/enbuild-staging/charts/tempo.git
+  # -- Values to passthrough to the Tempo chart: https://github.com/VivSoftOrg/tempo.git
   values:
     tempo:
       repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-grafana/tempo

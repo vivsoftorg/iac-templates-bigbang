@@ -1,8 +1,8 @@
 loki:
   # -- Toggle deployment of Loki.
-  enabled: true
+  enabled: false
   git:
-    repo: "https://gitlab.com/enbuild-staging/charts/loki.git"
+    repo: "https://github.com/VivSoftOrg/loki.git"
     path: "./chart"
     tag: "3.7.0-bb.0"
   # -- Flux reconciliation overrides specifically for the Loki Package
@@ -25,7 +25,7 @@ loki:
     # ruler: loki-ruler
     # admin: loki-admin
     bucketNames: {}
-  # -- Values to passthrough to the Loki chart: https://gitlab.com/enbuild-staging/charts/loki.git
+  # -- Values to passthrough to the Loki chart: https://github.com/VivSoftOrg/loki.git
   values:
     kubectlImage:
       registry: registry.gitlab.com

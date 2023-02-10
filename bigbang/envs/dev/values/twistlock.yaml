@@ -2,7 +2,7 @@ twistlock:
   # -- Toggle deployment of Twistlock.
   enabled: true
   git:
-    repo: "https://gitlab.com/enbuild-staging/charts/twistlock.git"
+    repo: "https://github.com/VivSoftOrg/twistlock.git"
     path: "./chart"
     tag: "0.11.4-bb.1"
   # -- Flux reconciliation overrides specifically for the Twistlock Package
@@ -11,7 +11,7 @@ twistlock:
   ingress:
     gateway: ""
   sso:
-    # -- Toggle SAML SSO, requires a license and enabling the init job - see https://gitlab.com/enbuild-staging/charts/twistlock/-/blob/main/docs/initialization.md
+    # -- Toggle SAML SSO, requires a license and enabling the init job - see https://github.com/VivSoftOrg/twistlock/-/blob/main/docs/initialization.md
     enabled: false
     # -- SAML client ID
     client_id: ""
@@ -27,9 +27,9 @@ twistlock:
     console_url: "https://twistlock.{{ .Values.domain }}"
     # -- Groups attribute (optional)
     groups: ""
-    # -- X.509 Certificate from Identity Provider (i.e. Keycloak). See https://gitlab.com/enbuild-staging/charts/twistlock/-/blob/main/docs/KEYCLOAK.md for format. Use the `|-` syntax for multiline string.
+    # -- X.509 Certificate from Identity Provider (i.e. Keycloak). See https://github.com/VivSoftOrg/twistlock/-/blob/main/docs/KEYCLOAK.md for format. Use the `|-` syntax for multiline string.
     cert: ""
-  # -- Values to passthrough to the twistlock chart: https://gitlab.com/enbuild-staging/charts/twistlock.git
+  # -- Values to passthrough to the twistlock chart: https://github.com/VivSoftOrg/twistlock.git
   values:
     console:
       image:

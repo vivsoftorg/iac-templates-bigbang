@@ -5,12 +5,12 @@ addons:
     # true = enabled / false = disabled / auto = automatic (Installs only if metrics API endpoint is not present)
     enabled: auto
     git:
-      repo: "https://gitlab.com/enbuild-staging/charts/metrics-server.git"
+      repo: "https://github.com/VivSoftOrg/metrics-server.git"
       path: "./chart"
       tag: "3.8.3-bb.0"
     # -- Flux reconciliation overrides specifically for the metrics server Package
     flux: {}
-    # -- Values to passthrough to the metrics server chart: https://gitlab.com/enbuild-staging/charts/metrics-server.git
+    # -- Values to passthrough to the metrics server chart: https://github.com/VivSoftOrg/metrics-server.git
     values:
       image:
         repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-kubernetes-sigs/metrics-server

@@ -2,7 +2,7 @@ gatekeeper:
   # -- Toggle deployment of OPA Gatekeeper.
   enabled: true
   git:
-    repo: "https://gitlab.com/enbuild-staging/charts/policy.git"
+    repo: "https://github.com/VivSoftOrg/policy.git"
     path: "./chart"
     tag: "3.10.0-bb.0"
   # -- Flux reconciliation overrides specifically for the OPA Gatekeeper Package
@@ -11,7 +11,7 @@ gatekeeper:
       crds: CreateReplace
     upgrade:
       crds: CreateReplace
-  # -- Values to passthrough to the gatekeeper chart: https://gitlab.com/enbuild-staging/charts/policy.git
+  # -- Values to passthrough to the gatekeeper chart: https://github.com/VivSoftOrg/policy.git
   values:
     postUpgrade:
       labelNamespace:

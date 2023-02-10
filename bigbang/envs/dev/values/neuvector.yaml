@@ -2,7 +2,7 @@ neuvector:
   # -- Toggle deployment of Neuvector.
   enabled: false
   git:
-    repo: "https://gitlab.com/enbuild-staging/charts/neuvector.git"
+    repo: "https://github.com/VivSoftOrg/neuvector.git"
     path: "./chart"
     tag: "2.2.2-bb.2"
   # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
@@ -10,7 +10,7 @@ neuvector:
     gateway: ""
   # -- Flux reconciliation overrides specifically for the Neuvector Package
   flux: {}
-  # -- Values to passthrough to the Neuvector chart: https://gitlab.com/enbuild-staging/charts/neuvector.git
+  # -- Values to passthrough to the Neuvector chart: https://github.com/VivSoftOrg/neuvector.git
   values:
     registry: registry.gitlab.com
     controller:

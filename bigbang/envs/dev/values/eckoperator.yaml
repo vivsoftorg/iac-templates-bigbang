@@ -1,13 +1,13 @@
 eckoperator:
   # -- Toggle deployment of ECK Operator.
-  enabled: false
+  enabled: true
   git:
-    repo: "https://gitlab.com/enbuild-staging/charts/eck-operator.git"
+    repo: "https://github.com/VivSoftOrg/eck-operator.git"
     path: "./chart"
     tag: "2.5.0-bb.0"
   # -- Flux reconciliation overrides specifically for the ECK Operator Package
   flux: {}
-  # -- Values to passthrough to the eck-operator chart: https://gitlab.com/enbuild-staging/charts/eck-operator.git
+  # -- Values to passthrough to the eck-operator chart: https://github.com/VivSoftOrg/eck-operator.git
   values:
     image:
       repository: registry.gitlab.com/enbuild-staging/container_registry/elastic-eck-operator/eck-operator

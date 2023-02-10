@@ -1,8 +1,8 @@
 logging:
   # -- Toggle deployment of Logging (EFK).
-  enabled: false
+  enabled: true
   git:
-    repo: "https://gitlab.com/enbuild-staging/charts/elasticsearch-kibana.git"
+    repo: "https://github.com/VivSoftOrg/elasticsearch-kibana.git"
     path: "./chart"
     tag: "0.14.0-bb.0"
   # -- Flux reconciliation overrides specifically for the Logging (EFK) Package
@@ -22,9 +22,9 @@ logging:
   license:
     # -- Toggle trial license installation of elasticsearch.  Note that enterprise (non trial) is required for SSO to work.
     trial: false
-    # -- Elasticsearch license in json format seen here: https://gitlab.com/enbuild-staging/charts/elasticsearch-kibana#enterprise-license
+    # -- Elasticsearch license in json format seen here: https://github.com/VivSoftOrg/elasticsearch-kibana#enterprise-license
     keyJSON: ""
-  # -- Values to passthrough to the elasticsearch-kibana chart: https://gitlab.com/enbuild-staging/charts/elasticsearch-kibana.git
+  # -- Values to passthrough to the elasticsearch-kibana chart: https://github.com/VivSoftOrg/elasticsearch-kibana.git
   values:
     kibana:
       image:
