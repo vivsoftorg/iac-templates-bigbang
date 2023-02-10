@@ -75,9 +75,13 @@ addons:
         name: registry.gitlab.com/enbuild-staging/container_registry/opensource-mattermost/mattermost
       minio:
         bucketCreationImage: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/mc:RELEASE.2022-08-23T05-45-20Z
+        tenant:
+            image:
+              repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/minio
       postgresql:
         image:
           registry: registry.gitlab.com/enbuild-staging/container_registry
+          repository: opensource-postgres/postgresql11
       database:
         readinessCheck:
           image: registry.gitlab.com/enbuild-staging/container_registry/opensource-postgres/postgresql12:12.13

@@ -1,6 +1,6 @@
 eckoperator:
   # -- Toggle deployment of ECK Operator.
-  enabled: true
+  enabled: false
   git:
     repo: "https://github.com/VivSoftOrg/eck-operator.git"
     path: "./chart"

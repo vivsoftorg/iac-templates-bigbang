@@ -1,6 +1,6 @@
 loki:
   # -- Toggle deployment of Loki.
-  enabled: false
+  enabled: true
   git:
     repo: "https://github.com/VivSoftOrg/loki.git"
     path: "./chart"

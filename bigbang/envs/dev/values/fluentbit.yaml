@@ -1,6 +1,6 @@
 fluentbit:
   # -- Toggle deployment of Fluent-Bit.
-  enabled: true
+  enabled: false
   git:
     repo: "https://github.com/VivSoftOrg/fluentbit.git"
     path: "./chart"

@@ -1,6 +1,6 @@
 logging:
   # -- Toggle deployment of Logging (EFK).
-  enabled: true
+  enabled: false
   git:
     repo: "https://github.com/VivSoftOrg/elasticsearch-kibana.git"
     path: "./chart"

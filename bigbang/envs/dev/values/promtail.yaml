@@ -1,6 +1,6 @@
 promtail:
   # -- Toggle deployment of Promtail.
-  enabled: false
+  enabled: true
   git:
     repo: "https://github.com/VivSoftOrg/promtail.git"
     path: "./chart"
