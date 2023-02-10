@@ -1,3 +1,4 @@
 .envrc
 target/*
 doc/.DS_Store
+Notes.md
