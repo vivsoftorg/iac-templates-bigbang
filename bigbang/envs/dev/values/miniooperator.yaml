@@ -2,22 +2,19 @@ addons:
   minioOperator:
     # -- Toggle deployment of minio operator and instance.
     enabled: false
+    # -- Choose source type of "git" or "helmRepo"
+    sourceType: "git"
     git:
-      repo: "https://github.com/VivSoftOrg/minio-operator.git"
+      repo: https://repo1.dso.mil/big-bang/product/packages/minio-operator.git
       path: "./chart"
-      tag: "4.5.4-bb.0"
+      tag: "5.0.11-bb.0"
+    helmRepo:
+      repoName: "registry1"
+      chartName: "minio-operator"
+      tag: "5.0.11-bb.0"
     # -- Flux reconciliation overrides specifically for the Minio Operator Package
     flux: {}
-    # -- Values to passthrough to the minio operator chart: https://github.com/VivSoftOrg/minio-operator.git
-    values:
-      operator:
-        image:
-          repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/operator
-      console:
-        image:
-          repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/console
-      tenantPatchJob:
-        image:
-          repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang-base
+    # -- Values to passthrough to the minio operator chart: https://repo1.dso.mil/big-bang/product/packages/minio-operator.git
+    values: {}
     # -- Post Renderers.  See docs/postrenders.md
     postRenderers: []

@@ -6,10 +6,16 @@ addons:
       # host name only without the domain
       gitlab: gitlab
       registry: registry
+    # -- Choose source type of "git" or "helmRepo"
+    sourceType: "git"
     git:
-      repo: "https://github.com/VivSoftOrg/gitlab.git"
+      repo: https://repo1.dso.mil/big-bang/product/packages/gitlab.git
       path: "./chart"
-      tag: "6.6.1-bb.1"
+      tag: "7.6.1-bb.0"
+    helmRepo:
+      repoName: "registry1"
+      chartName: "gitlab"
+      tag: "7.6.1-bb.0"
     # -- Flux reconciliation overrides specifically for the Gitlab Package
     flux: {}
     # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
@@ -23,19 +29,9 @@ addons:
       client_id: ""
       # -- Gitlab OIDC client secret
       client_secret: ""
-      # -- Gitlab SSO login button label
-      label: ""
       # -- Gitlab SSO Scopes, default is ["Gitlab"]
       scopes:
         - Gitlab
-      # -- GitLab SSO Issuer URI,
-      # Only needed if your SSO is non-Keycloak
-      issuer_uri: ""
-      # -- GitLab SSO End Session URI,
-      # Only needed if your SSO is non-Keycloak
-      end_session_uri: ""
-      # -- Gitlab SSO UID field
-      uid_field: preferred_username
     database:
       # -- Hostname of a pre-existing PostgreSQL database to use for Gitlab.
       # Entering connection info will disable the deployment of an internal database and will auto-create any required secrets.
@@ -79,71 +75,10 @@ addons:
       # with a random password.
       # -- This needs to be set to a non-empty value in order for the Grafana Redis Datasource and Dashboards to be installed.
       password: ""
-    # -- Values to passthrough to the gitlab chart: https://github.com/VivSoftOrg/gitlab.git
-    values:
-      global:
-        certificates:
-          image:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/alpine-certificates
-        kubectl:
-          image:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/kubectl
-        busybox:
-          image:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/redhat-ubi/ubi8
-      upgradeCheck:
-        image:
-          repository: registry.gitlab.com/enbuild-staging/container_registry/redhat-ubi/ubi8
-      redis:
-        metrics:
-          image:
-            registry: registry.gitlab.com/enbuild-staging/container_registry/bitnami
-        image:
-          registry: registry.gitlab.com/enbuild-staging/container_registry/bitnami
-      postgresql:
-        image:
-          registry: registry.gitlab.com
-          repository: enbuild-staging/container_registry/opensource-postgres/postgresql12
-      registry:
-        image:
-          repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-container-registry
-      shared-secrets:
-        selfsign:
-          image:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/cfssl-self-sign
-      gitlab:
-        toolbox:
-          image:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-toolbox
-        gitlab-exporter:
-          image:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-exporter
-        migrations:
-          image:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-toolbox
-        webservice:
-          image:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-webservice
-          workhorse:
-            image: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-workhorse
-        sidekiq:
-          image:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-sidekiq
-        gitaly:
-          image:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitaly
-        gitlab-shell:
-          image:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-shell
-        mailroom:
-          image:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitlab-mailroom
-        praefect:
-          image:
-            repository: registry.gitlab.com/enbuild-staging/container_registry/gitlab-gitlab/gitaly
-      minio:
-        image: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/minio
-        minioMc:
-          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/mc
+    # -- Rails plain text secret to define. If empty (""), the gitlab charts will create the gitlab-rails-secret with randomized data.
+    # Read the following for more information on setting Gitlab rails secrets: https://docs.gitlab.com/charts/installation/secrets#gitlab-rails-secret
+    railsSecret: ""
+    # -- Values to passthrough to the gitlab chart: https://repo1.dso.mil/big-bang/product/packages/gitlab.git
+    values: {}
     # -- Post Renderers.  See docs/postrenders.md
     postRenderers: []

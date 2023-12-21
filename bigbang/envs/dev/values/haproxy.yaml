@@ -1,17 +1,21 @@
 addons:
   haproxy:
+    # -- Choose source type of "git" or "helmRepo"
+    sourceType: "git"
     git:
-      repo: "https://github.com/VivSoftOrg/haproxy.git"
+      repo: https://repo1.dso.mil/big-bang/product/packages/haproxy.git
       path: "./chart"
-      tag: "1.12.0-bb.0"
+      tag: "1.19.3-bb.0"
+    helmRepo:
+      repoName: "registry1"
+      chartName: "haproxy"
+      tag: "1.19.3-bb.0"
     # -- Flux reconciliation overrides specifically for the HAProxy Package
     flux: {}
     # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
     ingress:
       gateway: ""
-    # -- Values to passthrough to the haproxy chart: https://github.com/VivSoftOrg/haproxy.git
-    values:
-      image:
-        repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-haproxy/haproxy22
+    # -- Values to passthrough to the haproxy chart: https://repo1.dso.mil/big-bang/product/packages/haproxy.git
+    values: {}
     # -- Post Renderers.  See docs/postrenders.md
     postRenderers: []

@@ -2,10 +2,16 @@ addons:
   sonarqube:
     # -- Toggle deployment of SonarQube.
     enabled: false
+    # -- Choose source type of "git" or "helmRepo"
+    sourceType: "git"
     git:
-      repo: "https://github.com/VivSoftOrg/sonarqube.git"
+      repo: https://repo1.dso.mil/big-bang/product/packages/sonarqube.git
       path: "./chart"
-      tag: "1.0.31-bb.3"
+      tag: "8.0.3-bb.0"
+    helmRepo:
+      repoName: "registry1"
+      chartName: "sonarqube"
+      tag: "8.0.3-bb.0"
     # -- Flux reconciliation overrides specifically for the Sonarqube Package
     flux: {}
     # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
@@ -17,11 +23,6 @@ addons:
       enabled: false
       # -- SonarQube SAML client ID
       client_id: ""
-      # -- SonarQube SSO login button label
-      provider_name: ""
-      # -- SonarQube plaintext SAML sso certificate.
-      # example: MITCAYCBFyIEUjNBkqhkiG9w0BA....
-      certificate: ""
       # -- SonarQube login sso attribute.
       login: login
       # -- SonarQube name sso attribute.
@@ -41,17 +42,7 @@ addons:
       username: ""
       # -- Database password for the username used to connect to the existing database.
       password: ""
-    # -- Values to passthrough to the sonarqube chart: https://github.com/VivSoftOrg/sonarqube.git
-    values:
-      image:
-        repository: registry.gitlab.com/enbuild-staging/container_registry/big-bang-sonarqube
-      waitForDb:
-        image: registry.gitlab.com/enbuild-staging/container_registry/opensource-postgres/postgresql12:12.13
-      plugins:
-        image: registry.gitlab.com/enbuild-staging/container_registry/big-bang-sonarqube:8.9.10-community
-      postgresql:
-        image:
-          registry: registry.gitlab.com
-          repository: enbuild-staging/container_registry/opensource-postgres/postgresql12
+    # -- Values to passthrough to the sonarqube chart: https://repo1.dso.mil/big-bang/product/packages/sonarqube.git
+    values: {}
     # -- Post Renderers.  See docs/postrenders.md
     postRenderers: []

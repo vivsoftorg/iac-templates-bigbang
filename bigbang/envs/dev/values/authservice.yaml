@@ -8,16 +8,20 @@ addons:
     #     minimal:
     #       callback_uri: "https://somecallback"
     enabled: false
+    # -- Choose source type of "git" or "helmRepo"
+    sourceType: "git"
     git:
-      repo: "https://github.com/VivSoftOrg/authservice.git"
+      repo: https://repo1.dso.mil/big-bang/product/packages/authservice.git
       path: "./chart"
-      tag: "0.5.3-bb.2"
+      tag: "0.5.3-bb.21"
+    helmRepo:
+      repoName: "registry1"
+      chartName: "authservice"
+      tag: "0.5.3-bb.21"
     # -- Flux reconciliation overrides specifically for the Authservice Package
     flux: {}
-    # -- Values to passthrough to the authservice chart: https://github.com/VivSoftOrg/authservice.git
-    values:
-      image:
-        repository: registry.gitlab.com/enbuild-staging/container_registry/istio-ecosystem-authservice
+    # -- Values to passthrough to the authservice chart: https://repo1.dso.mil/big-bang/product/packages/authservice.git
+    values: {}
     # -- Post Renderers.  See docs/postrenders.md
     postRenderers: []
     # -- Additional authservice chain configurations.

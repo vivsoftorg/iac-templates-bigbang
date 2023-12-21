@@ -1,11 +1,17 @@
 addons:
-  nexus:
-    # -- Toggle deployment of Nexus.
+  nexusRepositoryManager:
+    # -- Toggle deployment of Nexus Repository Manager.
     enabled: false
+    # -- Choose source type of "git" or "helmRepo"
+    sourceType: "git"
     git:
-      repo: "https://github.com/VivSoftOrg/nexus.git"
+      repo: https://repo1.dso.mil/big-bang/product/packages/nexus.git
       path: "./chart"
-      tag: "42.0.0-bb.4"
+      tag: "62.0.0-bb.0"
+    helmRepo:
+      repoName: "registry1"
+      chartName: "nexus-repository-manager"
+      tag: "62.0.0-bb.0"
     # -- Base64 encoded license file.
     license_key: ""
     # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
@@ -19,7 +25,7 @@ addons:
       enabled: false
       # -- NXRM SAML SSO Integration data
       idp_data:
-        # Nexus saml URL. example: "https://nexus.example.mil/service/rest/v1/security/saml/metadata"
+        # Nexus saml URL. example: "https://nexus.bigbang.dev/service/rest/v1/security/saml/metadata"
         entityId: ""
         # -- IdP Field Mappings
         # -- NXRM username attribute
@@ -32,9 +38,6 @@ addons:
         email: ""
         # -- NXRM groups attribute (optional)
         groups: ""
-        # -- IDP SAML Metadata XML as a single line string in single quotes
-        # -- this information is public and does not require a secret
-        idpMetadata: ''
       # -- NXRM Role
       role:
         # the id must match the Keycloak group name (case sensitive)
@@ -45,14 +48,7 @@ addons:
           roles: []
     # -- Flux reconciliation overrides specifically for the Nexus Repository Manager Package
     flux: {}
-    # -- Values to passthrough to the nxrm chart: https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/nexus.git
-    values:
-      job_image:
-        repository: registry.gitlab.com/enbuild-staging/container_registry/redhat-ubi/ubi8-minimal
-      bbtests:
-        scripts:
-          image: registry.gitlab.com/enbuild-staging/container_registry/google-go-containerregistry/crane:v0.12.0
-      image:
-        repository: registry.gitlab.com/enbuild-staging/container_registry/sonatype-nexus/nexus
+    # -- Values to passthrough to the nxrm chart: https://repo1.dso.mil/big-bang/product/packages/nexus.git
+    values: {}
     # -- Post Renderers.  See docs/postrenders.md
     postRenderers: []

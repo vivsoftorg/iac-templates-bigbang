@@ -2,22 +2,19 @@ addons:
   gitlabRunner:
     # -- Toggle deployment of Gitlab Runner
     enabled: false
+    # -- Choose source type of "git" or "helmRepo"
+    sourceType: "git"
     git:
-      repo: "https://github.com/VivSoftOrg/gitlab-runner.git"
+      repo: https://repo1.dso.mil/big-bang/product/packages/gitlab-runner.git
       path: "./chart"
-      tag: "0.47.0-bb.1"
+      tag: "0.58.1-bb.0"
+    helmRepo:
+      repoName: "registry1"
+      chartName: "gitlab-runner"
+      tag: "0.58.1-bb.0"
     # -- Flux reconciliation overrides specifically for the Gitlab Runner Package
     flux: {}
-    # -- Values to passthrough to the gitlab runner chart: https://github.com/VivSoftOrg/gitlab-runner.git
-    values:
-      registry: registry.gitlab.com
-      repository: enbuild-staging/container_registry/gitlab-gitlab-runner/gitlab-runner
-      runners:
-        job:
-          registry: registry.gitlab.com
-          repository: enbuild-staging/container_registry/redhat-ubi/ubi8
-        helper:
-          registry: registry.gitlab.com
-          repository: enbuild-staging/container_registry/gitlab-gitlab-runner/gitlab-runner-helper
+    # -- Values to passthrough to the gitlab runner chart: https://repo1.dso.mil/big-bang/product/packages/gitlab-runner.git
+    values: {}
     # -- Post Renderers.  See docs/postrenders.md
     postRenderers: []

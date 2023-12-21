@@ -2,10 +2,16 @@ addons:
   mattermost:
     # -- Toggle deployment of Mattermost.
     enabled: false
+    # -- Choose source type of "git" or "helmRepo"
+    sourceType: "git"
     git:
-      repo: "https://github.com/VivSoftOrg/mattermost.git"
+      repo: https://repo1.dso.mil/big-bang/product/packages/mattermost.git
       path: "./chart"
-      tag: "7.5.1-bb.0"
+      tag: "v9.2.3-bb.0"
+    helmRepo:
+      repoName: "registry1"
+      chartName: "mattermost"
+      tag: "v9.2.3-bb.0"
     # -- Flux reconciliation overrides specifically for the Mattermost Package
     flux: {}
     # -- Mattermost Enterprise functionality.
@@ -27,15 +33,6 @@ addons:
       client_id: ""
       # -- Mattermost OIDC client secret
       client_secret: ""
-      # -- Mattermost OIDC auth endpoint
-      # To get endpoint values, see here: https://github.com/VivSoftOrg/mattermost/-/blob/main/docs/keycloak.md#helm-values
-      auth_endpoint: ""
-      # -- Mattermost OIDC token endpoint
-      # To get endpoint values, see here: https://github.com/VivSoftOrg/mattermost/-/blob/main/docs/keycloak.md#helm-values
-      token_endpoint: ""
-      # -- Mattermost OIDC user API endpoint
-      # To get endpoint values, see here: https://github.com/VivSoftOrg/mattermost/-/blob/main/docs/keycloak.md#helm-values
-      user_api_endpoint: ""
     database:
       # -- Hostname of a pre-existing PostgreSQL database to use for Mattermost.
       # Entering connection info will disable the deployment of an internal database and will auto-create any required secrets.
@@ -65,25 +62,11 @@ addons:
       bucket: ""
     # -- Mattermost Elasticsearch integration - requires enterprise E20 license - https://docs.mattermost.com/deployment/elasticsearch.html
     # Connection info defaults to the BB deployed Elastic, all values can be overridden via the "values" passthrough for other connections.
-    # See values spec in MM chart "elasticsearch" yaml block - https://github.com/VivSoftOrg/mattermost/-/blob/main/chart/values.yaml
+    # See values spec in MM chart "elasticsearch" yaml block - https://repo1.dso.mil/big-bang/product/packages/values.yaml
     elasticsearch:
       # -- Toggle interaction with Elastic for optimized search indexing
       enabled: false
-    # -- Values to passthrough to the Mattermost chart: https://github.com/VivSoftOrg/mattermost/-/blob/main/chart/values.yaml
-    values:
-      image:
-        name: registry.gitlab.com/enbuild-staging/container_registry/opensource-mattermost/mattermost
-      minio:
-        bucketCreationImage: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/mc:RELEASE.2022-08-23T05-45-20Z
-        tenant:
-            image:
-              repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-minio/minio
-      postgresql:
-        image:
-          registry: registry.gitlab.com/enbuild-staging/container_registry
-          repository: opensource-postgres/postgresql11
-      database:
-        readinessCheck:
-          image: registry.gitlab.com/enbuild-staging/container_registry/opensource-postgres/postgresql12:12.13
+    # -- Values to passthrough to the Mattermost chart: https://repo1.dso.mil/big-bang/product/packages/values.yaml
+    values: {}
     # -- Post Renderers.  See docs/postrenders.md
     postRenderers: []

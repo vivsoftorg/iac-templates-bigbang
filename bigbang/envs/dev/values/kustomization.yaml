@@ -27,7 +27,6 @@ configMapGenerator:
     - kyverno.yaml
     - kyvernopolicies.yaml
     - kyvernoreporter.yaml
-    - logging.yaml
     - loki.yaml
     - mattermost.yaml
     - mattermostoperator.yaml
@@ -36,7 +35,6 @@ configMapGenerator:
     - miniooperator.yaml
     - monitoring.yaml
     - neuvector.yaml
-    - nexus.yaml
     - promtail.yaml
     - repo.yaml
     - sonarqube.yaml
@@ -44,3 +42,9 @@ configMapGenerator:
     - twistlock.yaml
     - vault.yaml
     - velero.yaml
+    - elasticsearchkibana.yaml
+    - fortify.yaml
+    - grafana.yaml
+    - harbor.yaml
+    - nexusrepositorymanager.yaml
+    - thanos.yaml

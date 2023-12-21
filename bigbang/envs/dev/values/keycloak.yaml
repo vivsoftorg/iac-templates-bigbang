@@ -4,10 +4,16 @@ addons:
     # if you enable Keycloak you should uncomment the istio passthrough configurations above
     # istio.ingressGateways.passthrough-ingressgateway and istio.gateways.passthrough
     enabled: false
+    # -- Choose source type of "git" or "helmRepo"
+    sourceType: "git"
     git:
-      repo: "https://github.com/VivSoftOrg/keycloak.git"
+      repo: https://repo1.dso.mil/big-bang/product/packages/keycloak.git
       path: "./chart"
-      tag: "18.2.1-bb.5"
+      tag: "18.4.3-bb.10"
+    helmRepo:
+      repoName: "registry1"
+      chartName: "keycloak"
+      tag: "18.4.3-bb.10"
     database:
       # -- Hostname of a pre-existing database to use for Keycloak.
       # Entering connection info will disable the deployment of an internal database and will auto-create any required secrets.
@@ -32,16 +38,7 @@ addons:
       # Setting the ingress cert here will automatically create the volume and volumemounts in the Keycloak Package chart
       key: ""
       cert: ""
-    # -- Values to passthrough to the keycloak chart: https://github.com/VivSoftOrg/keycloak.git
-    values:
-      pgchecker:
-        image:
-          repository: registry.gitlab.com/enbuild-staging/container_registry/opensource-postgres/postgresql12
-      postgresql:
-        image:
-          registry: registry.gitlab.com
-          repository: enbuild-staging/container_registry/opensource-postgres/postgresql12
-      bbtests:
-        image: registry.gitlab.com/enbuild-staging/container_registry/big-bang-base:2.0.0
+    # -- Values to passthrough to the keycloak chart: https://repo1.dso.mil/big-bang/product/packages/keycloak.git
+    values: {}
     # -- Post Renderers.  See docs/postrenders.md
     postRenderers: []
