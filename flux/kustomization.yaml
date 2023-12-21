@@ -6,16 +6,16 @@ resources:
 images:
 - name: ghcr.io/fluxcd/helm-controller
   newName: registry.gitlab.com/enbuild-staging/container_registry/fluxcd/helm-controller
-  newTag: v0.22.2
+  newTag: v0.36.0
 - name: ghcr.io/fluxcd/kustomize-controller
   newName: registry.gitlab.com/enbuild-staging/container_registry/fluxcd/kustomize-controller
-  newTag: v0.27.0
+  newTag: v1.1.0
 - name: ghcr.io/fluxcd/notification-controller
   newName: registry.gitlab.com/enbuild-staging/container_registry/fluxcd/notification-controller
-  newTag: v0.25.1
+  newTag: v1.1.0
 - name: ghcr.io/fluxcd/source-controller
   newName: registry.gitlab.com/enbuild-staging/container_registry/fluxcd/source-controller
-  newTag: v0.26.1
+  newTag: v1.1.0
 
 patches:
   - target:
@@ -68,10 +68,10 @@ patches:
             - name: manager
               resources:
                 limits:
-                  cpu: 500m
+                  cpu: 900m
                   memory: 1Gi
                 requests:
-                  cpu: 500m
+                  cpu: 900m
                   memory: 1Gi
   - target:
       kind: Deployment
@@ -88,10 +88,10 @@ patches:
             - name: manager
               resources:
                 limits:
-                  cpu: 100m
+                  cpu: 300m
                   memory: 600Mi
                 requests:
-                  cpu: 100m
+                  cpu: 300m
                   memory: 600Mi
   - target:
       kind: Deployment
@@ -128,8 +128,8 @@ patches:
             - name: manager
               resources:
                 limits:
-                  cpu: 100m
-                  memory: 250Mi
+                  cpu: 300m
+                  memory: 384Mi
                 requests:
-                  cpu: 100m
-                  memory: 250Mi
+                  cpu: 300m
+                  memory: 384Mi
