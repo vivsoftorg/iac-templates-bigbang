@@ -21,6 +21,7 @@ spec:
   url: https://repo1.dso.mil/platform-one/big-bang/bigbang.git
   ref:
     tag: 2.17.0
-  secretRef:
-    name: repository-credentials
+  # For P1 repo we dont need repo creds as its public
+  # secretRef:
+  #   name: repository-credentials
 ---
