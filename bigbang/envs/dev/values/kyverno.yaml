@@ -1,0 +1,18 @@
+# -- Toggle deployment of Kyverno.
+enabled: true
+# -- Choose source type of "git" or "helmRepo"
+sourceType: "git"
+git:
+  repo: https://repo1.dso.mil/big-bang/product/packages/kyverno.git
+  path: "./chart"
+  tag: "3.1.0-bb.0"
+helmRepo:
+  repoName: "registry1"
+  chartName: "kyverno"
+  tag: "3.1.0-bb.0"
+# -- Flux reconciliation overrides specifically for the Kyverno Package
+flux: {}
+# -- Values to passthrough to the kyverno chart: https://repo1.dso.mil/big-bang/product/packages/kyverno.git
+values: {}
+# -- Post Renderers.  See docs/postrenders.md
+postRenderers: []

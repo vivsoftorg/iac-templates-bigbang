@@ -1,0 +1,18 @@
+# -- Toggle deployment of Promtail.
+enabled: true
+# -- Choose source type of "git" or "helmRepo"
+sourceType: "git"
+git:
+  repo: https://repo1.dso.mil/big-bang/product/packages/promtail.git
+  path: "./chart"
+  tag: "6.15.3-bb.1"
+helmRepo:
+  repoName: "registry1"
+  chartName: "promtail"
+  tag: "6.15.3-bb.1"
+# -- Flux reconciliation overrides specifically for the Promtail Package
+flux: {}
+# -- Values to passthrough to the promtail chart: https://repo1.dso.mil/big-bang/product/packages/fluentbit.git
+values: {}
+# -- Post Renderers.  See docs/postrenders.md
+postRenderers: []

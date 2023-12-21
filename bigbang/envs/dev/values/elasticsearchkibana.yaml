@@ -1,0 +1,35 @@
+# -- Toggle deployment of Logging (EFK).
+enabled: false
+# -- Choose source type of "git" or "helmRepo"
+sourceType: "git"
+git:
+  repo: https://repo1.dso.mil/big-bang/product/packages/elasticsearch-kibana.git
+  path: "./chart"
+  tag: "1.6.1-bb.2"
+helmRepo:
+  repoName: "registry1"
+  chartName: "elasticsearch-kibana"
+  tag: "1.6.1-bb.2"
+# -- Flux reconciliation overrides specifically for the Logging (EFK) Package
+flux:
+  timeout: 20m
+# -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+ingress:
+  gateway: ""
+sso:
+  # -- Toggle OIDC SSO for Kibana/Elasticsearch on and off.
+  # Enabling this option will auto-create any required secrets.
+  enabled: false
+  # -- Elasticsearch/Kibana OIDC client ID
+  client_id: ""
+  # -- Elasticsearch/Kibana OIDC client secret
+  client_secret: ""
+license:
+  # -- Toggle trial license installation of elasticsearch.  Note that enterprise (non trial) is required for SSO to work.
+  trial: false
+  # -- Elasticsearch license in json format seen here: https://repo1.dso.mil/big-bang/product/packages/elasticsearch-kibana#enterprise-license
+  keyJSON: ""
+# -- Values to passthrough to the elasticsearch-kibana chart: https://repo1.dso.mil/big-bang/product/packages/elasticsearch-kibana.git
+values: {}
+# -- Post Renderers.  See docs/postrenders.md
+postRenderers: []
