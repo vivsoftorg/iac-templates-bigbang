@@ -69,9 +69,6 @@ spec:
       valuesKey: kyvernoreporter.yaml
     - name: bb-helm-values
       kind: ConfigMap
-      valuesKey: logging.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
       valuesKey: loki.yaml
     - name: bb-helm-values
       kind: ConfigMap
@@ -96,9 +93,6 @@ spec:
       valuesKey: neuvector.yaml
     - name: bb-helm-values
       kind: ConfigMap
-      valuesKey: nexus.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
       valuesKey: promtail.yaml
     - name: bb-helm-values
       kind: ConfigMap
@@ -118,6 +112,24 @@ spec:
     - name: bb-helm-values
       kind: ConfigMap
       valuesKey: velero.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: elasticsearchkibana.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: thanos.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: fortify.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: grafana.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: harbor.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: nexusrepositorymanager.yaml
 
     - name: anchore-values
       kind: Secret
@@ -155,8 +167,6 @@ spec:
       kind: Secret
     - name: kyvernoreporter-values
       kind: Secret
-    - name: logging-values
-      kind: Secret
     - name: loki-values
       kind: Secret
     - name: mattermost-values
@@ -173,8 +183,6 @@ spec:
       kind: Secret
     - name: neuvector-values
       kind: Secret
-    - name: nexus-values
-      kind: Secret
     - name: promtail-values
       kind: Secret
     - name: repo-values
@@ -188,4 +196,16 @@ spec:
     - name: vault-values
       kind: Secret
     - name: velero-values
+      kind: Secret
+    - name: elasticsearchkibana-values
+      kind: Secret
+    - name: thanos-values
+      kind: Secret
+    - name: fortify-values
+      kind: Secret
+    - name: grafana-values
+      kind: Secret
+    - name: harbor-values
+      kind: Secret
+    - name: nexusrepositorymanager-values
       kind: Secret

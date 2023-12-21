@@ -18,9 +18,9 @@ metadata:
   name: bigbang
 spec:
   interval: 1m0s
-  url: https://github.com/VivSoftOrg/bigbang.git
+  url: https://gitlab.com/enbuild-staging/charts/bigbang.git
   ref:
-    tag: 1.50.0
+    tag: 2.17.0
   secretRef:
     name: repository-credentials
 ---
