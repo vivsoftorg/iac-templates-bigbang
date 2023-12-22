@@ -20,10 +20,7 @@ jobs:
     # runs-on:  self-hosted
     if: ${{ contains(github.event.head_commit.message, 'run-ci') }}
     container:
-      image: registry.gitlab.com/enbuild-staging/container_registry/hardened-github-runner:latest
-      credentials:
-        username: ${{ secrets.registry_user}}
-        password: ${{ secrets.registry_password}}
+      image: ghcr.io/vivsoftorg/hardened-github-runner:v2
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
