@@ -5,13 +5,13 @@ addons:
     # -- Choose source type of "git" or "helmRepo"
     sourceType: "git"
     git:
-      repo: https://repo1.dso.mil/big-bang/apps/sandbox/thanos.git
-      tag: "12.13.12-bb.4"
+      repo: https://repo1.dso.mil/big-bang/product/packages/thanos.git
+      tag: "12.23.0-bb.2"
       path: "./chart"
     helmRepo:
       repoName: "registry1"
       chartName: "thanos"
-      tag: "12.13.12-bb.4"
+      tag: "12.23.0-bb.2"
     # -- Flux reconciliation overrides specifically for the Jaeger Package
     flux: {}
     # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".

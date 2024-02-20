@@ -7,11 +7,11 @@ addons:
     git:
       repo: https://repo1.dso.mil/big-bang/product/packages/fortify.git
       path: "./chart"
-      tag: "1.1.2311007-bb.7"
+      tag: "1.1.2320154-bb.1"
     helmRepo:
       repoName: "registry1"
-      chartName: "fortify"
-      tag: "1.1.2311007-bb.7"
+      chartName: "fortify-ssc"
+      tag: "1.1.2320154-bb.1"
     # -- Flux reconciliation overrides specifically for the Fortify Package
     flux: {}
     # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
