@@ -22,16 +22,3 @@ kubectl wait --for=condition=Ready=True --timeout 500s helmreleases bigbang -n b
 
 hr=$(kubectl get hr -n bigbang -o custom-columns=NAME:.metadata.name --no-headers=true)
 kubectl wait --for=condition=Ready=True --timeout 3600s helmreleases $hr -n bigbang
-
-# kubectl wait --for=condition=Ready=True --timeout 500s helmreleases bigbang -n bigbang
-# kubectl wait --for=condition=Ready=True --timeout 700s helmreleases gatekeeper -n bigbang
-# kubectl wait --for=condition=Ready=True --timeout 500s helmreleases istio-operator -n bigbang
-# kubectl wait --for=condition=Ready=True --timeout 500s helmreleases istio -n bigbang
-# kubectl wait --for=condition=Ready=True --timeout 500s helmreleases jaeger -n bigbang
-# kubectl wait --for=condition=Ready=True --timeout 500s helmreleases kiali -n bigbang
-# kubectl wait --for=condition=Ready=True --timeout 500s helmreleases ek -n bigbang
-# kubectl wait --for=condition=Ready=True --timeout 500s helmreleases cluster-auditor -n bigbang
-# kubectl wait --for=condition=Ready=True --timeout 500s helmreleases fluent-bit -n bigbang
-# kubectl wait --for=condition=Ready=True --timeout 500s helmreleases eck-operator -n bigbang
-# kubectl wait --for=condition=Ready=True --timeout 500s helmreleases monitoring -n bigbang
-# kubectl wait --for=condition=Ready=True --timeout 500s helmreleases twistlock -n bigbang
