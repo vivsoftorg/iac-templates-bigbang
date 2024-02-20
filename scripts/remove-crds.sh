@@ -17,5 +17,5 @@ done
 kubectl delete crd jaegers.jaegertracing.io  kialis.kiali.io
 
 # webhooks
-kubectl delete validatingwebhookconfigurations istiod-default-validator istio-validator-istio-system
-kubectl delete mutatingwebhookconfigurations istio-sidecar-injector
+kubectl delete validatingwebhookconfigurations istiod-default-validator istio-validator-istio-system kyverno-cleanup-validating-webhook-cfg kyverno-exception-validating-webhook-cfg kyverno-policy-validating-webhook-cfg kyverno-resource-validating-webhook-cfg kyverno-ttl-validating-webhook-cfg
+kubectl delete mutatingwebhookconfigurations istio-sidecar-injector mutatingwebhookconfigurations kyverno-policy-mutating-webhook-cfg kyverno-resource-mutating-webhook-cfg kyverno-verify-mutating-webhook-cfg
