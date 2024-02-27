@@ -16,6 +16,11 @@ done
 # jaegers kialis
 kubectl delete crd jaegers.jaegertracing.io  kialis.kiali.io
 
+# Kyverno
+kubectl delete crd admissionreports.kyverno.io backgroundscanreports.kyverno.io cleanuppolicies.kyverno.io clusteradmissionreports.kyverno.io clusterbackgroundscanreports.kyverno.io clustercleanuppolicies.kyverno.io clusterpolicies.kyverno.io policies.kyverno.io policyexceptions.kyverno.io updaterequests.kyverno.io
+
+# Grafana
+delete crd clusterpolicyreports.wgpolicyk8s.io grafanaagents.monitoring.grafana.com integrations.monitoring.grafana.com logsinstances.monitoring.grafana.com metricsinstances.monitoring.grafana.com podlogs.monitoring.grafana.com policyreports.wgpolicyk8s.io
 # webhooks
-kubectl delete validatingwebhookconfigurations istiod-default-validator istio-validator-istio-system kyverno-cleanup-validating-webhook-cfg kyverno-exception-validating-webhook-cfg kyverno-policy-validating-webhook-cfg kyverno-resource-validating-webhook-cfg kyverno-ttl-validating-webhook-cfg
-kubectl delete mutatingwebhookconfigurations istio-sidecar-injector mutatingwebhookconfigurations kyverno-policy-mutating-webhook-cfg kyverno-resource-mutating-webhook-cfg kyverno-verify-mutating-webhook-cfg
+kubectl delete validatingwebhookconfigurations istiod-default-validator istio-validator-istio-system gatekeeper-validating-webhook-configuration
+kubectl delete mutatingwebhookconfigurations istio-sidecar-injector

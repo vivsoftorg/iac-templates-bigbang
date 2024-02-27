@@ -1,0 +1,1 @@
+kubectl get admissionreports,backgroundscanreports,cleanuppolicies,clusteradmissionreports,clusterbackgroundscanreports,clustercleanuppolicies,clusterpolicies,policies,policyexceptions,updaterequests -A
