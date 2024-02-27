@@ -10,11 +10,11 @@ istio:
   git:
     repo: "https://repo1.dso.mil/big-bang/product/packages/istio-controlplane.git"
     path: "./chart"
-    tag: "1.19.6-bb.1"
+    tag: "1.19.6-bb.2"
   helmRepo:
     repoName: "registry1"
     chartName: "istio"
-    tag: "1.19.6-bb.1"
+    tag: "1.19.6-bb.2"
     # -- If the HelmRelease should verify the cosign signature of the HelmRepo (only relevant if Repo is OCI).  Set to 'false' to disable verification.
     # cosignVerify:
   # -- Tetrate Istio Distribution - Tetrate provides FIPs verified Istio and Envoy software and support,
