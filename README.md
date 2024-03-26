@@ -1,7 +1,7 @@
 # BigBang
 
 The BigBang module deploys standard BigBang components on top of an existing Kubernetes cluster.
-The BigBang Chart version being used is 2.21.0
+The BigBang Chart version being used is 2.23.0
 
 
 ## Mandatory Components
@@ -13,8 +13,3 @@ The BigBang Chart version being used is 2.21.0
 * Prometheus & Grafana for monitoring
 * Open Policy Agent as Gatekeeper 
 * Twistlock for vulnerability scanning
-
-## Optional components
-
-* ArgoCD
-* Authservice
