@@ -1,0 +1,24 @@
+addons:
+  velero:
+    # -- Toggle deployment of Velero.
+    enabled: false
+    # -- Choose source type of "git" or "helmRepo"
+    sourceType: "git"
+    git:
+      repo: https://repo1.dso.mil/big-bang/product/packages/velero.git
+      path: "./chart"
+      tag: "5.2.2-bb.2"
+    helmRepo:
+      repoName: "registry1"
+      chartName: "velero"
+      tag: "5.2.2-bb.2"
+    # -- Flux reconciliation overrides specifically for the Velero Package
+    flux: {}
+    # -- Plugin provider for Velero - requires at least one plugin installed. Current supported values: aws, azure, csi
+    plugins: []
+    # - aws
+
+    # -- Values to passthrough to the Velero chart: https://repo1.dso.mil/big-bang/product/packages/values.yaml
+    values: {}
+    # -- Post Renderers.  See docs/postrenders.md
+    postRenderers: []

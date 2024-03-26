@@ -1,0 +1,39 @@
+monitoring:
+  # -- Toggle deployment of Monitoring (Prometheus, Grafana, and Alertmanager).
+  enabled: true
+  # -- Choose source type of "git" or "helmRepo"
+  sourceType: "git"
+  git:
+    repo: "https://repo1.dso.mil/big-bang/product/packages/monitoring.git"
+    path: "./chart"
+    tag: "56.2.1-bb.9"
+  helmRepo:
+    repoName: "registry1"
+    chartName: "monitoring"
+    tag: "56.2.1-bb.9"
+  # -- Flux reconciliation overrides specifically for the Monitoring Package
+  flux:
+    install:
+      crds: CreateReplace
+    upgrade:
+      crds: CreateReplace
+  # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+  ingress:
+    gateway: ""
+  sso:
+    # -- Toggle SSO for monitoring components on and off
+    enabled: false
+    prometheus:
+      # -- Prometheus OIDC client ID
+      client_id: ""
+      # -- Prometheus OIDC client secret
+      client_secret: ""
+    alertmanager:
+      # -- Alertmanager OIDC client ID
+      client_id: ""
+      # -- Alertmanager OIDC client secret
+      client_secret: ""
+  # -- Values to passthrough to the monitoring chart: https://repo1.dso.mil/big-bang/product/packages/monitoring.git
+  values: {}
+  # -- Post Renderers.  See docs/postrenders.md
+  postRenderers: []

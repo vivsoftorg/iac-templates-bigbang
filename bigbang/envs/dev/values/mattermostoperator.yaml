@@ -1,0 +1,20 @@
+addons:
+  mattermostOperator:
+    # -- Toggle deployment of Mattermost Operator.
+    enabled: false
+    # -- Choose source type of "git" or "helmRepo"
+    sourceType: "git"
+    git:
+      repo: https://repo1.dso.mil/big-bang/product/packages/mattermost-operator.git
+      path: "./chart"
+      tag: "1.20.1-bb.2"
+    helmRepo:
+      repoName: "registry1"
+      chartName: "mattermost-operator"
+      tag: "1.20.1-bb.2"
+    # -- Flux reconciliation overrides specifically for the Mattermost Operator Package
+    flux: {}
+    # -- Values to passthrough to the mattermost operator chart: https://repo1.dso.mil/big-bang/product/packages/values.yaml
+    values: {}
+    # -- Post Renderers.  See docs/postrenders.md
+    postRenderers: []

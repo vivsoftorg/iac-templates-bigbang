@@ -1,0 +1,27 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: bigbang-deploy
+  namespace: bigbang
+spec:
+  interval: 1m0s
+  url: https://gitlab.com/enbuild-staging/iac-templates/bigbang.git
+  ref:
+    branch: main
+  secretRef:
+    name: repository-credentials
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: bigbang
+spec:
+  interval: 1m0s
+  url: https://repo1.dso.mil/platform-one/big-bang/bigbang.git
+  ref:
+    tag: 2.23.0
+  # For P1 repo we dont need repo creds as its public
+  # secretRef:
+  #   name: repository-credentials
+---

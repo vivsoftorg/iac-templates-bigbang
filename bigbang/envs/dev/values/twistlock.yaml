@@ -1,0 +1,32 @@
+twistlock:
+  # -- Toggle deployment of Twistlock.
+  enabled: false
+  # -- Choose source type of "git" or "helmRepo"
+  sourceType: "git"
+  git:
+    repo: "https://repo1.dso.mil/big-bang/product/packages/twistlock.git"
+    path: "./chart"
+    tag: "0.15.0-bb.2"
+  helmRepo:
+    repoName: "registry1"
+    chartName: "twistlock"
+    tag: "0.15.0-bb.2"
+  # -- Flux reconciliation overrides specifically for the Twistlock Package
+  flux: {}
+  # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+  ingress:
+    gateway: ""
+  sso:
+    # -- Toggle SAML SSO, requires a license and enabling the init job - see https://repo1.dso.mil/big-bang/product/packages/initialization.md
+    enabled: false
+    # -- SAML client ID
+    client_id: ""
+    # -- SAML Identity Provider. `shibboleth` is recommended by Twistlock support for Keycloak
+    # Possible values: okta, gsuite, ping, shibboleth, azure, adfs
+    provider_type: "shibboleth"
+    # -- Groups attribute (optional)
+    groups: ""
+  # -- Values to passthrough to the twistlock chart: https://repo1.dso.mil/big-bang/product/packages/twistlock.git
+  values: {}
+  # -- Post Renderers.  See docs/postrenders.md
+  postRenderers: []

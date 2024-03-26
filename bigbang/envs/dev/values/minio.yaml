@@ -1,0 +1,27 @@
+addons:
+  minio:
+    # -- Toggle deployment of minio.
+    enabled: false
+    # -- Choose source type of "git" or "helmRepo"
+    sourceType: "git"
+    git:
+      repo: https://repo1.dso.mil/big-bang/product/packages/minio.git
+      path: "./chart"
+      tag: "5.0.12-bb.4"
+    helmRepo:
+      repoName: "registry1"
+      chartName: "minio-instance"
+      tag: "5.0.12-bb.4"
+    # -- Flux reconciliation overrides specifically for the Minio Package
+    flux: {}
+    # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+    ingress:
+      gateway: ""
+    # -- Default access key to use for minio.
+    accesskey: ""
+    # -- Default secret key to intstantiate with minio, you should change/delete this after installation.
+    secretkey: ""
+    # -- Values to passthrough to the minio instance chart: https://repo1.dso.mil/big-bang/product/packages/minio.git
+    values: {}
+    # -- Post Renderers.  See docs/postrenders.md
+    postRenderers: []

@@ -1,0 +1,1 @@
+for i in authservice bigbang cluster-auditor flux-system gatekeeper-system istio-operator istio-system jaeger kiali logging monitoring twistlock ; do  echo $i; /usr/local/bin/remove-ns-finalizer.sh $i ;done

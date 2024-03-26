@@ -1,0 +1,10 @@
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: bigbang
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: flux-system

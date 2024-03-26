@@ -1,0 +1,19 @@
+istioOperator:
+  # -- Toggle deployment of Istio Operator.
+  enabled: true
+  # -- Choose source type of "git" or "helmRepo"
+  sourceType: "git"
+  git:
+    repo: "https://repo1.dso.mil/big-bang/product/packages/istio-operator.git"
+    path: "./chart"
+    tag: "1.19.7-bb.2"
+  helmRepo:
+    repoName: "registry1"
+    chartName: "istio-operator"
+    tag: "1.19.7-bb.2"
+  # -- Flux reconciliation overrides specifically for the Istio Operator Package
+  flux: {}
+  # -- Values to passthrough to the istio-operator chart: https://repo1.dso.mil/big-bang/product/packages/istio-operator.git
+  values: {}
+  # -- Post Renderers.  See docs/postrenders.md
+  postRenderers: []

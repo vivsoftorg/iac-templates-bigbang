@@ -1,0 +1,19 @@
+eckOperator:
+  # -- Toggle deployment of ECK Operator.
+  enabled: false
+  # -- Choose source type of "git" or "helmRepo"
+  sourceType: "git"
+  git:
+    repo: "https://repo1.dso.mil/big-bang/product/packages/eck-operator.git"
+    path: "./chart"
+    tag: "2.11.1-bb.0"
+  helmRepo:
+    repoName: "registry1"
+    chartName: "eck-operator"
+    tag: "2.11.1-bb.0"
+  # -- Flux reconciliation overrides specifically for the ECK Operator Package
+  flux: {}
+  # -- Values to passthrough to the eck-operator chart: https://repo1.dso.mil/big-bang/product/packages/eck-operator.git
+  values: {}
+  # -- Post Renderers.  See docs/postrenders.md
+  postRenderers: []

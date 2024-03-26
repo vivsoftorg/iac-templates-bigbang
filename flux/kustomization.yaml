@@ -1,0 +1,175 @@
+# start with a default flux deployment
+resources:
+- gotk-components.yaml
+
+# update flux components to use ironbank images
+images:
+- name: ghcr.io/fluxcd/helm-controller
+  newName: registry1.dso.mil/ironbank/fluxcd/helm-controller
+  newTag: v0.37.4
+- name: ghcr.io/fluxcd/kustomize-controller
+  newName: registry1.dso.mil/ironbank/fluxcd/kustomize-controller
+  newTag: v1.2.2
+- name: ghcr.io/fluxcd/notification-controller
+  newName: registry1.dso.mil/ironbank/fluxcd/notification-controller
+  newTag: v1.2.4
+- name: ghcr.io/fluxcd/source-controller
+  newName: registry1.dso.mil/ironbank/fluxcd/source-controller
+  newTag: v1.2.4
+
+patches:
+  - target:
+      kind: Deployment
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: whatever
+      spec:
+        template:
+          metadata:
+            annotations:
+              # Required by Kubernetes node autoscaler
+              cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+          spec:
+            imagePullSecrets:
+            - name: private-registry
+            terminationGracePeriodSeconds: 60
+            # Required by Pod Security Policy
+            securityContext:
+              runAsUser: 1000
+              fsGroup: 1000
+            containers:
+              - name: manager
+                # Required by Pod Security Policy
+                securityContext:
+                  runAsUser: 1000
+                  runAsGroup: 1000
+                  privileged: false
+                  readOnlyRootFilesystem: true
+                  allowPrivilegeEscalation: false
+                  runAsNonRoot: true
+                  capabilities:
+                    drop:
+                      - ALL
+                  $patch: replace
+  - target:
+      kind: ServiceAccount
+      name: helm-controller
+    patch: |-
+      apiVersion: v1
+      kind: ServiceAccount
+      metadata:
+        name: helm-controller
+      automountServiceAccountToken: false
+  - target:
+      kind: Deployment
+      name: helm-controller
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: helm-controller
+      spec:
+        template:
+          spec:
+            automountServiceAccountToken: true
+            containers:
+            - name: manager
+              resources:
+                limits:
+                  cpu: 900m
+                  memory: 1Gi
+                requests:
+                  cpu: 900m
+                  memory: 1Gi
+  - target:
+      kind: ServiceAccount
+      name: kustomize-controller
+    patch: |-
+      apiVersion: v1
+      kind: ServiceAccount
+      metadata:
+        name: kustomize-controller
+      automountServiceAccountToken: false
+  - target:
+      kind: Deployment
+      name: kustomize-controller
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: kustomize-controller
+      spec:
+        template:
+          spec:
+            automountServiceAccountToken: true
+            containers:
+            - name: manager
+              resources:
+                limits:
+                  cpu: 300m
+                  memory: 600Mi
+                requests:
+                  cpu: 300m
+                  memory: 600Mi
+  - target:
+      kind: ServiceAccount
+      name: notification-controller
+    patch: |-
+      apiVersion: v1
+      kind: ServiceAccount
+      metadata:
+        name: notification-controller
+      automountServiceAccountToken: false
+  - target:
+      kind: Deployment
+      name: notification-controller
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: notification-controller
+      spec:
+        template:
+          spec:
+            automountServiceAccountToken: true
+            containers:
+            - name: manager
+              resources:
+                limits:
+                  cpu: 100m
+                  memory: 200Mi
+                requests:
+                  cpu: 100m
+                  memory: 200Mi
+  - target:
+      kind: ServiceAccount
+      name: source-controller
+    patch: |-
+      apiVersion: v1
+      kind: ServiceAccount
+      metadata:
+        name: source-controller
+      automountServiceAccountToken: false
+  - target:
+      kind: Deployment
+      name: source-controller
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: source-controller
+      spec:
+        template:
+          spec:
+            automountServiceAccountToken: true
+            containers:
+            - name: manager
+              resources:
+                limits:
+                  cpu: 300m
+                  memory: 384Mi
+                requests:
+                  cpu: 300m
+                  memory: 384Mi

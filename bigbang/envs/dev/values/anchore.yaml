@@ -1,0 +1,68 @@
+addons:
+  anchore:
+    # -- Toggle deployment of Anchore.
+    enabled: false
+    # -- Choose source type of "git" or "helmRepo"
+    sourceType: "git"
+    git:
+      repo: https://repo1.dso.mil/big-bang/product/packages/anchore-enterprise.git
+      path: "./chart"
+      tag: "2.0.2-bb.1"
+    helmRepo:
+      repoName: "registry1"
+      chartName: "anchore"
+      tag: "2.0.2-bb.1"
+    # -- Flux reconciliation overrides specifically for the Anchore Package
+    flux:
+      upgrade:
+        disableWait: true
+    # -- Initial admin password used to authenticate to Anchore.
+    adminPassword: ""
+    # -- Anchore Enterprise functionality.
+    enterprise:
+      # -- License for Anchore Enterprise. Enterprise is the only option available for the chart starting with chart major version 2.X.
+      # For formatting examples see https://repo1.dso.mil/big-bang/product/packages/CHART.md#enabling-enterprise-services
+      licenseYaml: |
+        FULL LICENSE
+    # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+    ingress:
+      gateway: ""
+    sso:
+      # -- Toggle SAML SSO for Anchore on and off.
+      # Enabling this option will auto-create any required secrets (Note: SSO requires an Enterprise license).
+      enabled: false
+      # -- Anchore SAML client ID
+      client_id: ""
+      # -- Anchore SAML client role attribute
+      role_attribute: ""
+    database:
+      # -- Hostname of a pre-existing PostgreSQL database to use for Anchore.
+      # Entering connection info will disable the deployment of an internal database and will auto-create any required secrets.
+      host: ""
+      # -- Port of a pre-existing PostgreSQL database to use for Anchore.
+      port: ""
+      # -- Username to connect as to external database, the user must have all privileges on the database.
+      username: ""
+      # -- Database password for the username used to connect to the existing database.
+      password: ""
+      # -- Database name to connect to on host (Note: database name CANNOT contain hyphens).
+      database: ""
+      # -- Feeds database name to connect to on host (Note: feeds database name CANNOT contain hyphens).
+      # Only required for enterprise edition of anchore.
+      # By default, feeds database will be configured with the same username and password as the main database. For formatting examples on how to use a separate username and password for the feeds database see https://repo1.dso.mil/big-bang/product/packages/CHART.md#handling-dependencies
+      feeds_database: ""
+    redis:
+      # -- Hostname of a pre-existing Redis to use for Anchore Enterprise.
+      # Entering connection info will enable external redis and will auto-create any required secrets.
+      # Anchore only requires redis for enterprise deployments and will not provision an instance if using external
+      host: ""
+      # -- Port of a pre-existing Redis to use for Anchore Enterprise.
+      port: ""
+      # -- OPTIONAL: Username to connect to a pre-existing Redis (for password-only auth leave empty)
+      username: ""
+      # -- Password to connect to pre-existing Redis.
+      password: ""
+    # -- Values to passthrough to the anchore chart: https://repo1.dso.mil/big-bang/product/packages/anchore-enterprise.git
+    values: {}
+    # -- Post Renderers.  See docs/postrenders.md
+    postRenderers: []

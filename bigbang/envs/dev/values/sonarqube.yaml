@@ -1,0 +1,48 @@
+addons:
+  sonarqube:
+    # -- Toggle deployment of SonarQube.
+    enabled: false
+    # -- Choose source type of "git" or "helmRepo"
+    sourceType: "git"
+    git:
+      repo: https://repo1.dso.mil/big-bang/product/packages/sonarqube.git
+      path: "./chart"
+      tag: "8.0.4-bb.0"
+    helmRepo:
+      repoName: "registry1"
+      chartName: "sonarqube"
+      tag: "8.0.4-bb.0"
+    # -- Flux reconciliation overrides specifically for the Sonarqube Package
+    flux: {}
+    # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+    ingress:
+      gateway: ""
+    sso:
+      # -- Toggle SAML SSO for SonarQube.
+      # Enabling this option will auto-create any required secrets.
+      enabled: false
+      # -- SonarQube SAML client ID
+      client_id: ""
+      # -- SonarQube login sso attribute.
+      login: login
+      # -- SonarQube name sso attribute.
+      name: name
+      # -- SonarQube email sso attribute.
+      email: email
+      # -- (optional) SonarQube group sso attribute.
+      group: group
+    database:
+      # -- Hostname of a pre-existing PostgreSQL database to use for SonarQube.
+      host: ""
+      # -- Port of a pre-existing PostgreSQL database to use for SonarQube.
+      port: 5432
+      # -- Database name to connect to on host.
+      database: ""
+      # -- Username to connect as to external database, the user must have all privileges on the database.
+      username: ""
+      # -- Database password for the username used to connect to the existing database.
+      password: ""
+    # -- Values to passthrough to the sonarqube chart: https://repo1.dso.mil/big-bang/product/packages/sonarqube.git
+    values: {}
+    # -- Post Renderers.  See docs/postrenders.md
+    postRenderers: []

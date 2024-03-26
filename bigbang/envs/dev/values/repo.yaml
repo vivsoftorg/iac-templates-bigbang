@@ -1,0 +1,126 @@
+# -- Domain used for BigBang created exposed services, can be overridden by individual packages.
+domain: bigbang.dev
+# -- (experimental) Toggle sourcing from external repos.
+# All this does right now is toggle GitRepositories, it is _not_ fully functional
+offline: false
+# -- Single set of registry credentials used to pull all images deployed by BigBang.
+registryCredentials:
+  registry: registry1.dso.mil
+  username: ""
+  password: ""
+  email: ""
+# -- Multiple sets of registry credentials used to pull all images deployed by BigBang.
+# Credentials will only be created when a valid combination exists, registry, username, and password (email is optional)
+# Or a list of registires:
+#  - registry: registry1.dso.mil
+#    username: ""
+#    password: ""
+#    email: ""
+#  - registry: registry.dso.mil
+#    username: ""
+#    password: ""
+#    email: ""
+
+# Openshift Container Platform Feature Toggle
+openshift: false
+# -- Git credential settings for accessing private repositories
+# Order of precedence is:
+#   1. existingSecret
+#   2. http credentials (username/password/caFile)
+#   3. ssh credentials (privateKey/publicKey/knownHosts)
+git:
+  # -- Existing secret to use for git credentials, must be in the appropriate format: https://toolkit.fluxcd.io/components/source/gitrepositories/#https-authentication
+  existingSecret: ""
+  # -- Chart created secrets with user defined values
+  credentials:
+    # -- HTTP git credentials, both username and password must be provided
+    username: ""
+    password: ""
+    # -- HTTPS certificate authority file.  Required for any repo with a self signed certificate
+    caFile: ""
+    # -- SSH git credentials, privateKey, publicKey, and knownHosts must be provided
+    privateKey: ""
+    publicKey: ""
+    knownHosts: ""
+# -- Global SSO values used for BigBang deployments when sso is enabled
+sso:
+  # -- Name of the identity provider.  This is used by some packages as the SSO login label.
+  name: SSO
+  # -- Base URL for the identity provider. For OIDC, this is the issuer.  For SAML this is the entityID.
+  url: https://login.dso.mil/auth/realms/baby-yoda
+  # -- Certificate authority for the identity provider's certificates
+  certificateAuthority:
+    # -- The certificate authority public certificate in .pem format.  Populating this will create a secret in each namespace that enables SSO.
+    cert: "" # See docs/assets/configs/example/dev-sso-values.yaml for an example
+    # -- The secret name to use for the certificate authority.  Can be manually populated if cert is blank.
+    secretName: tls-ca-sso
+  saml:
+    # -- SAML entityDescriptor (metadata) path
+    entityDescriptor: "{{ .Values.sso.url }}/protocol/saml/descriptor"
+    # -- SAML SSO Service path
+    service: "{{ .Values.sso.url }}/protocol/saml"
+    # -- Literal SAML XML metadata retrieved from `{{ .Values.sso.saml.entityDescriptor }}`.  Required for SSO in Nexus, Twistlock, or Sonarqube.
+    metadata: "" # See docs/assets/configs/example/dev-sso-values.yaml for an example
+    # NOTE: SAML attribute names may vary by package.  Use the package values to setup attribute names
+  # -- OIDC endpoints can be retrieved from `{{ .Values.sso.url }}/.well-known/openid-configuration`
+  oidc:
+    # -- OIDC authorization path
+    authorization: "{{ .Values.sso.url }}/protocol/openid-connect/auth"
+    # -- OIDC logout / end session path
+    endSession: "{{ .Values.sso.url }}/protocol/openid-connect/logout"
+    # -- OIDC JSON Web Key Set (JWKS) path
+    jwksUri: "{{ .Values.sso.url }}/protocol/openid-connect/certs"
+    # -- OIDC token path
+    token: "{{ .Values.sso.url }}/protocol/openid-connect/token"
+    # -- OIDC user information path
+    userinfo: "{{ .Values.sso.url }}/protocol/openid-connect/userinfo"
+    # -- Literal OIDC JWKS data retrieved from JWKS Uri.  Only needed if `jwsksUri` is not defined.
+    jwks: ""
+    # -- Identity provider claim names that store metadata about the authenticated user.
+    claims:
+      # -- IdP's claim name used for the user's email address.
+      email: email
+      # -- IdP's claim name used for the user's full name
+      name: name
+      # -- IdP's claim name used for the username
+      username: preferred_username
+      # -- IdP's claim name used for the user's groups or roles
+      groups: groups
+# -- (Advanced) Flux reconciliation parameters.
+# The default values provided will be sufficient for the majority of workloads.
+flux:
+  timeout: 10m
+  interval: 2m
+  test:
+    enable: false
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    remediation:
+      retries: 3
+      remediateLastFailure: true
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    cleanupOnFail: true
+# -- Global NetworkPolicies settings
+networkPolicies:
+  # -- Toggle all package NetworkPolicies, can disable specific packages with `package.values.networkPolicies.enabled`
+  enabled: true
+  # -- Control Plane CIDR, defaults to 0.0.0.0/0, use `kubectl get endpoints -n default kubernetes` to get the CIDR range needed for your cluster
+  # Must be an IP CIDR range (x.x.x.x/x - ideally with /32 for the specific IP of a single endpoint, broader range for multiple masters/endpoints)
+  # Used by package NetworkPolicies to allow Kube API access
+  controlPlaneCidr: 0.0.0.0/0
+  # -- Node CIDR, defaults to allowing "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "100.64.0.0/10" networks.
+  # use `kubectl get nodes -owide` and review the `INTERNAL-IP` column to derive CIDR range.
+  # Must be an IP CIDR range (x.x.x.x/x - ideally a /16 or /24 to include multiple IPs)
+  nodeCidr: ""
+  # -- VPC CIDR, defaults to 0.0.0.0/0
+  # In a production environment, it is recommended to setup a Private Endpoint for your AWS services like KMS or S3.
+  # Please review https://docs.aws.amazon.com/kms/latest/developerguide/kms-vpc-endpoint.html to setup routing to AWS services that never leave the AWS network.
+  # Once created update `networkPolicies.vpcCidr` to match the CIDR of your VPC so Vault will be able to reach your VPCs DNS and new KMS endpoint.
+  vpcCidr: 0.0.0.0/0
+# -- Global ImagePullPolicy value for all packages
+# Permitted values are: None, Always, IfNotPresent
+imagePullPolicy: IfNotPresent

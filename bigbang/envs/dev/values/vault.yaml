@@ -1,0 +1,27 @@
+addons:
+  vault:
+    # -- Toggle deployment of Vault.
+    enabled: false
+    # -- Choose source type of "git" or "helmRepo"
+    sourceType: "git"
+    git:
+      repo: https://repo1.dso.mil/big-bang/product/packages/vault.git
+      path: "./chart"
+      tag: "0.25.0-bb.19"
+    helmRepo:
+      repoName: "registry1"
+      chartName: "vault"
+      tag: "0.25.0-bb.19"
+    # -- Flux reconciliation overrides specifically for the Vault Package
+    flux: {}
+    # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
+    ingress:
+      gateway: ""
+      # -- Certificate/Key pair to use as the certificate for exposing Vault
+      # Setting the ingress cert here will automatically create the volume and volumemounts in the Vault package chart
+      key: ""
+      cert: ""
+    # -- Values to passthrough to the vault chart: https://repo1.dso.mil/big-bang/product/packages/vault.git
+    values: {}
+    # -- Post Renderers.  See docs/postrenders.md
+    postRenderers: []

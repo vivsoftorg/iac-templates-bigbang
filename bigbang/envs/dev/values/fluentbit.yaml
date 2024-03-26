@@ -1,0 +1,19 @@
+fluentbit:
+  # -- Toggle deployment of Fluent-Bit.
+  enabled: false
+  # -- Choose source type of "git" or "helmRepo"
+  sourceType: "git"
+  git:
+    repo: "https://repo1.dso.mil/big-bang/product/packages/fluentbit.git"
+    path: "./chart"
+    tag: "0.43.0-bb.2"
+  helmRepo:
+    repoName: "registry1"
+    chartName: "fluentbit"
+    tag: "0.43.0-bb.2"
+  # -- Flux reconciliation overrides specifically for the Fluent-Bit Package
+  flux: {}
+  # -- Values to passthrough to the fluentbit chart: https://repo1.dso.mil/big-bang/product/packages/fluentbit.git
+  values: {}
+  # -- Post Renderers.  See docs/postrenders.md
+  postRenderers: []

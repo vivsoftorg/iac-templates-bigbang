@@ -1,0 +1,20 @@
+addons:
+  gitlabRunner:
+    # -- Toggle deployment of Gitlab Runner
+    enabled: false
+    # -- Choose source type of "git" or "helmRepo"
+    sourceType: "git"
+    git:
+      repo: https://repo1.dso.mil/big-bang/product/packages/gitlab-runner.git
+      path: "./chart"
+      tag: "0.59.1-bb.3"
+    helmRepo:
+      repoName: "registry1"
+      chartName: "gitlab-runner"
+      tag: "0.59.1-bb.3"
+    # -- Flux reconciliation overrides specifically for the Gitlab Runner Package
+    flux: {}
+    # -- Values to passthrough to the gitlab runner chart: https://repo1.dso.mil/big-bang/product/packages/gitlab-runner.git
+    values: {}
+    # -- Post Renderers.  See docs/postrenders.md
+    postRenderers: []
