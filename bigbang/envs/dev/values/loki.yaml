@@ -2,9 +2,9 @@ loki:
   # -- Toggle deployment of Loki.
   enabled: true
   # -- Choose source type of "git" or "helmRepo"
-  sourceType: "git"
+  sourceType: "helmrepo"
   git:
-    repo: "https://repo1.dso.mil/big-bang/product/packages/loki.git"
+    repo: https://repo1.dso.mil/big-bang/product/packages/loki.git
     path: "./chart"
     tag: "5.47.2-bb.4"
   helmRepo:

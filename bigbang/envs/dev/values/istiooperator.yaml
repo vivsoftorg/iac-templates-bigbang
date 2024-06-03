@@ -2,9 +2,9 @@ istioOperator:
   # -- Toggle deployment of Istio Operator.
   enabled: true
   # -- Choose source type of "git" or "helmRepo"
-  sourceType: "git"
+  sourceType: "helmrepo"
   git:
-    repo: "https://repo1.dso.mil/big-bang/product/packages/istio-operator.git"
+    repo: https://repo1.dso.mil/big-bang/product/packages/istio-operator.git
     path: "./chart"
     tag: "1.21.1-bb.0"
   helmRepo:

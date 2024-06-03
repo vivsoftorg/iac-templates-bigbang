@@ -2,9 +2,9 @@ eckOperator:
   # -- Toggle deployment of ECK Operator.
   enabled: false
   # -- Choose source type of "git" or "helmRepo"
-  sourceType: "git"
+  sourceType: "helmrepo"
   git:
-    repo: "https://repo1.dso.mil/big-bang/product/packages/eck-operator.git"
+    repo: https://repo1.dso.mil/big-bang/product/packages/eck-operator.git
     path: "./chart"
     tag: "2.12.1-bb.1"
   helmRepo:

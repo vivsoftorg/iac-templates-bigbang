@@ -2,9 +2,9 @@ jaeger:
   # -- Toggle deployment of Jaeger.
   enabled: false
   # -- Choose source type of "git" or "helmRepo"
-  sourceType: "git"
+  sourceType: "helmrepo"
   git:
-    repo: "https://repo1.dso.mil/big-bang/product/packages/jaeger.git"
+    repo: https://repo1.dso.mil/big-bang/product/packages/jaeger.git
     path: "./chart"
     tag: "2.53.0-bb.1"
   helmRepo:

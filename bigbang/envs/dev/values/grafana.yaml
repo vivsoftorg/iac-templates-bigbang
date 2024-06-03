@@ -2,9 +2,9 @@ grafana:
   # -- Toggle deployment of Grafana
   enabled: true
   # -- Choose source type of "git" or "helmRepo"
-  sourceType: "git"
+  sourceType: "helmrepo"
   git:
-    repo: "https://repo1.dso.mil/big-bang/product/packages/grafana.git"
+    repo: https://repo1.dso.mil/big-bang/product/packages/grafana.git
     path: "./chart"
     tag: "7.3.9-bb.2"
   helmRepo:

@@ -2,9 +2,9 @@ kiali:
   # -- Toggle deployment of Kiali.
   enabled: true
   # -- Choose source type of "git" or "helmRepo"
-  sourceType: "git"
+  sourceType: "helmrepo"
   git:
-    repo: "https://repo1.dso.mil/big-bang/product/packages/kiali.git"
+    repo: https://repo1.dso.mil/big-bang/product/packages/kiali.git
     path: "./chart"
     tag: "1.84.0-bb.0"
   helmRepo:

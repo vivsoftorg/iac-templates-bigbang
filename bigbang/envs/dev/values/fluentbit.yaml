@@ -2,9 +2,9 @@ fluentbit:
   # -- Toggle deployment of Fluent-Bit.
   enabled: false
   # -- Choose source type of "git" or "helmRepo"
-  sourceType: "git"
+  sourceType: "helmrepo"
   git:
-    repo: "https://repo1.dso.mil/big-bang/product/packages/fluentbit.git"
+    repo: https://repo1.dso.mil/big-bang/product/packages/fluentbit.git
     path: "./chart"
     tag: "0.46.5-bb.0"
   helmRepo:

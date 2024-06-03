@@ -9,7 +9,7 @@ addons:
     #       callback_uri: "https://somecallback"
     enabled: false
     # -- Choose source type of "git" or "helmRepo"
-    sourceType: "git"
+    sourceType: "helmrepo"
     git:
       repo: https://repo1.dso.mil/big-bang/product/packages/authservice.git
       path: "./chart"

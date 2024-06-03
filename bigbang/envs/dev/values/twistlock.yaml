@@ -2,9 +2,9 @@ twistlock:
   # -- Toggle deployment of Twistlock.
   enabled: false
   # -- Choose source type of "git" or "helmRepo"
-  sourceType: "git"
+  sourceType: "helmrepo"
   git:
-    repo: "https://repo1.dso.mil/big-bang/product/packages/twistlock.git"
+    repo: https://repo1.dso.mil/big-bang/product/packages/twistlock.git
     path: "./chart"
     tag: "0.15.0-bb.7"
   helmRepo:

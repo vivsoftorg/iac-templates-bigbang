@@ -2,9 +2,9 @@ promtail:
   # -- Toggle deployment of Promtail.
   enabled: true
   # -- Choose source type of "git" or "helmRepo"
-  sourceType: "git"
+  sourceType: "helmrepo"
   git:
-    repo: "https://repo1.dso.mil/big-bang/product/packages/promtail.git"
+    repo: https://repo1.dso.mil/big-bang/product/packages/promtail.git
     path: "./chart"
     tag: "6.15.5-bb.5"
   helmRepo:
