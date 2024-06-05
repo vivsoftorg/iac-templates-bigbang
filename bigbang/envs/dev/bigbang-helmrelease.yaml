@@ -1,17 +1,37 @@
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: bigbang
+  namespace: bigbang
 spec:
-  interval: 2m0s
+  targetNamespace: bigbang
   chart:
     spec:
-      chart: chart
+      chart: bigbang
+      version: 2.27.0
       sourceRef:
-        kind: GitRepository
-        name: bigbang
+        kind: HelmRepository
+        name: registry1
         namespace: bigbang
+      interval: 5m
+  install:
+    crds: CreateReplace
+    remediation:
+      retries: -1
+  interval: 2m
+  rollback:
+    cleanupOnFail: true
+    timeout: 10m
+  test:
+    enable: false
+  timeout: 10m
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+    remediation:
+      remediateLastFailure: true
+      retries: 3
   valuesFrom:
     - name: bb-helm-values
       kind: ConfigMap

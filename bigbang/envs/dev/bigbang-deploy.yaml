@@ -11,17 +11,29 @@ spec:
     branch: main
   secretRef:
     name: repository-credentials
+# ---
+# apiVersion: source.toolkit.fluxcd.io/v1beta1
+# kind: GitRepository
+# metadata:
+#   name: bigbang
+# spec:
+#   interval: 1m0s
+#   url: https://repo1.dso.mil/platform-one/big-bang/bigbang.git
+#   ref:
+#     tag: 2.27.0
+#   # For P1 repo we dont need repo creds as its public
+#   # secretRef:
+#   #   name: repository-credentials
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta1
-kind: GitRepository
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
 metadata:
-  name: bigbang
+  name: registry1
+  namespace: bigbang
 spec:
-  interval: 1m0s
-  url: https://repo1.dso.mil/platform-one/big-bang/bigbang.git
-  ref:
-    tag: 2.27.0
-  # For P1 repo we dont need repo creds as its public
-  # secretRef:
-  #   name: repository-credentials
+  interval: 2m
+  type: oci
+  url: oci://registry1.dso.mil/bigbang
+  # url: oci://44.210.192.97:5000/bigbang
+  insecure: true
 ---
