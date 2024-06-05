@@ -2,7 +2,7 @@ monitoring:
   # -- Toggle deployment of Monitoring (Prometheus, Grafana, and Alertmanager).
   enabled: true
   # -- Choose source type of "git" or "helmRepo"
-  sourceType: "helmrepo"
+  sourceType: "helmRepo"
   git:
     repo: https://repo1.dso.mil/big-bang/product/packages/monitoring.git
     path: "./chart"

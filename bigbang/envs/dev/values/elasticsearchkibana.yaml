@@ -2,7 +2,7 @@ elasticsearchKibana:
   # -- Toggle deployment of Logging (EFK).
   enabled: false
   # -- Choose source type of "git" or "helmRepo"
-  sourceType: "helmrepo"
+  sourceType: "helmRepo"
   git:
     repo: https://repo1.dso.mil/big-bang/product/packages/elasticsearch-kibana.git
     path: "./chart"

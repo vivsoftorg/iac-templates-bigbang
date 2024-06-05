@@ -6,7 +6,7 @@ istio:
     # PERMISSIVE = Allow both plain text and mutual TLS traffic
     mode: STRICT
   # -- Choose source type of "git" or "helmRepo"
-  sourceType: "helmrepo"
+  sourceType: "helmRepo"
   git:
     repo: https://repo1.dso.mil/big-bang/product/packages/istio-controlplane.git
     path: "./chart"

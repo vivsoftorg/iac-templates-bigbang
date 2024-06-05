@@ -2,7 +2,7 @@ kyvernoReporter:
   # -- Toggle deployment of Kyverno Reporter
   enabled: true
   # -- Choose source type of "git" or "helmRepo"
-  sourceType: "helmrepo"
+  sourceType: "helmRepo"
   git:
     repo: https://repo1.dso.mil/big-bang/product/packages/kyverno-reporter.git
     path: ./chart

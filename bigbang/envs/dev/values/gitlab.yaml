@@ -7,7 +7,7 @@ addons:
       gitlab: gitlab
       registry: registry
     # -- Choose source type of "git" or "helmRepo"
-    sourceType: "helmrepo"
+    sourceType: "helmRepo"
     git:
       repo: https://repo1.dso.mil/big-bang/product/packages/gitlab.git
       path: "./chart"

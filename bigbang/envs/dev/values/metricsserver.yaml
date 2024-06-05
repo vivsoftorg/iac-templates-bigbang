@@ -5,7 +5,7 @@ addons:
     # true = enabled / false = disabled / auto = automatic (Installs only if metrics API endpoint is not present)
     enabled: auto
     # -- Choose source type of "git" or "helmRepo"
-    sourceType: "helmrepo"
+    sourceType: "helmRepo"
     git:
       repo: https://repo1.dso.mil/big-bang/product/packages/metrics-server.git
       path: "./chart"
