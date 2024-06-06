@@ -14,11 +14,16 @@ configMapGenerator:
     - authservice.yaml
     - clusterauditor.yaml
     - eckoperator.yaml
+    - elasticsearchkibana.yaml
     - fluentbit.yaml
+    - fortify.yaml
     - gatekeeper.yaml
     - gitlab.yaml
     - gitlabrunner.yaml
+    - grafana.yaml
     - haproxy.yaml
+    - harbor.yaml
+    - holocron.yaml
     - istio.yaml
     - istiooperator.yaml
     - jaeger.yaml
@@ -35,16 +40,12 @@ configMapGenerator:
     - miniooperator.yaml
     - monitoring.yaml
     - neuvector.yaml
+    - nexusrepositorymanager.yaml
     - promtail.yaml
     - repo.yaml
     - sonarqube.yaml
     - tempo.yaml
+    - thanos.yaml
     - twistlock.yaml
     - vault.yaml
     - velero.yaml
-    - elasticsearchkibana.yaml
-    - fortify.yaml
-    - grafana.yaml
-    - harbor.yaml
-    - nexusrepositorymanager.yaml
-    - thanos.yaml
