@@ -9,7 +9,8 @@ flux check --pre
 # install PSP and StorageClass
 kubectl apply -k cluster-init/
 # create private registry credentials
-sops -d bigbang/envs/dev/secrets/private-registry.enc.yaml | kubectl apply -f -
+sops -d bigbang/envs/dev/secrets/private-registry.enc.yaml | kubectl apply -n flux-system -f -
+sops -d bigbang/envs/dev/secrets/private-registry.enc.yaml | kubectl apply -n bigbang -f -
 # install flux
 kustomize build flux/ | kubectl apply -f -
 flux check

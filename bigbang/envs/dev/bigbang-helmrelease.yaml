@@ -13,7 +13,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: registry1
-        namespace: flux-system
+        namespace: bigbang
       interval: 5m
   install:
     crds: CreateReplace

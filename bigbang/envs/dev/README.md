@@ -1,6 +1,6 @@
 # AirGap environment
 
-Create the `HelmRepository`  pointing to your local `oci` repository, like below , same is added [here](helmrepo.yaml)
+Create the `HelmRepository`  pointing to your local `oci` repository, like below , this needs to be added in [bigbang-deploy.yaml](bigbang-deploy.yaml) file.
 
 Make sure to change the `url`
 

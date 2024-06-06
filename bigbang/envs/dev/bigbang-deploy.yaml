@@ -6,7 +6,7 @@ metadata:
   namespace: bigbang
 spec:
   interval: 1m0s
-  url: https://gitlab.com/enbuild-staging/iac-templates/bigbang.git
+  url: https://gitlab.com/enbuild-staging/enbuild-deployments/juned_bb_prod_mar.git
   ref:
     branch: main
   secretRef:
@@ -16,7 +16,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: registry1
-  namespace: flux-system
+  namespace: bigbang
 spec:
   interval: 2m
   type: oci
