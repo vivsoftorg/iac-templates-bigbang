@@ -6,7 +6,7 @@ metadata:
   namespace: bigbang
 spec:
   interval: 1m0s
-  url: https://gitlab.com/enbuild-staging/enbuild-deployments/juned_bb_prod_mar.git
+  url: https://gitlab.com/enbuild-staging/iac-templates/bigbang.git
   ref:
     branch: main
   secretRef:
