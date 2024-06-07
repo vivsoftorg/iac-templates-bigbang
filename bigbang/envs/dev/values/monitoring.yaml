@@ -2,15 +2,15 @@ monitoring:
   # -- Toggle deployment of Monitoring (Prometheus, Grafana, and Alertmanager).
   enabled: true
   # -- Choose source type of "git" or "helmRepo"
-  sourceType: "git"
+  sourceType: "helmRepo"
   git:
-    repo: "https://repo1.dso.mil/big-bang/product/packages/monitoring.git"
+    repo: https://repo1.dso.mil/big-bang/product/packages/monitoring.git
     path: "./chart"
-    tag: "56.2.1-bb.9"
+    tag: "58.5.1-bb.0"
   helmRepo:
     repoName: "registry1"
     chartName: "monitoring"
-    tag: "56.2.1-bb.9"
+    tag: "58.5.1-bb.0"
   # -- Flux reconciliation overrides specifically for the Monitoring Package
   flux:
     install:

@@ -2,15 +2,15 @@ twistlock:
   # -- Toggle deployment of Twistlock.
   enabled: false
   # -- Choose source type of "git" or "helmRepo"
-  sourceType: "git"
+  sourceType: "helmRepo"
   git:
-    repo: "https://repo1.dso.mil/big-bang/product/packages/twistlock.git"
+    repo: https://repo1.dso.mil/big-bang/product/packages/twistlock.git
     path: "./chart"
-    tag: "0.15.0-bb.2"
+    tag: "0.15.0-bb.7"
   helmRepo:
     repoName: "registry1"
     chartName: "twistlock"
-    tag: "0.15.0-bb.2"
+    tag: "0.15.0-bb.7"
   # -- Flux reconciliation overrides specifically for the Twistlock Package
   flux: {}
   # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".

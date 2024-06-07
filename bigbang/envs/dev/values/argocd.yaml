@@ -3,15 +3,15 @@ addons:
     # -- Toggle deployment of ArgoCD.
     enabled: false
     # -- Choose source type of "git" or "helmRepo"
-    sourceType: "git"
+    sourceType: "helmRepo"
     git:
       repo: https://repo1.dso.mil/big-bang/product/packages/argocd.git
       path: "./chart"
-      tag: "6.7.2-bb.1"
+      tag: "6.7.15-bb.3"
     helmRepo:
       repoName: "registry1"
       chartName: "argocd"
-      tag: "6.7.2-bb.1"
+      tag: "6.7.15-bb.3"
     # -- Flux reconciliation overrides specifically for the ArgoCD Package
     flux: {}
     # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".

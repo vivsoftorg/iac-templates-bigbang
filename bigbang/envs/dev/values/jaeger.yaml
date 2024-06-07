@@ -2,15 +2,15 @@ jaeger:
   # -- Toggle deployment of Jaeger.
   enabled: false
   # -- Choose source type of "git" or "helmRepo"
-  sourceType: "git"
+  sourceType: "helmRepo"
   git:
-    repo: "https://repo1.dso.mil/big-bang/product/packages/jaeger.git"
+    repo: https://repo1.dso.mil/big-bang/product/packages/jaeger.git
     path: "./chart"
-    tag: "2.50.1-bb.0"
+    tag: "2.53.0-bb.1"
   helmRepo:
     repoName: "registry1"
     chartName: "jaeger"
-    tag: "2.50.1-bb.0"
+    tag: "2.53.0-bb.1"
   # -- Flux reconciliation overrides specifically for the Jaeger Package
   flux:
     install:

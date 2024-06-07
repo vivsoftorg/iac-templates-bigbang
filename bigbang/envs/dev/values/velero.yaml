@@ -3,15 +3,15 @@ addons:
     # -- Toggle deployment of Velero.
     enabled: false
     # -- Choose source type of "git" or "helmRepo"
-    sourceType: "git"
+    sourceType: "helmRepo"
     git:
       repo: https://repo1.dso.mil/big-bang/product/packages/velero.git
       path: "./chart"
-      tag: "5.2.2-bb.2"
+      tag: "6.0.0-bb.5"
     helmRepo:
       repoName: "registry1"
       chartName: "velero"
-      tag: "5.2.2-bb.2"
+      tag: "6.0.0-bb.5"
     # -- Flux reconciliation overrides specifically for the Velero Package
     flux: {}
     # -- Plugin provider for Velero - requires at least one plugin installed. Current supported values: aws, azure, csi

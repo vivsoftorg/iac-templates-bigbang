@@ -2,15 +2,15 @@ kiali:
   # -- Toggle deployment of Kiali.
   enabled: true
   # -- Choose source type of "git" or "helmRepo"
-  sourceType: "git"
+  sourceType: "helmRepo"
   git:
-    repo: "https://repo1.dso.mil/big-bang/product/packages/kiali.git"
+    repo: https://repo1.dso.mil/big-bang/product/packages/kiali.git
     path: "./chart"
-    tag: "1.80.0-bb.1"
+    tag: "1.84.0-bb.0"
   helmRepo:
     repoName: "registry1"
     chartName: "kiali"
-    tag: "1.80.0-bb.1"
+    tag: "1.84.0-bb.0"
   # -- Flux reconciliation overrides specifically for the Kiali Package
   flux: {}
   # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".

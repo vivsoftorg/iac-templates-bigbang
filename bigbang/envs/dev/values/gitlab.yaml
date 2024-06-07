@@ -7,15 +7,15 @@ addons:
       gitlab: gitlab
       registry: registry
     # -- Choose source type of "git" or "helmRepo"
-    sourceType: "git"
+    sourceType: "helmRepo"
     git:
       repo: https://repo1.dso.mil/big-bang/product/packages/gitlab.git
       path: "./chart"
-      tag: "7.9.2-bb.0"
+      tag: "7.11.1-bb.2"
     helmRepo:
       repoName: "registry1"
       chartName: "gitlab"
-      tag: "7.9.2-bb.0"
+      tag: "7.11.1-bb.2"
     # -- Flux reconciliation overrides specifically for the Gitlab Package
     flux: {}
     # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".

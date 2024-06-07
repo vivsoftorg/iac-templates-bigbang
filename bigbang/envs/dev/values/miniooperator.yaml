@@ -3,15 +3,15 @@ addons:
     # -- Toggle deployment of minio operator and instance.
     enabled: false
     # -- Choose source type of "git" or "helmRepo"
-    sourceType: "git"
+    sourceType: "helmRepo"
     git:
       repo: https://repo1.dso.mil/big-bang/product/packages/minio-operator.git
       path: "./chart"
-      tag: "5.0.12-bb.3"
+      tag: "5.0.14-bb.2"
     helmRepo:
       repoName: "registry1"
       chartName: "minio-operator"
-      tag: "5.0.12-bb.3"
+      tag: "5.0.14-bb.2"
     # -- Flux reconciliation overrides specifically for the Minio Operator Package
     flux: {}
     # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".

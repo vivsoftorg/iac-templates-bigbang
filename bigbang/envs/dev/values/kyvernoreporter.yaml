@@ -2,15 +2,15 @@ kyvernoReporter:
   # -- Toggle deployment of Kyverno Reporter
   enabled: true
   # -- Choose source type of "git" or "helmRepo"
-  sourceType: "git"
+  sourceType: "helmRepo"
   git:
-    repo: "https://repo1.dso.mil/big-bang/product/packages/kyverno-reporter.git"
+    repo: https://repo1.dso.mil/big-bang/product/packages/kyverno-reporter.git
     path: ./chart
-    tag: "2.22.4-bb.0"
+    tag: "2.22.4-bb.3"
   helmRepo:
     repoName: "registry1"
     chartName: "kyverno-reporter"
-    tag: "2.22.4-bb.0"
+    tag: "2.22.4-bb.3"
   # -- Flux reconciliation overrides specifically for the Kyverno Reporter Package
   flux: {}
   # -- Values to passthrough to the kyverno reporter chart: https://repo1.dso.mil/big-bang/product/packages/kyverno-reporter.git

@@ -2,15 +2,15 @@ gatekeeper:
   # -- Toggle deployment of OPA Gatekeeper.
   enabled: false
   # -- Choose source type of "git" or "helmRepo"
-  sourceType: "git"
+  sourceType: "helmRepo"
   git:
-    repo: "https://repo1.dso.mil/big-bang/product/packages/policy.git"
+    repo: https://repo1.dso.mil/big-bang/product/packages/policy.git
     path: "./chart"
-    tag: "3.15.0-bb.0"
+    tag: "3.15.0-bb.7"
   helmRepo:
     repoName: "registry1"
     chartName: "gatekeeper"
-    tag: "3.15.0-bb.0"
+    tag: "3.15.0-bb.7"
   # -- Flux reconciliation overrides specifically for the OPA Gatekeeper Package
   flux:
     install:

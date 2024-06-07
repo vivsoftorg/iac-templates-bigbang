@@ -3,15 +3,15 @@ addons:
     # -- Toggle deployment of Anchore.
     enabled: false
     # -- Choose source type of "git" or "helmRepo"
-    sourceType: "git"
+    sourceType: "helmRepo"
     git:
       repo: https://repo1.dso.mil/big-bang/product/packages/anchore-enterprise.git
       path: "./chart"
-      tag: "2.0.2-bb.1"
+      tag: "2.4.2-bb.14"
     helmRepo:
       repoName: "registry1"
       chartName: "anchore"
-      tag: "2.0.2-bb.1"
+      tag: "2.4.2-bb.14"
     # -- Flux reconciliation overrides specifically for the Anchore Package
     flux:
       upgrade:

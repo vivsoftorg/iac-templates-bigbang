@@ -5,15 +5,15 @@ addons:
     # true = enabled / false = disabled / auto = automatic (Installs only if metrics API endpoint is not present)
     enabled: auto
     # -- Choose source type of "git" or "helmRepo"
-    sourceType: "git"
+    sourceType: "helmRepo"
     git:
       repo: https://repo1.dso.mil/big-bang/product/packages/metrics-server.git
       path: "./chart"
-      tag: "3.12.0-bb.1"
+      tag: "3.12.1-bb.1"
     helmRepo:
       repoName: "registry1"
       chartName: "metrics-server"
-      tag: "3.12.0-bb.1"
+      tag: "3.12.1-bb.1"
     # -- Flux reconciliation overrides specifically for the metrics server Package
     flux: {}
     # -- Values to passthrough to the metrics server chart: https://repo1.dso.mil/big-bang/product/packages/metrics-server.git

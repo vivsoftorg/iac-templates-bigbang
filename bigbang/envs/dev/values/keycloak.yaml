@@ -5,15 +5,15 @@ addons:
     # istio.ingressGateways.passthrough-ingressgateway and istio.gateways.passthrough
     enabled: false
     # -- Choose source type of "git" or "helmRepo"
-    sourceType: "git"
+    sourceType: "helmRepo"
     git:
       repo: https://repo1.dso.mil/big-bang/product/packages/keycloak.git
       path: "./chart"
-      tag: "23.0.7-bb.1"
+      tag: "23.0.7-bb.6"
     helmRepo:
       repoName: "registry1"
       chartName: "keycloak"
-      tag: "23.0.7-bb.1"
+      tag: "23.0.7-bb.6"
     database:
       # -- Hostname of a pre-existing database to use for Keycloak.
       # Entering connection info will disable the deployment of an internal database and will auto-create any required secrets.

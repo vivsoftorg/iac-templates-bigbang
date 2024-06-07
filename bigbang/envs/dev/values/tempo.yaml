@@ -2,15 +2,15 @@ tempo:
   # -- Toggle deployment of Tempo.
   enabled: true
   # -- Choose source type of "git" or "helmRepo"
-  sourceType: "git"
+  sourceType: "helmRepo"
   git:
-    repo: "https://repo1.dso.mil/big-bang/product/packages/tempo.git"
+    repo: https://repo1.dso.mil/big-bang/product/packages/tempo.git
     path: "./chart"
-    tag: "1.7.1-bb.3"
+    tag: "1.7.1-bb.8"
   helmRepo:
     repoName: "registry1"
     chartName: "tempo"
-    tag: "1.7.1-bb.3"
+    tag: "1.7.1-bb.8"
   # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
   ingress:
     gateway: ""

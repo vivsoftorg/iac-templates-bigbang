@@ -3,15 +3,15 @@ addons:
     # -- Toggle deployment of Holocron.
     enabled: false
     # -- Choose source type of "git" or "helmRepo"
-    sourceType: "git"
+    sourceType: "helmRepo"
     git:
       repo: https://repo1.dso.mil/big-bang/product/packages/holocron.git
-      tag: "1.0.2"
+      tag: "1.0.6"
       path: "./chart"
     helmRepo:
       repoName: "registry1"
       chartName: "holocron"
-      tag: "1.0.2"
+      tag: "1.0.6"
     collectorAuth:
       # -- Name of existing secret with auth tokens for collector services: https://repo1.dso.mil/groups/big-bang/apps/sandbox/holocron/-/wikis/Administrator-Guide
       # -- Default keys for secret are:
