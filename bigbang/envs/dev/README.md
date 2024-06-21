@@ -5,7 +5,7 @@ Create the `HelmRepository`  pointing to your local `oci` repository, like below
 Make sure to change the `url`
 
 ```
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: registry1

@@ -41,6 +41,7 @@ configMapGenerator:
     - monitoring.yaml
     - neuvector.yaml
     - nexusrepositorymanager.yaml
+    - packages.yaml
     - promtail.yaml
     - repo.yaml
     - sonarqube.yaml
@@ -49,3 +50,4 @@ configMapGenerator:
     - twistlock.yaml
     - vault.yaml
     - velero.yaml
+    - wrapper.yaml
