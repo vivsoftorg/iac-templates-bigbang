@@ -6,12 +6,12 @@ addons:
     sourceType: "helmRepo"
     git:
       repo: https://repo1.dso.mil/big-bang/product/packages/holocron.git
-      tag: "1.0.6"
+      tag: "1.0.12"
       path: "./chart"
     helmRepo:
       repoName: "registry1"
       chartName: "holocron"
-      tag: "1.0.6"
+      tag: "1.0.12"
     collectorAuth:
       # -- Name of existing secret with auth tokens for collector services: https://repo1.dso.mil/groups/big-bang/apps/sandbox/holocron/-/wikis/Administrator-Guide
       # -- Default keys for secret are:
@@ -39,6 +39,10 @@ addons:
     sso:
       # -- Toggle SSO for Holocron on and off
       enabled: false
+      # -- OIDC Client ID to use for Holocron
+      client_id: ""
+      # -- OIDC Client Secret to use for Holocron
+      client_secret: ""
       # -- Holocron SSO group roles: https://repo1.dso.mil/groups/big-bang/apps/sandbox/holocron/-/wikis/Administrator-Guide
       groups:
         admin: ""

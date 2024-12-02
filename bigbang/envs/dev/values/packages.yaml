@@ -5,12 +5,14 @@ packages:
     # -- Toggle deployment of this package
     # @default -- true
     enabled: false
-    # -- Choose source type of "git" ("helmRepo" not supported yet)
+    # -- Choose source type of "git" or "helmRepo"
     sourceType: "git"
     # -- Toggle wrapper functionality. See https://docs-bigbang.dso.mil/latest/docs/guides/deployment-scenarios/extra-package-deployment/#Wrapper-Deployment for more details.
     # @default -- false
     wrapper:
       enabled: false
+    # -- After deployment, patch wrapper resources.  [More info](https://fluxcd.io/flux/components/helm/helmreleases/#post-renderers)
+      postRenderers: []
     # -- Use a kustomize deployment rather than Helm
     kustomize: false
     # -- HelmRepo source is supported as an option for Helm deployments. If both `git` and `helmRepo` are provided `git` will take precedence.
@@ -56,7 +58,7 @@ packages:
         knownHosts: ""
     # -- Override flux settings for this package
     flux: {}
-    # -- After deployment, patch resources.  [More info](https://fluxcd.io/flux/components/helm/helmreleases/#post-renderers)
+    # -- After deployment, patch package resources.  [More info](https://fluxcd.io/flux/components/helm/helmreleases/#post-renderers)
     postRenderers: []
     # -- Specify dependencies for the package. Only used for HelmRelease, does not effect Kustomization. See [here](https://fluxcd.io/flux/components/helm/helmreleases/#helmrelease-dependencies) for a reference.
     dependsOn: []
