@@ -6,13 +6,24 @@ kyvernoPolicies:
   git:
     repo: https://repo1.dso.mil/big-bang/product/packages/kyverno-policies.git
     path: ./chart
-    tag: "3.2.6-bb.0"
+    tag: "3.3.4-bb.10"
   helmRepo:
     repoName: "registry1"
     chartName: "kyverno-policies"
-    tag: "3.2.6-bb.0"
+    tag: "3.3.4-bb.10"
   # -- Flux reconciliation overrides specifically for the Kyverno Package
-  flux: {}
+  flux:
+    driftDetection:
+      ignore:
+        - paths: [""]
+          target:
+            kind: ClusterPolicy
+        - paths: [""]
+          target:
+            kind: Job
+        - paths: [""]
+          target:
+            kind: StatefulSet
   # -- Values to passthrough to the kyverno policies chart: https://repo1.dso.mil/big-bang/product/packages/kyverno-policies.git
   values: {}
   # -- Post Renderers.  See docs/postrenders.md

@@ -1,0 +1,122 @@
+istioGateway:
+  # -- Toggle deployment of Istio Gateway(s)
+  enabled: true
+  # -- Choose source type of "git" or "helmRepo"
+  sourceType: "helmRepo"
+  git:
+    repo: https://repo1.dso.mil/big-bang/product/packages/istio-gateway.git
+    path: "./chart"
+    tag: 1.26.3-bb.0
+  helmRepo:
+    repoName: "registry1"
+    chartName: "gateway"
+    tag: 1.26.3-bb.0
+  # -- Values to passthrough to the gateway chart(s)
+  values: {}
+  # EXAMPLE: Set the tls key/cert for the existing public gateway
+  #   gateways:
+  #     public:
+  #       gatewayCerts:
+  #         - name: public-cert
+  #           tls:
+  #             key: "<my-key>"
+  #             cert: "<my-cert>"
+  #       minProtocolVersion: "<my-min-protocol-version>"
+  #
+  # EXAMPLE: Create an entirely new ingress gateway
+  #   gateways:
+  #     custom: # name of the gateway; will be templated to custom-ingressgateway
+  #       gatewayCerts:
+  #         - name: custom-cert
+  #           tls:
+  #             key: "<my-key>"
+  #             cert: "<my-cert>"
+  #       upstream:
+  #         labels:
+  #           istio: ingressgateway
+  #       gateway:
+  #         servers:
+  #         - hosts:
+  #           - '*.mydomain.com'
+  #           port:
+  #             name: http
+  #             number: 8080
+  #             protocol: HTTP
+  #           tls:
+  #             httpsRedirect: true
+  #         - hosts:
+  #           - '*.mydomain.com'
+  #           port:
+  #             name: https
+  #             number: 8443
+  #             protocol: HTTPS
+  #           tls:
+  #             credentialName: custom-cert
+  #             mode: SIMPLE
+  #
+  # EXAMPLE: Disable the existing passthrough gateway
+  #   gateways:
+  #     passthrough: {}
+  #
+  # EXAMPLE: Create an egress gateway
+  #   gateways:
+  #     # https://istio.io/latest/docs/tasks/traffic-management/egress/egress-gateway/
+  #     # https://istio.io/latest/blog/2023/egress-sni/
+  #     outbound: # name of the gateway; will be templated to outbound-egressgateway
+  #       upstream:
+  #         labels:
+  #           istio: egressgateway
+  #       gateway:
+  #         servers:
+  #         - port:
+  #             number: 443
+  #             name: tls
+  #             protocol: TLS
+  #         hosts:
+  #         - '*'
+  #         tls:
+  #           mode: ISTIO_MUTUAL
+
+  # -- Flux reconciliation overrides specifically for the Istio Gateway Package
+  flux:
+    driftDetection:
+      ignore:
+        - paths: [""]
+          target:
+            kind: PeerAuthentication
+            namespace: "istio-gateway"
+        - paths: [""]
+          target:
+            kind: AuthorizationPolicy
+            namespace: "istio-gateway"
+        - paths: [""]
+          target:
+            kind: NetworkPolicy
+            namespace: "istio-gateway"
+  # -- Post Renderers.  See docs/postrenders.md
+  # The istioGateway package supports advanced postRenderer definitions. If an array of postRenderers is provided, the
+  # postRenderers will be applied to all gateways. If a map of postRenderers is provided, the postRenderers
+  # will be applied only to their respective gateways. The map key must match the gateway name for the postRenderers
+  # to be applied to that gateway. You cannot mix array and map postRenderers.
+  postRenderers: []
+  # EXAMPLE: Use a post-renderer to add an annotation (bigbang.dev/example=example) to all gateway deployments
+  # - kustomize:
+  #     patches:
+  #     - target:
+  #         kind: Deployment
+  #         name: .*
+  #       patch: |-
+  #         - op: add
+  #           path: /metadata/annotations/bigbang.dev~1example
+  #           value: example
+  # EXAMPLE: Use a post-renderer to add an annotation (bigbang.dev/example=example) to only the public gateway deployment
+  #   public:
+  #   - kustomize:
+  #       patches:
+  #       - target:
+  #           kind: Deployment
+  #           name: .*
+  #         patch: |-
+  #           - op: add
+  #             path: /metadata/annotations/bigbang.dev~1example
+  #             value: example

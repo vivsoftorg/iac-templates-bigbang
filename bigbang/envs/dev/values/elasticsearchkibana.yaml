@@ -6,14 +6,28 @@ elasticsearchKibana:
   git:
     repo: https://repo1.dso.mil/big-bang/product/packages/elasticsearch-kibana.git
     path: "./chart"
-    tag: "1.21.0-bb.0"
+    tag: "1.30.0-bb.3"
   helmRepo:
     repoName: "registry1"
     chartName: "elasticsearch-kibana"
-    tag: "1.21.0-bb.0"
+    tag: "1.30.0-bb.3"
   # -- Flux reconciliation overrides specifically for the Logging (EFK) Package
   flux:
     timeout: 20m
+    driftDetection:
+      ignore:
+        - paths: [""]
+          target:
+            kind: Kibana
+        - paths: [""]
+          target:
+            kind: Elasticsearch
+        - paths: [""]
+          target:
+            kind: Job
+        - paths: [""]
+          target:
+            kind: StatefulSet
   # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
   ingress:
     gateway: ""

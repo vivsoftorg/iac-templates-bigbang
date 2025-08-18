@@ -6,11 +6,11 @@ tempo:
   git:
     repo: https://repo1.dso.mil/big-bang/product/packages/tempo.git
     path: "./chart"
-    tag: "1.10.3-bb.6"
+    tag: "1.21.1-bb.2"
   helmRepo:
     repoName: "registry1"
     chartName: "tempo"
-    tag: "1.10.3-bb.6"
+    tag: "1.21.1-bb.2"
   # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
   ingress:
     gateway: ""
@@ -41,6 +41,10 @@ tempo:
     # -- Whether or not objectStorage connection should require HTTPS, if connecting to in-cluster object
     # storage on port 80/9000 set this value to true.
     insecure: false
+  # -- Whether or not to enable Tempo's internal metrics generator, the monitoring package will also be
+  # be required for this integration.
+  metricsGenerator:
+    enabled: false
   # -- Values to passthrough to the Tempo chart: https://repo1.dso.mil/big-bang/product/packages/tempo.git
   values: {}
   # -- Post Renderers.  See docs/postrenders.md

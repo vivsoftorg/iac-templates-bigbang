@@ -11,7 +11,7 @@ packages:
     # @default -- false
     wrapper:
       enabled: false
-    # -- After deployment, patch wrapper resources.  [More info](https://fluxcd.io/flux/components/helm/helmreleases/#post-renderers)
+      # -- After deployment, patch wrapper resources.  [More info](https://fluxcd.io/flux/components/helm/helmreleases/#post-renderers)
       postRenderers: []
     # -- Use a kustomize deployment rather than Helm
     kustomize: false

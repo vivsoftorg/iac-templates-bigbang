@@ -1,0 +1,22 @@
+alloy:
+  # -- Toggle deployment of grafana alloy
+  enabled: true
+  # -- Choose source type of "git" or "helmRepo"
+  sourceType: "helmRepo"
+  git:
+    repo: https://repo1.dso.mil/big-bang/product/packages/alloy.git
+    tag: "3.2.1-bb.1"
+    path: "./chart"
+  helmRepo:
+    repoName: "registry1"
+    chartName: "k8s-monitoring"
+    tag: "3.2.1-bb.1"
+  # -- Toggle Alloy to collect logs
+  alloyLogs:
+    enabled: true
+  # -- Additional Alloy destinations not included in Big Bang
+  additionalDestinations: []
+  values: {}
+  postRenderers: []
+  # -- Flux reconciliation overrides specifically for the alloy package
+  flux: {}
