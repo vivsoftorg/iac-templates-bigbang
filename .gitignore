@@ -2,4 +2,5 @@
 target/*
 doc/.DS_Store
 Notes.md
+bigbang/envs/dev/manual-install-of-bigbang.yaml
 bigbang/envs/dev/secrets/private-registry.enc.yaml
