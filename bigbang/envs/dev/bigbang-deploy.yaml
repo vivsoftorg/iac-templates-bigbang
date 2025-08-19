@@ -8,7 +8,7 @@ spec:
   interval: 1m0s
   url: https://gitlab.com/enbuild-staging/iac-templates/bigbang.git
   ref:
-    branch: main
+    branch: bb_3.4.0
   secretRef:
     name: repository-credentials
 ---
