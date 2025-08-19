@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: bigbang
-      version: 2.40.0
+      version: 3.4.0
       sourceRef:
         kind: HelmRepository
         name: registry1
@@ -35,19 +35,31 @@ spec:
   valuesFrom:
     - name: bb-helm-values
       kind: ConfigMap
-      valuesKey: anchore.yaml
+      valuesKey: repo.yaml
     - name: bb-helm-values
       kind: ConfigMap
-      valuesKey: argocd.yaml
+      valuesKey: istiocrds.yaml
     - name: bb-helm-values
       kind: ConfigMap
-      valuesKey: authservice.yaml
+      valuesKey: istiod.yaml
     - name: bb-helm-values
       kind: ConfigMap
-      valuesKey: clusterauditor.yaml
+      valuesKey: istiogateway.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: kiali.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: loki.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: alloy.yaml
     - name: bb-helm-values
       kind: ConfigMap
       valuesKey: eckoperator.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: elasticsearchkibana.yaml
     - name: bb-helm-values
       kind: ConfigMap
       valuesKey: fluentbit.yaml
@@ -56,176 +68,178 @@ spec:
       valuesKey: gatekeeper.yaml
     - name: bb-helm-values
       kind: ConfigMap
+      valuesKey: kyvernoreporter.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: kyvernopolicies.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: kyverno.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: monitoring.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: grafana.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: tempo.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: neuvector.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: twistlock.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: authservice.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: keycloak.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: vault.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: externalsecrets.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: metricsserver.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: mimir.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: headlamp.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: thanos.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: mattermostoperator.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: mattermost.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: miniooperator.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: minio.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: velero.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
       valuesKey: gitlab.yaml
     - name: bb-helm-values
       kind: ConfigMap
       valuesKey: gitlabrunner.yaml
     - name: bb-helm-values
       kind: ConfigMap
-      valuesKey: haproxy.yaml
+      valuesKey: argocd.yaml
     - name: bb-helm-values
       kind: ConfigMap
-      valuesKey: istio.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: istiooperator.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: jaeger.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: keycloak.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: kiali.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: kyverno.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: kyvernopolicies.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: kyvernoreporter.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: loki.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: mattermost.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: mattermostoperator.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: metricsserver.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: minio.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: miniooperator.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: monitoring.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: neuvector.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: promtail.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: repo.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: sonarqube.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: tempo.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: twistlock.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: vault.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: velero.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: elasticsearchkibana.yaml
-    - name: bb-helm-values
-      kind: ConfigMap
-      valuesKey: thanos.yaml
+      valuesKey: anchoreenterprise.yaml
     - name: bb-helm-values
       kind: ConfigMap
       valuesKey: fortify.yaml
     - name: bb-helm-values
       kind: ConfigMap
-      valuesKey: grafana.yaml
+      valuesKey: sonarqube.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: nexusrepositorymanager.yaml
+    - name: bb-helm-values
+      kind: ConfigMap
+      valuesKey: backstage.yaml
     - name: bb-helm-values
       kind: ConfigMap
       valuesKey: harbor.yaml
     - name: bb-helm-values
       kind: ConfigMap
-      valuesKey: nexusrepositorymanager.yaml
-
-    - name: anchore-values
+      valuesKey: haproxy.yaml
+    - name: repo-values
       kind: Secret
-    - name: argocd-values
+    - name: istiocrds-values
       kind: Secret
-    - name: authservice-values
+    - name: istiod-values
       kind: Secret
-    - name: clusterauditor-values
+    - name: istiogateway-values
+      kind: Secret
+    - name: kiali-values
+      kind: Secret
+    - name: loki-values
+      kind: Secret
+    - name: alloy-values
       kind: Secret
     - name: eckoperator-values
+      kind: Secret
+    - name: elasticsearchkibana-values
       kind: Secret
     - name: fluentbit-values
       kind: Secret
     - name: gatekeeper-values
       kind: Secret
+    - name: kyvernoreporter-values
+      kind: Secret
+    - name: kyvernopolicies-values
+      kind: Secret
+    - name: kyverno-values
+      kind: Secret
+    - name: monitoring-values
+      kind: Secret
+    - name: grafana-values
+      kind: Secret
+    - name: tempo-values
+      kind: Secret
+    - name: neuvector-values
+      kind: Secret
+    - name: twistlock-values
+      kind: Secret
+    - name: authservice-values
+      kind: Secret
+    - name: keycloak-values
+      kind: Secret
+    - name: vault-values
+      kind: Secret
+    - name: externalsecrets-values
+      kind: Secret
+    - name: metricsserver-values
+      kind: Secret
+    - name: mimir-values
+      kind: Secret
+    - name: headlamp-values
+      kind: Secret
+    - name: thanos-values
+      kind: Secret
+    - name: mattermostoperator-values
+      kind: Secret
+    - name: mattermost-values
+      kind: Secret
+    - name: miniooperator-values
+      kind: Secret
+    - name: minio-values
+      kind: Secret
+    - name: velero-values
+      kind: Secret
     - name: gitlab-values
       kind: Secret
     - name: gitlabrunner-values
       kind: Secret
-    - name: haproxy-values
+    - name: argocd-values
       kind: Secret
-    - name: istio-values
-      kind: Secret
-    - name: istiooperator-values
-      kind: Secret
-    - name: jaeger-values
-      kind: Secret
-    - name: keycloak-values
-      kind: Secret
-    - name: kiali-values
-      kind: Secret
-    - name: kyverno-values
-      kind: Secret
-    - name: kyvernopolicies-values
-      kind: Secret
-    - name: kyvernoreporter-values
-      kind: Secret
-    - name: loki-values
-      kind: Secret
-    - name: mattermost-values
-      kind: Secret
-    - name: mattermostoperator-values
-      kind: Secret
-    - name: metricsserver-values
-      kind: Secret
-    - name: minio-values
-      kind: Secret
-    - name: miniooperator-values
-      kind: Secret
-    - name: monitoring-values
-      kind: Secret
-    - name: neuvector-values
-      kind: Secret
-    - name: promtail-values
-      kind: Secret
-    - name: repo-values
-      kind: Secret
-    - name: sonarqube-values
-      kind: Secret
-    - name: tempo-values
-      kind: Secret
-    - name: twistlock-values
-      kind: Secret
-    - name: vault-values
-      kind: Secret
-    - name: velero-values
-      kind: Secret
-    - name: elasticsearchkibana-values
-      kind: Secret
-    - name: thanos-values
+    - name: anchoreenterprise-values
       kind: Secret
     - name: fortify-values
       kind: Secret
-    - name: grafana-values
+    - name: sonarqube-values
+      kind: Secret
+    - name: nexusrepositorymanager-values
+      kind: Secret
+    - name: backstage-values
       kind: Secret
     - name: harbor-values
       kind: Secret
-    - name: nexusrepositorymanager-values
+    - name: haproxy-values
       kind: Secret
