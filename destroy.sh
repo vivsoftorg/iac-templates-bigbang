@@ -145,8 +145,33 @@ kustomize build cluster-init/ | kubectl delete -f - || true
 
 success "BigBang and all associated resources have been destroyed successfully 🎉"
 
+# 4. Clean up CRDs and CRs left behind
+log "Cleaning up leftover istio CRDs "
+istio_crds=$(kubectl get crds -o name | grep 'istio.io' || true)
+for crd in $istio_crds; do
+  log "  Deleting CRD $crd ..."
+  kubectl delete "$crd" --ignore-not-found || true
+done
 
-# 5. Final cleanup: patch and delete Terminating namespaces
+grafana_crds=$(kubectl get crds -o name | grep 'grafana.com' || true)
+for crd in $grafana_crds; do
+  log "  Deleting CRD $crd ..."
+  kubectl delete "$crd" --ignore-not-found || true
+done
+
+kiali_crds=$(kubectl get crds -o name | grep 'kiali.io' || true)
+for crd in $kiali_crds; do
+  log "  Deleting CRD $crd ..."
+  kubectl delete "$crd" --ignore-not-found || true
+done
+
+wgpolicyk8s_crds=$(kubectl get crds -o name | grep 'wgpolicyk8s.io' || true)
+for crd in $wgpolicyk8s_crds; do
+  log "  Deleting CRD $crd ..."
+  kubectl delete "$crd" --ignore-not-found || true
+done
+
+# 5. Patch and delete Terminating namespaces
 log "Checking for Terminating namespaces..."
 for ns in $(kubectl get ns --no-headers | awk '$2=="Terminating"{print $1}'); do
   warn "Namespace $ns is stuck in Terminating. Patching finalizers..."
