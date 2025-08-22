@@ -13,6 +13,7 @@ HELMRELEASES=(
   bbctl
   alloy
   tempo
+  twistlock
   loki
   monitoring
   istiod
@@ -20,6 +21,7 @@ HELMRELEASES=(
   kyverno-policies
   kyverno
   prometheus-operator-crds
+  bigbang
 )
 
 log() { echo -e "\033[1;34m==> $*\033[0m"; }
@@ -90,23 +92,43 @@ for hr in "${HELMRELEASES[@]}"; do
   fi
 done
 
-# 3. Finally, delete BigBang
+# 2. Delete our BigBang kustomization
 log "Delete the BigBang bigbang/envs/dev/"
 kustomize build bigbang/envs/dev/ | kubectl delete -f - || true
 
-until [[ $(kubectl --namespace bigbang get all --no-headers) == "" ]]; do
-    log "Waiting for cleanup of bigbang resources..."
-    sleep 5
+# 3. Handle orphan HRs (not in list)
+
+log "Scanning for leftover HelmReleases in bigbang namespace..."
+for hr in $(kubectl -n bigbang get helmreleases -o name | cut -d/ -f2); do
+  if [[ ! " ${HELMRELEASES[*]} " =~ " $hr " ]]; then
+    warn "Found orphan HelmRelease: $hr"
+    delete_hr_and_dependents "$hr" "bigbang"
+  fi
 done
 
+log "Waiting for all HelmReleases in bigbang namespace to be deleted..."
 until [[ $(kubectl --namespace bigbang get helmreleases.helm.toolkit.fluxcd.io --no-headers) == "" ]]; do
     log "Waiting for cleanup of helmreleases..."
     sleep 5
 done
 
+log "Waiting for all resources in bigbang namespace to be deleted..."
+until [[ $(kubectl --namespace bigbang get all --no-headers) == "" ]]; do
+    log "Waiting for cleanup of bigbang resources..."
+    sleep 5
+done
+
+
+# 4. Delete gitrepositories, flux, cluster-init
 log "Delete the gitrepositories"
 until [[ $(kubectl --namespace bigbang get gitrepositories.source.toolkit.fluxcd.io --no-headers) == "" ]]; do
     log "Waiting for cleanup of gitrepositories..."
+    sleep 5
+done
+
+log "Delete the helmrepository"
+until [[ $(kubectl --namespace bigbang get helmrepository.source.toolkit.fluxcd.io --no-headers) == "" ]]; do
+    log "Waiting for cleanup of helmrepository ..."
     sleep 5
 done
 
@@ -119,14 +141,21 @@ until [[ $(kubectl --namespace flux-system get all --no-headers) == "" ]]; do
 done
 
 log "Delete the cluster-init/ resources"
-kustomize build cluster-init/ | kubectl delete -f -
+kustomize build cluster-init/ | kubectl delete -f - || true
 
-until [[ $(kubectl get ns bigbang --no-headers) == "" ]]; do
-    log "Waiting for cleanup of bigbang namespace..."
-    sleep 5
+success "BigBang and all associated resources have been destroyed successfully 🎉"
+
+
+# 5. Final cleanup: patch and delete Terminating namespaces
+log "Checking for Terminating namespaces..."
+for ns in $(kubectl get ns --no-headers | awk '$2=="Terminating"{print $1}'); do
+  warn "Namespace $ns is stuck in Terminating. Patching finalizers..."
+  kubectl get ns "$ns" -o json \
+    | jq '.spec.finalizers = []' \
+    | kubectl replace --raw "/api/v1/namespaces/$ns/finalize" -f - || true
+  success "Namespace $ns finalized."
 done
 
-until [[ $(kubectl get ns flux-system --no-headers) == "" ]]; do
-    log "Waiting for cleanup of flux-system namespace..."
-    sleep 5
-done
+success "Cluster cleanup completed!"
+log "Remaining namespaces:"
+kubectl get ns
