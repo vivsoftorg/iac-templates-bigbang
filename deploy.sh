@@ -69,3 +69,6 @@ hr=$(kubectl get hr -n bigbang -o custom-columns=NAME:.metadata.name --no-header
 kubectl wait --for=condition=Ready=True --timeout=3600s helmreleases $hr -n bigbang || error_exit "One or more HelmReleases failed to become ready"
 
 success "BigBang and all HelmReleases deployed successfully 🎉"
+
+log "Following VirtualService are created:"
+kubectl get virtualservices.networking.istio.io -A
