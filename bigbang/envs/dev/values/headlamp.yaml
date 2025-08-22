@@ -1,7 +1,7 @@
 addons:
   headlamp:
     # -- Toggle deployment of headlamp
-    enabled: false
+    enabled: true
     # -- Choose source type of "git" or "helmRepo"
     sourceType: "helmRepo"
     git:

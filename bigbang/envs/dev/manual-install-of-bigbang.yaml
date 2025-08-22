@@ -1,0 +1,170 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: registry1
+  namespace: bigbang
+spec:
+  interval: 2m
+  type: oci
+  url: oci://registry1.dso.mil/bigbang
+  secretRef:
+    name: private-registry
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: bigbang
+  namespace: bigbang
+spec:
+  targetNamespace: bigbang
+  chart:
+    spec:
+      chart: bigbang
+      version: 3.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: registry1
+        namespace: bigbang
+      interval: 5m
+  install:
+    crds: CreateReplace
+    remediation:
+      retries: -1
+  interval: 2m
+  rollback:
+    cleanupOnFail: true
+    timeout: 10m
+  test:
+    enable: false
+  timeout: 10m
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+    remediation:
+      remediateLastFailure: true
+      retries: 3
+  values:
+    domain: 44.210.192.97.nip.io
+    addons:
+      headlamp:
+        enabled: true
+    alloy:
+      enabled: true
+    bbctl:
+      enabled: false
+    eckOperator:
+      enabled: false
+    elasticsearchKibana:
+      enabled: false
+    fluentbit:
+      enabled: false
+    gatekeeper:
+      enabled: false
+    grafana:
+      enabled: true
+    istioCRDs:
+      enabled: true
+    istioGateway:
+      enabled: true
+      values:
+        gateways:
+          public:
+            gatewayCerts:
+              - name: public-cert
+                tls:
+                  key: |
+                    -----BEGIN PRIVATE KEY-----
+                    MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDBkpk2LsH1UNL+
+                    PRpUNQTXzlkfF9I4t8iEbQA2CV2/MzWRmJACTwaK/hYDzjJv9u7qa6zkRmvX2gYS
+                    +wo59W9elkptdDCT68iBZdQAHYnc4POAUROVmlBA9P1jBWUXt7QB4pojZ38W8t1j
+                    UANrZFpLHBAdboU1ZQNpVgfOgelapIItOv0fxK+WHadT2GP1jZ0/0uxzFP6MZOR1
+                    X12vlocOmvIfvcYbEmc83hYuqo6L3pip07vG3/G3DmjufvXPfTMaN0jY9EmYx0qo
+                    CH8k43eXObLcPE6DB+bzFSCutks2XsvXTTJR/Fhco1sb91izmlFj4yE/hN5EOczR
+                    2ccgEfODAgMBAAECggEBALWQ7GUGNqgDx+TxK2EQ2hoSU0X28hiBSnPsSeZloqlV
+                    P0nx8CI6Pcjhy4SGRIkA9disZt83rrAosMnc7xquPGhcUDOaaHZXExtMiC4ThtzH
+                    o58YbWZF+ED1izb2OHymsxGRm0LaMTs1UrN0ucBhwM/y4qq4n/oVZb3IFEp/UILT
+                    aDXZtADv3mq8FCgisivHrffXHaIteFbgaMEdcv0A+zEwiN7poXlKxCbdR4K2mb2A
+                    H0NWOK3xVXdIDsszgFCidyokOWAW1918ggWJfsOIT4rsvQg5TxfkmaRutRt/oFV5
+                    PiRjpF3VKxLmHy2p1KP/UT5NQFfQwoYeZxQnfVW4DQECgYEA9T47dblQh/KXdDn/
+                    6o2hYTXub9ndQniLDozBpSbiM1pxxGhAaTrdztWQI26Kku0xQAHwF9jkfYVRxpxv
+                    Iq73GpLVE867wpWEKYK9Gufy1VJ9w4WKdEsrFjQic+lV9MMmgSv/pn12fwlIXR6C
+                    3l1MLA0htlx8aocs11RUbjcIxe0CgYEAyhAsQ7l2BfIKIrEjZGxYmqh0lr8Et6ln
+                    OuqW1zUysZRDDnf6oRhCMuqQQPn4JtjORqaZsgnK7n6j9HbVRh3Y0frPM9KVC8rO
+                    ho0PI2ri9iUIZTCfGS4vf9ErmwEgHzDhlqOzDo5R1sKPKAThWEwYFePjZ8z5Jnu/
+                    WCle5Pt4cS8CgYB4lYDnAZd3QPD3VQ1gZwNSqRH0LUt9w4ecP9l3Owc9+Nq3mAsT
+                    sr4dVSTqRxAb7kSpFErZbuvqTANJhOGgTCd0CX57nsrzglDZmE8jS6k6+rSbzq2l
+                    QNCOulO2aqS5FLt6CAhL9KSvEgFix/3RGE672jkZUaBbQNvrhKt/BdBqgQKBgEc6
+                    WEAvWjlSTtxX0QAPaVRrWV3iTAlp/+e21iFasVoDx3eMN58d7AgCw4MEGsOm3V/u
+                    TnOCHDTiE22Tji6/SrUKUowUCVI01YR8qP91KDhYaZMyBoNb0oad918WkHouQvdV
+                    EUNqS9MGlmwm/ECh4kOlJ35ptNIqARNU0gyp0JUlAoGBAL/Qu/GQdCXCAXrZaM0q
+                    9K0jmGIU7PNVdurt+BvDsUmEKVOutDujxkKte1b9Hkot2Y8joqPV6v/+Er10dlTF
+                    RSH/ZW1VOmZ7V1YRp5AsCVvkkLdsjMGmiLZz8b7wHN4+PBxIeM/3wJVX83yeeNMm
+                    HaIUGX9rlbymu9zQWqvOkMPC
+                    -----END PRIVATE KEY-----
+                  cert: |
+                    -----BEGIN CERTIFICATE-----
+                    MIIERjCCAq6gAwIBAgIRAK+/45U+4+ISPZNa8YMULcAwDQYJKoZIhvcNAQELBQAw
+                    fTEeMBwGA1UEChMVbWtjZXJ0IGRldmVsb3BtZW50IENBMSkwJwYDVQQLDCBqdW5l
+                    ZG1AanVuZWQubG9jYWwgKEp1bmVkIE1lbW9uKTEwMC4GA1UEAwwnbWtjZXJ0IGp1
+                    bmVkbUBqdW5lZC5sb2NhbCAoSnVuZWQgTWVtb24pMB4XDTI1MDgyMTE2NDYxMFoX
+                    DTI3MTEyMTE2NDYxMFowUzEnMCUGA1UEChMebWtjZXJ0IGRldmVsb3BtZW50IGNl
+                    cnRpZmljYXRlMSgwJgYDVQQLDB9qdW5lZG1ASnVuZWRzLU1hY0Jvb2stUHJvLmxv
+                    Y2FsMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwZKZNi7B9VDS/j0a
+                    VDUE185ZHxfSOLfIhG0ANgldvzM1kZiQAk8Giv4WA84yb/bu6mus5EZr19oGEvsK
+                    OfVvXpZKbXQwk+vIgWXUAB2J3ODzgFETlZpQQPT9YwVlF7e0AeKaI2d/FvLdY1AD
+                    a2RaSxwQHW6FNWUDaVYHzoHpWqSCLTr9H8Svlh2nU9hj9Y2dP9LscxT+jGTkdV9d
+                    r5aHDpryH73GGxJnPN4WLqqOi96YqdO7xt/xtw5o7n71z30zGjdI2PRJmMdKqAh/
+                    JON3lzmy3DxOgwfm8xUgrrZLNl7L100yUfxYXKNbG/dYs5pRY+MhP4TeRDnM0dnH
+                    IBHzgwIDAQABo2swaTAOBgNVHQ8BAf8EBAMCBaAwEwYDVR0lBAwwCgYIKwYBBQUH
+                    AwEwHwYDVR0jBBgwFoAU+y/R60pAOvzSCI4kfZE3YICezwAwIQYDVR0RBBowGIIW
+                    Ki40NC4yMTAuMTkyLjk3Lm5pcC5pbzANBgkqhkiG9w0BAQsFAAOCAYEALppKnh+I
+                    JbrQxDjwmIrYFHvUPD0L9z7l+iL2T0bi97vrF8+twMNgzIjfOJjFpGCXoMHsBa3D
+                    cHfm2cJsE7RyOw3zEUpeAik4NpByvuwpJXvnEI0GgO5NppWA8K1sAtqhJGmPS+h/
+                    5sTT2goV4iAFuOjHKTOn13zxaW9oZKvNkaOv7C3KHnJKTcmfdI+IlvK2PMPBBXJr
+                    GfzryZmJjbvzDxxaSUPM2II1gE8KGgQqDoNeNNSUSxyiJ8FJKEz1iq23wXvWTm/R
+                    +ia0AoFcoyHYbTx75OD9bBvDOLYM3dZqaNZbP6Gbg4hnUDnr/xTgLF28NLrN7sdy
+                    wUOWEPL9GE0esAOV3JySeOuaFd4u2vwmSJzPYBwSA3R56E5zhXLMTT6QcWFRbA2z
+                    0Z0Q/kuGqZoIqRUTx0/vME7cGuoMYxmVy8/eDBs10hnFjlU88NI9pPXGaFvbZoLs
+                    m/TtzMAn2HqE+GYoO6yflZCj6qzow6H+uFzVhQ3eijZHN8UjFOcWZJMn
+                    -----END CERTIFICATE-----
+            upstream:
+              service:
+                type: NodePort
+                ports:
+                - name: http2
+                  port: 80
+                  protocol: TCP
+                  targetPort: 8080
+                  nodePort: 30080
+                - name: https
+                  port: 443
+                  protocol: TCP
+                  targetPort: 8443
+                  nodePort: 30443
+          passthrough: {}
+    istiod:
+      enabled: true
+    kiali:
+      enabled: true
+    kyverno:
+      enabled: true
+    kyvernoPolicies:
+      enabled: true
+    kyvernoReporter:
+      enabled: true
+    loki:
+      enabled: true
+    monitoring:
+      enabled: true
+    neuvector:
+      enabled: true
+    registryCredentials:
+      email: ""
+      password: JZHFXd0uGbG4xYGYeSVWqimufXHMwX
+      registry: registry1.dso.mil
+      username: Juned_Memon
+    tempo:
+      enabled: true
+    twistlock:
+      enabled: true
