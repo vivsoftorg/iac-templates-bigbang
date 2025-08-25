@@ -48,7 +48,6 @@ configMapGenerator:
     - nexusrepositorymanager.yaml
     - packages.yaml
     - prometheusoperatorcrds.yaml
-    - promtail.yaml
     - repo.yaml
     - sonarqube.yaml
     - tempo.yaml

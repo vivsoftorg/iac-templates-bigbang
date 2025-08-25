@@ -1,17 +1,17 @@
 addons:
   headlamp:
     # -- Toggle deployment of headlamp
-    enabled: true
+    enabled: false
     # -- Choose source type of "git" or "helmRepo"
     sourceType: "helmRepo"
     git:
       repo: https://repo1.dso.mil/big-bang/product/packages/headlamp.git
-      tag: "0.33.0-bb.0"
+      tag: "0.34.0-bb.0"
       path: "./chart"
     helmRepo:
       repoName: "registry1"
       chartName: "headlamp"
-      tag: "0.33.0-bb.0"
+      tag: "0.34.0-bb.0"
     # -- Override flux settings for this package
     flux: {}
     # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".

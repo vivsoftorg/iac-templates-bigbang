@@ -1,6 +1,5 @@
 # -- Domain used for BigBang created exposed services, can be overridden by individual packages.
 domain: dev.bigbang.mil
-# domain: 44.210.192.97.nip.io
 # -- (experimental) Toggle sourcing from external repos.
 # All this does right now is toggle GitRepositories, it is _not_ fully functional
 offline: false
@@ -150,6 +149,13 @@ networkPolicies:
   # Please review https://docs.aws.amazon.com/kms/latest/developerguide/kms-vpc-endpoint.html to setup routing to AWS services that never leave the AWS network.
   # Once created update `networkPolicies.vpcCidr` to match the CIDR of your VPC so Vault will be able to reach your VPCs DNS and new KMS endpoint.
   vpcCidr: 0.0.0.0/0
+  # Egress definitions reused throughout various packages
+  egress:
+    definitions:
+      sso:
+        to:
+          - ipBlock:
+              cidr: "0.0.0.0/0"
 # -- Global ImagePullPolicy value for all packages
 # Permitted values are: None, Always, IfNotPresent
 imagePullPolicy: IfNotPresent

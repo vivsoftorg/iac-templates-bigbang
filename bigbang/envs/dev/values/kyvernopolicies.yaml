@@ -1,6 +1,6 @@
 kyvernoPolicies:
   # -- Toggle deployment of Kyverno policies
-  enabled: false
+  enabled: true
   # -- Choose source type of "git" or "helmRepo"
   sourceType: "helmRepo"
   git:

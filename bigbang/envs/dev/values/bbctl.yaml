@@ -1,6 +1,6 @@
 bbctl:
   # -- Toggle deployment of the bbctl dashboards
-  enabled: false
+  enabled: true
   sourceType: "helmRepo"
   git:
     repo: https://repo1.dso.mil/big-bang/product/packages/bbctl.git
