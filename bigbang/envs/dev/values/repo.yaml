@@ -1,6 +1,6 @@
 # -- Domain used for BigBang created exposed services, can be overridden by individual packages.
-# domain: dev.bigbang.mil
-domain: 44.210.192.97.nip.io
+domain: dev.bigbang.mil
+# domain: 44.210.192.97.nip.io
 # -- (experimental) Toggle sourcing from external repos.
 # All this does right now is toggle GitRepositories, it is _not_ fully functional
 offline: false
