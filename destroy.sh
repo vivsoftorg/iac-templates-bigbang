@@ -21,7 +21,6 @@ HELMRELEASES=(
   kyverno-policies
   kyverno
   prometheus-operator-crds
-  kiali
   bigbang
 )
 
@@ -92,6 +91,11 @@ for hr in "${HELMRELEASES[@]}"; do
     warn "HelmRelease bigbang/$hr not found, skipping."
   fi
 done
+
+# Patching kiali and alloy to remove finalizers if they are stuck
+kubectl patch kiali -n kiali kiali --type=merge -p '{"metadata":{"finalizers":[]}}' 2>/dev/null || true
+kubectl patch alloy -n alloy alloy-alloy-logs --type=merge -p '{"metadata":{"finalizers :[]}}' 2>/dev/null || true
+
 
 # 2. Delete our BigBang kustomization
 log "Delete the BigBang bigbang/envs/dev/"
