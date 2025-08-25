@@ -1,0 +1,32 @@
+istioCRDs:
+  # -- Toggle deployment of Istio CRDs
+  enabled: true
+  # -- Choose source type of "git" or "helmRepo"
+  sourceType: "helmRepo"
+  git:
+    repo: https://repo1.dso.mil/big-bang/product/packages/istio-crds.git
+    path: "./chart"
+    tag: 1.26.3-bb.0
+  helmRepo:
+    repoName: "registry1"
+    chartName: "istio-crds"
+    tag: 1.26.3-bb.0
+  # -- Values to passthrough to the Istio CRDs chart
+  values: {}
+  # -- Flux reconciliation overrides specifically for the Istio CRDs Package
+  flux:
+    driftDetection:
+      mode: warn
+      ignore:
+        - paths: ["/webhooks/0/failurePolicy"] # this field is managed by istiod directly
+          target:
+            kind: ValidatingWebhookConfiguration
+            name: istiod-default-validator
+        - paths: [""]
+          target:
+            kind: Job
+        - paths: [""]
+          target:
+            kind: StatefulSet
+  # -- Post Renderers.  See docs/postrenders.md
+  postRenderers: []

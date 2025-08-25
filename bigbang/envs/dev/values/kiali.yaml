@@ -6,13 +6,18 @@ kiali:
   git:
     repo: https://repo1.dso.mil/big-bang/product/packages/kiali.git
     path: "./chart"
-    tag: "1.89.7-bb.1"
+    tag: "2.13.0-bb.1"
   helmRepo:
     repoName: "registry1"
     chartName: "kiali"
-    tag: "1.89.7-bb.1"
+    tag: "2.13.0-bb.1"
   # -- Flux reconciliation overrides specifically for the Kiali Package
-  flux: {}
+  flux:
+    driftDetection:
+      ignore:
+        - paths: [""] # The Kiali kind is updated during runtime
+          target:
+            kind: Kiali
   # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
   ingress:
     gateway: ""

@@ -7,20 +7,20 @@ offline: false
 # OCI Type: Must specify username/password or existingSecret if repository requires auth. Using "private-registry" for existingSecret will reuse credentials from registryCredentials above.
 # Default Type: Must specify existingSecret with auth - see https://fluxcd.io/flux/components/source/helmrepositories/#secret-reference for details on secret data required.
 helmRepositories: []
-  # - name: "registry1"
-  #   repository: "oci://registry1.dso.mil/bigbang"
-  #   existingSecret: "private-registry"
-  #   type: "oci"
-  #   username: ""
-  #   password: ""
-  #   email: ""
-  #   # This is an array/list of public keys to be used. Template will append `.pub` to the key as required by Flux
-  #   cosignPublicKeys: []
-  #     key1: |
-  #       -----BEGIN PUBLIC KEY-----
-  #       MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEIE7v9J6ttQus6itUoyfMCqMjaIqm
-  #       R8XrntaedsdEhPPchOQuFzqTyyAPGifV1SaEu8medVRi6mVICWbVwOteNg==
-  #       -----END PUBLIC KEY-----
+# - name: "registry1"
+#   repository: "oci://registry1.dso.mil/bigbang"
+#   existingSecret: "private-registry"
+#   type: "oci"
+#   username: ""
+#   password: ""
+#   email: ""
+#   # This is an array/list of public keys to be used. Template will append `.pub` to the key as required by Flux
+#   cosignPublicKeys: []
+#     key1: |
+#       -----BEGIN PUBLIC KEY-----
+#       MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEIE7v9J6ttQus6itUoyfMCqMjaIqm
+#       R8XrntaedsdEhPPchOQuFzqTyyAPGifV1SaEu8medVRi6mVICWbVwOteNg==
+#       -----END PUBLIC KEY-----
 
 # -- Single set of registry credentials used to pull all images deployed by BigBang.
 registryCredentials:
@@ -112,6 +112,15 @@ flux:
   interval: 2m
   test:
     enable: false
+  driftDetection:
+    mode: enabled # Valid Modes disabled | enabled | warn
+    ignore:
+      - paths: [""] # ignore all jobs, as jobs with ttlSecondsAfterFinished are not handled
+        target:
+          kind: Job
+      - paths: [""] # ignore all stateful sets, as stateful sets seem to have issues with drift detection around finding cluster state when calculating diffs
+        target:
+          kind: StatefulSet
   install:
     remediation:
       retries: -1
@@ -140,6 +149,13 @@ networkPolicies:
   # Please review https://docs.aws.amazon.com/kms/latest/developerguide/kms-vpc-endpoint.html to setup routing to AWS services that never leave the AWS network.
   # Once created update `networkPolicies.vpcCidr` to match the CIDR of your VPC so Vault will be able to reach your VPCs DNS and new KMS endpoint.
   vpcCidr: 0.0.0.0/0
+  # Egress definitions reused throughout various packages
+  egress:
+    definitions:
+      sso:
+        to:
+          - ipBlock:
+              cidr: "0.0.0.0/0"
 # -- Global ImagePullPolicy value for all packages
 # Permitted values are: None, Always, IfNotPresent
 imagePullPolicy: IfNotPresent

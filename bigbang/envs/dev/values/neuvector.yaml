@@ -1,16 +1,16 @@
 neuvector:
   # -- Toggle deployment of Neuvector.
-  enabled: false
+  enabled: true
   # -- Choose source type of "git" or "helmRepo"
   sourceType: "helmRepo"
   git:
     repo: https://repo1.dso.mil/big-bang/product/packages/neuvector.git
     path: "./chart"
-    tag: "2.8.2-bb.1"
+    tag: "2.8.6-bb.2"
   helmRepo:
     repoName: "registry1"
     chartName: "neuvector"
-    tag: "2.8.2-bb.1"
+    tag: "2.8.6-bb.2"
   # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
   ingress:
     gateway: ""
@@ -28,7 +28,24 @@ neuvector:
     # -- Default role to use for Neuvector OIDC users. Supports admin, reader, or no default
     group_mapped_roles: []
   # -- Flux reconciliation overrides specifically for the Neuvector Package
-  flux: {}
+  flux:
+    driftDetection:
+      ignore:
+        - paths: [""]
+          target:
+            kind: CronJob
+        - paths: [""]
+          target:
+            kind: Lease
+        - paths: [""]
+          target:
+            kind: Secret
+        - paths: [""]
+          target:
+            kind: Job
+        - paths: [""]
+          target:
+            kind: StatefulSet
   # -- Values to passthrough to the Neuvector chart: https://repo1.dso.mil/big-bang/product/packages/neuvector.git
   values: {}
   # -- Post Renderers.  See docs/postrenders.md

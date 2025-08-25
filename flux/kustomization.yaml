@@ -6,16 +6,16 @@ resources:
 images:
 - name: ghcr.io/fluxcd/helm-controller
   newName: registry1.dso.mil/ironbank/fluxcd/helm-controller
-  newTag: v1.1.0
+  newTag: v1.3.0
 - name: ghcr.io/fluxcd/kustomize-controller
   newName: registry1.dso.mil/ironbank/fluxcd/kustomize-controller
-  newTag: v1.4.0
+  newTag: v1.6.1
 - name: ghcr.io/fluxcd/notification-controller
   newName: registry1.dso.mil/ironbank/fluxcd/notification-controller
-  newTag: v1.4.0
+  newTag: v1.6.0
 - name: ghcr.io/fluxcd/source-controller
   newName: registry1.dso.mil/ironbank/fluxcd/source-controller
-  newTag: v1.4.1
+  newTag: v1.6.2
 
 patches:
   - target:
@@ -78,8 +78,8 @@ patches:
             - name: manager
               resources:
                 limits:
-                  cpu: 900m
-                  memory: 1Gi
+                  cpu: 1800m
+                  memory: 2Gi
                 requests:
                   cpu: 900m
                   memory: 1Gi
@@ -108,8 +108,8 @@ patches:
             - name: manager
               resources:
                 limits:
-                  cpu: 300m
-                  memory: 600Mi
+                  cpu: 600m
+                  memory: 1200Mi
                 requests:
                   cpu: 300m
                   memory: 600Mi
@@ -138,8 +138,8 @@ patches:
             - name: manager
               resources:
                 limits:
-                  cpu: 100m
-                  memory: 200Mi
+                  cpu: 200m
+                  memory: 400Mi
                 requests:
                   cpu: 100m
                   memory: 200Mi
@@ -168,8 +168,8 @@ patches:
             - name: manager
               resources:
                 limits:
-                  cpu: 300m
-                  memory: 384Mi
+                  cpu: 600m
+                  memory: 800Mi
                 requests:
                   cpu: 300m
                   memory: 384Mi

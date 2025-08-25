@@ -6,17 +6,34 @@ monitoring:
   git:
     repo: https://repo1.dso.mil/big-bang/product/packages/monitoring.git
     path: "./chart"
-    tag: "62.4.0-bb.1"
+    tag: "75.6.1-bb.3"
   helmRepo:
     repoName: "registry1"
     chartName: "monitoring"
-    tag: "62.4.0-bb.1"
+    tag: "75.6.1-bb.3"
   # -- Flux reconciliation overrides specifically for the Monitoring Package
   flux:
     install:
       crds: CreateReplace
     upgrade:
       crds: CreateReplace
+    driftDetection:
+      ignore:
+        - paths: [""]
+          target:
+            kind: Alertmanager
+        - paths: [""]
+          target:
+            kind: Prometheus
+        - paths: [""]
+          target:
+            kind: PrometheusRule
+        - paths: [""]
+          target:
+            kind: Job
+        - paths: [""]
+          target:
+            kind: StatefulSet
   # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
   ingress:
     gateway: ""

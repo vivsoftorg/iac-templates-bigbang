@@ -9,12 +9,16 @@ generatorOptions:
 configMapGenerator:
 - name: bb-helm-values
   files:
-    - anchore.yaml
+    - alloy.yaml
+    - anchoreenterprise.yaml
     - argocd.yaml
     - authservice.yaml
-    - clusterauditor.yaml
+    - backstage.yaml
+    - bbctl.yaml
+    - disableautomaticpassthroughvalues.yaml
     - eckoperator.yaml
     - elasticsearchkibana.yaml
+    - externalsecrets.yaml
     - fluentbit.yaml
     - fortify.yaml
     - gatekeeper.yaml
@@ -23,10 +27,10 @@ configMapGenerator:
     - grafana.yaml
     - haproxy.yaml
     - harbor.yaml
-    - holocron.yaml
-    - istio.yaml
-    - istiooperator.yaml
-    - jaeger.yaml
+    - headlamp.yaml
+    - istiocrds.yaml
+    - istiogateway.yaml
+    - istiod.yaml
     - keycloak.yaml
     - kiali.yaml
     - kyverno.yaml
@@ -36,13 +40,14 @@ configMapGenerator:
     - mattermost.yaml
     - mattermostoperator.yaml
     - metricsserver.yaml
+    - mimir.yaml
     - minio.yaml
     - miniooperator.yaml
     - monitoring.yaml
     - neuvector.yaml
     - nexusrepositorymanager.yaml
     - packages.yaml
-    - promtail.yaml
+    - prometheusoperatorcrds.yaml
     - repo.yaml
     - sonarqube.yaml
     - tempo.yaml
