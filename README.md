@@ -6,19 +6,6 @@ The BigBang Chart version being used is 3.5.0
 
 # Packages
 
-#### Columns
-
-1. Monitoring: `Metrics scraping with Prometheus and dedicated Grafana Dashboards/PrometheusRule alerts as appropriate`
-2. Tracing: `Tempo connections for tracing application traffic`
-3. Network Policies: `Network Policies for restricting network connectivity`
-4. mTLS: `Istio Injected, with either a Strict or Permissive Mutual TLS Mode`
-
-#### Values
-
-1. N/A: `Feature doesn't exist`
-2. No: `Feature exists, Not Implemented in Big Bang`
-3. Yes: `Feature exists, Implemented in Big Bang`
-
 ## Core
 
 | Package | Status | Monitoring | Tracing | Network Policies | mTLS |
