@@ -21,6 +21,7 @@ HELMRELEASES=(
   kyverno-policies
   kyverno
   prometheus-operator-crds
+  kiali
   bigbang
 )
 
