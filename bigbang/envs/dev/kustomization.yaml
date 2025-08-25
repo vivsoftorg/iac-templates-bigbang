@@ -4,4 +4,3 @@ resources:
   - bigbang-deploy.yaml
   - bigbang-helm-values.yaml
   - bigbang-helmrelease.yaml
-  # - manual-install-of-bigbang.yaml
