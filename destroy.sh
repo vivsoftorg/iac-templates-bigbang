@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -Eeuo pipefail
+
+# Check for HelmRelease CRD
+test_helmrelease_crd() {
+  kubectl get crd helmreleases.helm.toolkit.fluxcd.io > /dev/null 2>&1
+}
 
 # List of prioritized HelmReleases
 HELMRELEASES=(
@@ -45,7 +50,7 @@ delete_hr_and_dependents() {
     warn "  $ns/$hr still exists, cleaning CRDs and CRs..."
 
     # Find CRDs possibly tied to this HR
-    for crd in $(kubectl get crds -o json | jq -r ".items[].metadata.name"); do
+    for crd in $(kubectl get crds -o json 2>/dev/null | jq -r ".items[].metadata.name"); do
       if [[ "$crd" == *"$hr"* ]]; then
         log "    Found CRD: $crd"
         kind=$(kubectl get crd "$crd" -o jsonpath='{.spec.names.plural}' 2>/dev/null || true)
@@ -81,20 +86,29 @@ delete_hr_and_dependents() {
 # --- MAIN ---
 
 # Get all existing HelmReleases in bigbang namespace once
-EXISTING_HRS=$(kubectl get helmrelease -n bigbang -o jsonpath='{.items[*].metadata.name}')
+EXISTING_HRS=""
+if test_helmrelease_crd; then
+  EXISTING_HRS=$(kubectl get helmrelease -n bigbang -o jsonpath='{.items[*].metadata.name}')
+else
+  warn "HelmRelease CRD not found. Skipping HelmRelease deletions."
+fi
 
 # 1. Process the curated HELMRELEASES list
-for hr in "${HELMRELEASES[@]}"; do
-  if [[ " $EXISTING_HRS " =~ " $hr " ]]; then
-    delete_hr_and_dependents "$hr" "bigbang"
-  else
-    warn "HelmRelease bigbang/$hr not found, skipping."
-  fi
-done
+if test_helmrelease_crd; then
+  for hr in "${HELMRELEASES[@]}"; do
+    if [[ " $EXISTING_HRS " =~ " $hr " ]]; then
+      delete_hr_and_dependents "$hr" "bigbang"
+    else
+      warn "HelmRelease bigbang/$hr not found, skipping."
+    fi
+  done
+else
+  warn "Skipping HelmRelease list processing: CRD not found."
+fi
 
 # Patching kiali and alloy to remove finalizers if they are stuck
 kubectl patch kiali -n kiali kiali --type=merge -p '{"metadata":{"finalizers":[]}}' 2>/dev/null || true
-kubectl patch alloy -n alloy alloy-alloy-logs --type=merge -p '{"metadata":{"finalizers :[]}}' 2>/dev/null || true
+kubectl patch alloy -n alloy alloy-alloy-logs --type=merge -p '{"metadata":{"finalizers":[]}}' 2>/dev/null || true
 
 
 # 2. Delete our BigBang kustomization
@@ -104,18 +118,26 @@ kustomize build bigbang/envs/dev/ | kubectl delete -f - || true
 # 3. Handle orphan HRs (not in list)
 
 log "Scanning for leftover HelmReleases in bigbang namespace..."
-for hr in $(kubectl -n bigbang get helmreleases -o name | cut -d/ -f2); do
-  if [[ ! " ${HELMRELEASES[*]} " =~ " $hr " ]]; then
-    warn "Found orphan HelmRelease: $hr"
-    delete_hr_and_dependents "$hr" "bigbang"
-  fi
-done
+if test_helmrelease_crd; then
+  for hr in $(kubectl -n bigbang get helmreleases -o name | cut -d/ -f2); do
+    if [[ ! " ${HELMRELEASES[*]} " =~ " $hr " ]]; then
+      warn "Found orphan HelmRelease: $hr"
+      delete_hr_and_dependents "$hr" "bigbang"
+    fi
+  done
+else
+  warn "Skipping orphan HelmRelease cleanup: CRD not found."
+fi
 
 log "Waiting for all HelmReleases in bigbang namespace to be deleted..."
-until [[ $(kubectl --namespace bigbang get helmreleases.helm.toolkit.fluxcd.io --no-headers) == "" ]]; do
-    log "Waiting for cleanup of helmreleases..."
-    sleep 5
-done
+if test_helmrelease_crd; then
+  until [[ $(kubectl --namespace bigbang get helmreleases.helm.toolkit.fluxcd.io --no-headers) == "" ]]; do
+      log "Waiting for cleanup of helmreleases..."
+      sleep 5
+  done
+else
+  warn "Skipping HelmRelease wait: CRD not found."
+fi
 
 log "Waiting for all resources in bigbang namespace to be deleted..."
 until [[ $(kubectl --namespace bigbang get all --no-headers) == "" ]]; do
@@ -152,28 +174,36 @@ success "BigBang and all associated resources have been destroyed successfully ð
 
 # 4. Clean up CRDs and CRs left behind
 log "Cleaning up leftover istio CRDs "
-istio_crds=$(kubectl get crds -o name | grep 'istio.io' || true)
+istio_crds=$(kubectl get crds -o name 2>/dev/null | grep 'istio.io' || true)
 for crd in $istio_crds; do
-  log "  Deleting CRD $crd ..."
-  kubectl delete "$crd" --ignore-not-found || true
+  if [[ -n "$crd" ]]; then
+    log "  Deleting CRD $crd ..."
+    kubectl delete "$crd" --ignore-not-found || true
+  fi
 done
 
-grafana_crds=$(kubectl get crds -o name | grep 'grafana.com' || true)
+grafana_crds=$(kubectl get crds -o name 2>/dev/null | grep 'grafana.com' || true)
 for crd in $grafana_crds; do
-  log "  Deleting CRD $crd ..."
-  kubectl delete "$crd" --ignore-not-found || true
+  if [[ -n "$crd" ]]; then
+    log "  Deleting CRD $crd ..."
+    kubectl delete "$crd" --ignore-not-found || true
+  fi
 done
 
-kiali_crds=$(kubectl get crds -o name | grep 'kiali.io' || true)
+kiali_crds=$(kubectl get crds -o name 2>/dev/null | grep 'kiali.io' || true)
 for crd in $kiali_crds; do
-  log "  Deleting CRD $crd ..."
-  kubectl delete "$crd" --ignore-not-found || true
+  if [[ -n "$crd" ]]; then
+    log "  Deleting CRD $crd ..."
+    kubectl delete "$crd" --ignore-not-found || true
+  fi
 done
 
-wgpolicyk8s_crds=$(kubectl get crds -o name | grep 'wgpolicyk8s.io' || true)
+wgpolicyk8s_crds=$(kubectl get crds -o name 2>/dev/null | grep 'wgpolicyk8s.io' || true)
 for crd in $wgpolicyk8s_crds; do
-  log "  Deleting CRD $crd ..."
-  kubectl delete "$crd" --ignore-not-found || true
+  if [[ -n "$crd" ]]; then
+    log "  Deleting CRD $crd ..."
+    kubectl delete "$crd" --ignore-not-found || true
+  fi
 done
 
 # 5. Patch and delete Terminating namespaces

@@ -41,30 +41,42 @@ declare -A KEEP_CRDS=(
   [volumesnapshots.snapshot.storage.k8s.io]=1
 )
 
-# Function to clean up CRs for a CRD
+# Parallel CRD cleanup: up to 5 at a time
+task_limit=5
+cr_del_limit=10
+
 cleanup_crd() {
   local crd=$1
 
-  # Skip if in keep list
   if [[ ${KEEP_CRDS[$crd]+_} ]]; then
     echo "  Skipping (kept): $crd"
-    return
+    return 0
   fi
 
   echo "  Processing CRD: $crd"
   CR_NAMES=$(kubectl get "$crd" --all-namespaces --ignore-not-found -o name || true)
 
+  # Clean up resources in parallel (up to $cr_del_limit background tasks)
   if [[ -n "$CR_NAMES" ]]; then
     echo "    Found resources:"
     echo "$CR_NAMES" | sed 's/^/      - /'
+    # Parallel delete, but throttle
+    running=0
+    pids=()
     for obj in $CR_NAMES; do
-      echo "      Deleting $obj ..."
-      if ! kubectl delete "$obj" --timeout=30s --ignore-not-found; then
-        echo "      ⚠️ $obj stuck, removing finalizers..."
-        kubectl patch "$obj" --type=json -p='[{"op": "remove", "path": "/metadata/finalizers"}]' || true
-        kubectl delete "$obj" --ignore-not-found || true
-      fi
+      (
+        echo "      Deleting $obj ..."
+        if ! kubectl delete "$obj" --timeout=10s --ignore-not-found; then
+          echo "      ⚠️ $obj stuck, removing finalizers..."
+          kubectl patch "$obj" --type=json -p='[{"op": "remove", "path": "/metadata/finalizers"}]' || true
+          kubectl delete "$obj" --ignore-not-found || true
+        fi
+      ) &
+      pids+=("$!")
+      (( ++running >= cr_del_limit )) && { wait -n; ((running--)); }
     done
+    # Wait for remaining jobs
+    wait
   fi
 
   echo "    Deleting CRD $crd ..."
@@ -73,8 +85,15 @@ cleanup_crd() {
 
 # Always clean all CRDs except those in the KEEP list
 ALL_CRDS=$(kubectl get crds -o name | sed 's#customresourcedefinition.apiextensions.k8s.io/##')
+
+# Parallel CRD deletion (max $task_limit at once)
+running=0
+crd_pids=()
 for crd in $ALL_CRDS; do
-  cleanup_crd "$crd"
+  (cleanup_crd "$crd") &
+  crd_pids+=("$!")
+  (( ++running >= task_limit )) && { wait -n; ((running--)); }
 done
+wait
 
 echo "✅ Completed cleanup!"
