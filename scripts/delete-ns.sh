@@ -1,1 +1,1 @@
-for i in authservice bigbang cluster-auditor flux-system gatekeeper-system istio-operator istio-system jaeger kiali logging monitoring twistlock  metrics-server promtail tempo; do  echo $i; /usr/local/bin/remove-ns-finalizer.sh $i ;done
+for i in alloy bbctl bugbang istio-gateway kyverno kyverno-reporter authservice bigbang cluster-auditor flux-system gatekeeper-system istio-operator istio-system jaeger kiali logging monitoring twistlock  metrics-server promtail tempo; do  echo $i; /usr/local/bin/remove-ns-finalizer.sh $i ;done
