@@ -1,7 +1,7 @@
 # BigBang
 
 The BigBang module deploys standard BigBang components on top of an existing Kubernetes cluster.
-The BigBang Chart version being used is 3.5.0
+The BigBang Chart version being used is 3.19.0
 
 
 # Packages

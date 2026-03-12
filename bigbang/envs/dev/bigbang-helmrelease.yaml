@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: bigbang
-      version: 3.5.0
+      version: 3.19.0
       sourceRef:
         kind: HelmRepository
         name: registry1
@@ -158,7 +158,7 @@ spec:
       valuesKey: harbor.yaml
     - name: bb-helm-values
       kind: ConfigMap
-      valuesKey: haproxy.yaml
+      valuesKey: istiocni.yaml
     - name: repo-values
       kind: Secret
     - name: istiocrds-values
@@ -241,5 +241,5 @@ spec:
       kind: Secret
     - name: harbor-values
       kind: Secret
-    - name: haproxy-values
+    - name: istiocni-values
       kind: Secret
