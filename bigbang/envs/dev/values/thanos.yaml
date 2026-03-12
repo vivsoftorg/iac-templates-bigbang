@@ -31,12 +31,12 @@ addons:
     sourceType: "helmRepo"
     git:
       repo: https://repo1.dso.mil/big-bang/product/packages/thanos.git
-      tag: "17.2.2-bb.0"
+      tag: "17.3.3-bb.3"
       path: "./chart"
     helmRepo:
       repoName: "registry1"
       chartName: "thanos"
-      tag: "17.2.2-bb.0"
+      tag: "17.3.3-bb.3"
     # -- Flux reconciliation overrides specifically for the Thanos Package
     flux:
       driftDetection:

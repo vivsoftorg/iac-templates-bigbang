@@ -1,0 +1,19 @@
+istioCNI:
+  # -- Toggle deployment of Istio CNI
+  enabled: false
+  # -- Choose source type of "git" or "helmRepo"
+  sourceType: "helmRepo"
+  git:
+    repo: https://repo1.dso.mil/big-bang/product/packages/istio-cni
+    path: "./chart"
+    tag: 1.29.0-bb.0
+  helmRepo:
+    repoName: "registry1"
+    chartName: "istio-cni"
+    tag: 1.29.0-bb.0
+  # -- Values to passthrough to the Istio CNI chart
+  values: {}
+  # -- Flux reconciliation overrides specifically for the Istio CRDs Package
+  flux: {}
+  # -- Post Renderers.  See docs/postrenders.md
+  postRenderers: []

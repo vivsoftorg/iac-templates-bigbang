@@ -11,11 +11,11 @@ addons:
     git:
       repo: https://repo1.dso.mil/big-bang/product/packages/gitlab.git
       path: "./chart"
-      tag: "9.2.2-bb.0"
+      tag: "9.8.2-bb.2"
     helmRepo:
       repoName: "registry1"
       chartName: "gitlab"
-      tag: "9.2.2-bb.0"
+      tag: "9.8.2-bb.2"
     # -- Flux reconciliation overrides specifically for the Gitlab Package
     flux: {}
     # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
@@ -63,7 +63,7 @@ addons:
       # Setting this allows the registry to use a different endpoint than the global `objectStorage.endpoint` documented above.
       # `objectStorage.endpoint` must be set in order for `objectStorage.regionendpoint` endpoint to be used.  See: https://docs.gitlab.com/administration/object_storage/
       # Also note rails.s3.yaml and registry.s3.yaml here for implementation parallel: https://gitlab.com/gitlab-org/charts/gitlab/-/tree/master/examples/objectstorage
-      # examples:  "https://s3.us-gov-west-1.amazonaws.com" "https://minio.example.com:9000"
+      # examples:  `"https://s3.us-gov-west-1.amazonaws.com"` `"https://minio.example.com:9000"`
       regionendpoint: ""
       # -- S3 compatible region to use for connection information.
       region: ""

@@ -28,6 +28,7 @@ configMapGenerator:
     - haproxy.yaml
     - harbor.yaml
     - headlamp.yaml
+    - istiocni.yaml
     - istiocrds.yaml
     - istiogateway.yaml
     - istiod.yaml

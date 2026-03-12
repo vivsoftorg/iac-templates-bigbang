@@ -7,11 +7,11 @@ addons:
     git:
       repo: https://repo1.dso.mil/big-bang/product/packages/anchore-enterprise.git
       path: "./chart"
-      tag: "3.13.0-bb.0"
+      tag: "3.21.0-bb.0"
     helmRepo:
       repoName: "registry1"
       chartName: "anchore-enterprise"
-      tag: "3.13.0-bb.0"
+      tag: "3.21.0-bb.0"
     # -- Flux reconciliation overrides specifically for the Anchore Package
     flux:
       upgrade:
@@ -47,10 +47,6 @@ addons:
       password: ""
       # -- Database name to connect to on host (Note: database name CANNOT contain hyphens).
       database: ""
-      # -- Feeds database name to connect to on host (Note: feeds database name CANNOT contain hyphens).
-      # Only required for enterprise edition of anchore.
-      # By default, feeds database will be configured with the same username and password as the main database. For formatting examples on how to use a separate username and password for the feeds database see https://repo1.dso.mil/big-bang/product/packages/CHART.md#handling-dependencies
-      feeds_database: ""
     redis:
       # -- Hostname of a pre-existing Redis to use for Anchore Enterprise.
       # Entering connection info will enable external redis and will auto-create any required secrets.
