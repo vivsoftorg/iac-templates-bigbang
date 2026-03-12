@@ -25,7 +25,6 @@ configMapGenerator:
     - gitlab.yaml
     - gitlabrunner.yaml
     - grafana.yaml
-    - haproxy.yaml
     - harbor.yaml
     - headlamp.yaml
     - istiocni.yaml
