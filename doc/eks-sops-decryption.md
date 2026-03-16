@@ -1,22 +1,60 @@
 # EKS SOPS Decryption Setup
 
-This document describes the manual changes required to enable SOPS decryption with AWS KMS on EKS clusters.
+Manual steps to enable SOPS decryption with AWS KMS on EKS clusters using EKS Pod Identity.
 
 ## Prerequisites
 
 - EKS cluster with Flux installed
-- AWS KMS key with decryption permissions
-- IAM role with KMS decryption policy
+- KMS key ARN
 
-## Manual Changes Required
+## Manual Steps
 
-### 1. Enable Feature Gate for Kustomize Controller
 
-The `ObjectLevelWorkloadIdentity` feature gate is required for Flux to use IAM roles with service accounts for SOPS decryption.
+### 1. Create IAM Role for Flux SOPS Decryption
 
-**File:** `flux/kustomization.yaml`
+Create the IAM role with a trust policy for EKS Pod Identity:
 
-Add the feature gate to the kustomize-controller deployment:
+```bash
+aws iam create-role \
+  --role-name <CLUSTER_NAME>-flux-role \
+  --assume-role-policy-document '{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "pods.eks.amazonaws.com"
+        },
+        "Action": ["sts:AssumeRole", "sts:TagSession"]
+      }
+    ]
+  }'
+```
+
+Create and attach the KMS decryption policy:
+
+```bash
+aws iam create-policy \
+  --policy-name <CLUSTER_NAME>-flux-sops-policy \
+  --policy-document '{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": ["kms:Decrypt", "kms:DescribeKey"],
+        "Resource": "<KMS_KEY_ARN>"
+      }
+    ]
+  }'
+
+aws iam attach-role-policy \
+  --role-name <CLUSTER_NAME>-flux-role \
+  --policy-arn arn:aws:iam::<ACCOUNT_ID>:policy/<CLUSTER_NAME>-flux-sops-policy
+```
+
+### 2. Enable Feature Gate for Kustomize Controller
+
+Add the feature gate to `flux/kustomization.yaml`:
 
 ```yaml
 patches:
@@ -31,7 +69,6 @@ patches:
       spec:
         template:
           spec:
-            automountServiceAccountToken: true
             containers:
             - name: manager
               args:
@@ -39,102 +76,43 @@ patches:
 ```
 
 Apply changes:
+
 ```bash
 kustomize build flux/ | kubectl apply -f -
-kubectl rollout status deployment/kustomize-controller -n flux-system
 ```
 
-### 2. Create Service Account with IAM Role (Two Options)
-
-#### Option A: EKS Pod Identity (Recommended for EKS)
-
-Create the service account in the namespace where secrets are deployed (typically `bigbang`):
+### 3. Patch Deployment to Use Service Account
 
 ```bash
-# Create service account
-kubectl create sa kustomize-controller -n bigbang
-
-# Add IAM role annotation
-kubectl annotate sa kustomize-controller -n bigbang \
-  eks.amazonaws.com/role-arn=arn:aws:iam::ACCOUNT_ID:role/ROLE_NAME \
-  --overwrite
+kubectl patch deployment kustomize-controller \
+  -n flux-system \
+  --type merge \
+  -p '{"spec":{"template":{"spec":{"serviceAccountName":"kustomize-controller"}}}}'
 ```
 
-Create the EKS Pod Identity association:
+### 4. Create Pod Identity Association
 
 ```bash
 aws eks create-pod-identity-association \
-  --cluster-name YOUR_CLUSTER_NAME \
-  --namespace bigbang \
+  --cluster-name <CLUSTER_NAME> \
+  --namespace flux-system \
   --service-account kustomize-controller \
-  --role-arn arn:aws:iam::ACCOUNT_ID:role/ROLE_NAME
+  --role-arn <IAM_ROLE_ARN>
 ```
 
-#### Option B: Node IAM Role (Alternative)
+### 5. Restart Kustomize Controller Pod
 
-If the EKS node IAM role already has KMS decryption permissions, no additional setup is needed. Just ensure the kustomize-controller pod can access the KMS key through the node's IAM role.
+Delete existing pods to pick up the new identity:
 
-### 3. Configure Kustomization for Decryption
-
-**File:** `bigbang/envs/dev/bigbang-helm-values.yaml`
-
-```yaml
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: bigbang-secrets
-  namespace: bigbang
-spec:
-  # ... other config
-  decryption:
-    provider: sops
-    # Optional: specify service account for IAM authentication
-    # serviceAccountName: bigbang/kustomize-controller
-    # Remove this line to use node IAM role
+```bash
+kubectl delete pods -l app=kustomize-controller -n flux-system
 ```
 
-### 4. IAM Policy Requirements
+Wait for the new pod to be ready:
 
-The IAM role must have permission to decrypt with your KMS key:
-
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "kms:Decrypt",
-        "kms:DescribeKey"
-      ],
-      "Resource": "arn:aws:kms:REGION:ACCOUNT_ID:key/KMS_KEY_ID"
-    }
-  ]
-}
+```bash
+kubectl rollout status deployment/kustomize-controller -n flux-system
 ```
-
-## Troubleshooting
-
-### Error: ServiceAccount not found
-
-If you see:
-```
-failed to get service account 'bigbang/kustomize-controller': ServiceAccount "kustomize-controller" not found
-```
-
-Ensure the service account exists in the namespace where the Kustomization runs.
-
-### Error: Failed to get data key
-
-If you see:
-```
-failed to decrypt sops data key with AWS KMS: operation error KMS: Decrypt
-```
-
-Check:
-1. IAM role has KMS decryption permissions
-2. KMS key policy allows the IAM role to decrypt
-3. EKS Pod Identity association is correctly configured
 
 ## Verification
 
@@ -142,9 +120,20 @@ Check:
 # Check kustomization status
 kubectl get kustomization -A
 
-# Check secrets are decrypted
-kubectl get secrets -n bigbang
-
-# Check kustomize-controller logs
-kubectl logs deployment/kustomize-controller -n flux-system -f
+# Check kustomize-controller logs for decryption errors
+kubectl logs deployment/kustomize-controller -n flux-system --tail=50
 ```
+
+## Troubleshooting
+
+### Error: Failed to decrypt sops data key
+
+```
+failed to decrypt sops data key with AWS KMS: operation error KMS: Decrypt
+```
+
+Check:
+1. IAM role has KMS decryption permissions
+2. KMS key policy allows the IAM role to decrypt
+3. Pod Identity association is created in `flux-system` namespace
+4. Service account name is `kustomize-controller`
