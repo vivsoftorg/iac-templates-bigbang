@@ -46,3 +46,5 @@ aws eks create-pod-identity-association \
   --namespace flux-system \
   --service-account kustomize-controller \
   --role-arn "$ROLE_ARN" 2>/dev/null || true
+
+kubectl delete pods -l app=kustomize-controller -n flux-system --ignore-not-found=true

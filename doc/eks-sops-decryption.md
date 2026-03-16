@@ -5,54 +5,12 @@ Manual steps to enable SOPS decryption with AWS KMS on EKS clusters using EKS Po
 ## Prerequisites
 
 - EKS cluster with Flux installed
+- IAM role with KMS decryption permissions
 - KMS key ARN
 
 ## Manual Steps
 
-
-### 1. Create IAM Role for Flux SOPS Decryption
-
-Create the IAM role with a trust policy for EKS Pod Identity:
-
-```bash
-aws iam create-role \
-  --role-name <CLUSTER_NAME>-flux-role \
-  --assume-role-policy-document '{
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Effect": "Allow",
-        "Principal": {
-          "Service": "pods.eks.amazonaws.com"
-        },
-        "Action": ["sts:AssumeRole", "sts:TagSession"]
-      }
-    ]
-  }'
-```
-
-Create and attach the KMS decryption policy:
-
-```bash
-aws iam create-policy \
-  --policy-name <CLUSTER_NAME>-flux-sops-policy \
-  --policy-document '{
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Effect": "Allow",
-        "Action": ["kms:Decrypt", "kms:DescribeKey"],
-        "Resource": "<KMS_KEY_ARN>"
-      }
-    ]
-  }'
-
-aws iam attach-role-policy \
-  --role-name <CLUSTER_NAME>-flux-role \
-  --policy-arn arn:aws:iam::<ACCOUNT_ID>:policy/<CLUSTER_NAME>-flux-sops-policy
-```
-
-### 2. Enable Feature Gate for Kustomize Controller
+### 1. Enable Feature Gate for Kustomize Controller
 
 Add the feature gate to `flux/kustomization.yaml`:
 
@@ -81,7 +39,7 @@ Apply changes:
 kustomize build flux/ | kubectl apply -f -
 ```
 
-### 3. Patch Deployment to Use Service Account
+### 2. Patch Deployment to Use Service Account
 
 ```bash
 kubectl patch deployment kustomize-controller \
@@ -90,7 +48,7 @@ kubectl patch deployment kustomize-controller \
   -p '{"spec":{"template":{"spec":{"serviceAccountName":"kustomize-controller"}}}}'
 ```
 
-### 4. Create Pod Identity Association
+### 3. Create Pod Identity Association
 
 ```bash
 aws eks create-pod-identity-association \
@@ -100,7 +58,7 @@ aws eks create-pod-identity-association \
   --role-arn <IAM_ROLE_ARN>
 ```
 
-### 5. Restart Kustomize Controller Pod
+### 4. Restart Kustomize Controller Pod
 
 Delete existing pods to pick up the new identity:
 
