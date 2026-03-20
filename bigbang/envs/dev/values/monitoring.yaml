@@ -6,11 +6,11 @@ monitoring:
   git:
     repo: https://repo1.dso.mil/big-bang/product/packages/monitoring.git
     path: "./chart"
-    tag: "75.6.1-bb.3"
+    tag: "80.13.3-bb.0"
   helmRepo:
     repoName: "registry1"
     chartName: "monitoring"
-    tag: "75.6.1-bb.3"
+    tag: "80.13.3-bb.0"
   # -- Flux reconciliation overrides specifically for the Monitoring Package
   flux:
     install:
@@ -51,6 +51,37 @@ monitoring:
       # -- Alertmanager OIDC client secret
       client_secret: ""
   # -- Values to passthrough to the monitoring chart: https://repo1.dso.mil/big-bang/product/packages/monitoring.git
-  values: {}
+  values:
+    upstream:
+      prometheusOperator:
+        resources:
+          requests:
+            cpu: 50m
+            memory: 256Mi
+      kube-state-metrics:
+        resources:
+          requests:
+            cpu: 50m
+            memory: 128Mi
+      prometheus-node-exporter:
+        affinity: null
+        podAnnotations:
+          sidecar.istio.io/inject: "false"
+        resources:
+          requests:
+            cpu: 10m
+            memory: 128Mi
+      prometheus:
+        prometheusSpec:
+          resources:
+            requests:
+              cpu: 100m
+              memory: 1Gi
+      alertmanager:
+        alertmanagerSpec:
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
   # -- Post Renderers.  See docs/postrenders.md
   postRenderers: []

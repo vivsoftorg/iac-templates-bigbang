@@ -14,6 +14,8 @@ spec:
   prune: true
   decryption:
     provider: sops
+    secretRef:
+      name: sops-aws-kms
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

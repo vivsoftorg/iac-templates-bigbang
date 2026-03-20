@@ -6,11 +6,11 @@ neuvector:
   git:
     repo: https://repo1.dso.mil/big-bang/product/packages/neuvector.git
     path: "./chart"
-    tag: "2.8.6-bb.2"
+    tag: "2.8.11-bb.0"
   helmRepo:
     repoName: "registry1"
     chartName: "neuvector"
-    tag: "2.8.6-bb.2"
+    tag: "2.8.11-bb.0"
   # -- Redirect the package ingress to a specific Istio Gateway (listed in `istio.gateways`).  The default is "public".
   ingress:
     gateway: ""
@@ -47,6 +47,43 @@ neuvector:
           target:
             kind: StatefulSet
   # -- Values to passthrough to the Neuvector chart: https://repo1.dso.mil/big-bang/product/packages/neuvector.git
-  values: {}
+  values:
+    upstream:
+      controller:
+        replicas: 1
+        podLabels:
+          app.kubernetes.io/name: neuvector-controller-pod
+        podAnnotations:
+          sidecar.istio.io/inject: "false"
+        certupgrader:
+          podLabels:
+            app.kubernetes.io/name: neuvector-cert-upgrader-job
+          podAnnotations:
+            sidecar.istio.io/inject: "false"
+      manager:
+        podLabels:
+          app.kubernetes.io/name: neuvector-manager-pod
+        podAnnotations:
+          sidecar.istio.io/inject: "false"
+      enforcer:
+        nodeSelector:
+          kubernetes.io/hostname: aks-nodepool-15461813-vmss000004
+        podLabels:
+          app.kubernetes.io/name: neuvector-enforcer-pod
+        podAnnotations:
+          sidecar.istio.io/inject: "false"
+      cve:
+        scanner:
+          replicas: 1
+          podLabels:
+            app.kubernetes.io/name: neuvector-scanner-pod
+          podAnnotations:
+            sidecar.istio.io/inject: "false"
+    monitor:
+      exporter:
+        podLabels:
+          app.kubernetes.io/name: neuvector-prometheus-exporter-pod
+        podAnnotations:
+          sidecar.istio.io/inject: "false"
   # -- Post Renderers.  See docs/postrenders.md
   postRenderers: []

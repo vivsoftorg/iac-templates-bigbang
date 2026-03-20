@@ -4,7 +4,8 @@
 
 1. You have created a KMS encryption key to encrypt your cluster and have the ARN of the KMS key handy.
 2. You have deployed a Kubernetes cluster and have access to the `kubeconfig` file. 
-3. All your worker nodes have an instance profile with a policy to use KMS:decrypt 
+3. You have an AWS identity that can `kms:Encrypt` and `kms:Decrypt` against the KMS key used for SOPS.
+4. If the cluster is not running on AWS worker nodes with native IAM access, Flux must be able to use static AWS credentials through a `sops-aws-kms` secret in the `bigbang` namespace. The deployment pipeline now creates this secret automatically when `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` are set.
 
 ## Create the KMS encryption key
 
@@ -120,6 +121,8 @@ See, sample policy below,  Change your KMS key ARN
 }
 ```
 
+For non-EKS clusters, including AKS, you can use static AWS credentials for Flux decryption instead of relying on node IAM. The `deploy.sh` flow now creates a `sops-aws-kms` secret from the pipeline AWS environment variables, and `bigbang-secrets` consumes that secret through Flux `decryption.secretRef`.
+
 ### **Create a GPG Encryption Key**
 
 Generate a gpg key with name `bigbang-sops`
@@ -197,7 +200,7 @@ You also have to provide the right tls certificate and key for the same domain d
 
 - After providing all the input values, proceed to the Infrastructure section, and provide your
     - kubeconfig file - Paste your `kubeconfig` file
-    - Select AWS as your cloud and provide your AWS credentials. These AWS credentials are used to encrypt the secrets using SOPS. So make sure the IAM user of these credentials has `kms:Encrypt` and `kms:Decrypt` permissions.
+    - Select AWS as your cloud and provide your AWS credentials. These AWS credentials are used to encrypt the secrets using SOPS and are also used to create the `sops-aws-kms` secret that Flux consumes for cluster-side decryption. This is required for AKS and other non-EKS clusters that do not have direct IAM access to the KMS key.
     
     ![Untitled](./3.png)
     
