@@ -42,10 +42,6 @@ You need all of the following before attempting the AKS path:
 
 ## Recommended identity model
 
-The historical reference for this flow is
-`SOPS_with_Azure_KeyVault_secret_and_AKS_AAD_Pod_Identity.pdf`, but that
-document uses the older AAD Pod Identity pattern.
-
 For current AKS deployments, prefer Azure Workload Identity.
 
 The current repo already contains a helper script that reflects the intended
