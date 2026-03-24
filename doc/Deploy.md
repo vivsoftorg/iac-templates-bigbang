@@ -7,6 +7,13 @@ decryption, use the AKS-specific guide alongside this document:
 
 - [Deploying Big Bang on AKS with Azure Key Vault SOPS](./AKS-Azure-KeyVault-SOPS.md)
 
+Important:
+
+- This document is primarily AWS/EKS-oriented.
+- If you are deploying to AKS, do not follow the AWS KMS or GPG sections as-is.
+- For AKS, use Azure Key Vault as the SOPS backend and follow the AKS guide for
+  Workload Identity, runner kubeconfig handling, and user-supplied overrides.
+
 ## Prerequisite
 
 1. You have created a KMS encryption key to encrypt your cluster and have the ARN of the KMS key handy.
@@ -110,6 +117,9 @@ The CI job should receive kubeconfig as a file. For GitLab, prefer a file-type
 CI variable. For GitHub Actions, materialize the secret content into a file in
 the workflow before invoking `deploy.sh`.
 
+Do not move kubeconfig content-to-file normalization into the shared AKS
+template defaults. Treat that as a runner/workflow responsibility.
+
 ## Worker node instance Profile
 
 All worker nodes in your cluster must have an instance profile, which have a policy allowing the kms:decrypt and describe permissions, 
@@ -210,7 +220,11 @@ You also have to provide the right tls certificate and key for the same domain d
 
 - After providing all the input values, proceed to the Infrastructure section, and provide your
     - kubeconfig file - Provide your `kubeconfig` file
-    - Select AWS as your cloud and provide your AWS credentials. These AWS credentials are used to encrypt the secrets using SOPS. So make sure the IAM user of these credentials has `kms:Encrypt` and `kms:Decrypt` permissions.
+    - Select the appropriate cloud and provide the matching credentials.
+      For AWS/EKS, use the AWS KMS guidance in this document.
+      For AKS, use the Azure Key Vault guidance in the AKS document and provide
+      any AKS-specific values and secrets through ENBUILD rather than changing
+      shared template defaults.
     
     ![Untitled](./3.png)
     

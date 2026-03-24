@@ -197,6 +197,32 @@ Examples of overrides that may be needed on small AKS dev clusters:
 
 These should be treated as deployment inputs, not shared defaults.
 
+### Suggested ENBUILD input checklist for AKS
+
+At minimum, the operator should be ready to provide:
+
+1. Azure infrastructure inputs
+   - service principal client ID
+   - tenant ID
+   - subscription ID
+   - service principal client secret
+   - target resource group / region for the AKS cluster path
+2. Big Bang repo inputs
+   - registry URL
+   - registry username
+   - registry password or token
+   - repository username
+   - repository password or token
+3. Big Bang deployment inputs
+   - `sops.yaml` that references the Azure Key Vault key URL
+   - domain and TLS material for the target ingress domain
+   - any AKS-specific values overrides required by the target cluster size
+4. Kubeconfig delivery
+   - kubeconfig must be available to the deploy job as a file
+
+If you are deploying into a small AKS dev cluster, plan for additional user
+overrides rather than assuming the generic defaults will converge unchanged.
+
 ## Step 6: CI runner expectations
 
 The deployment logic should consume kubeconfig as a file path.
@@ -213,6 +239,87 @@ For GitHub Actions:
 
 Do not add kubeconfig content-to-file normalization to the shared `deploy.sh`
 for the AKS path.
+
+## Step 7: Prove Flux can decrypt before deploying full Big Bang
+
+Before attempting the full Big Bang install, validate the Azure Key Vault path
+with a small Flux-managed encrypted secret.
+
+Recommended sequence:
+
+1. Create a test namespace manifest
+2. Create a Kubernetes Secret manifest with plain `stringData`
+3. Encrypt that secret with `sops` using the Azure Key Vault-backed `sops.yaml`
+4. Store the encrypted manifest in a Git repo that Flux can read
+5. Create a Flux `GitRepository`
+6. Create a Flux `Kustomization` with:
+   - `decryption.provider: sops`
+7. Wait for the `GitRepository` and `Kustomization` to become `Ready=True`
+8. Verify the secret exists in-cluster with decrypted values
+
+Example verification commands:
+
+```bash
+kubectl -n flux-system wait gitrepository/flux-azure-sops-proof --for=condition=ready=True --timeout=3m
+kubectl -n flux-system wait kustomization/flux-azure-sops-proof --for=condition=ready=True --timeout=5m
+kubectl -n sops-proof get secret azure-sops-proof -o jsonpath='{.data.message}' | base64 -d
+```
+
+If this proof fails, do not proceed to the full Big Bang deployment until the
+Key Vault identity mapping and controller permissions are corrected.
+
+## Step 8: AKS-specific operator notes from validation
+
+The following notes came from live AKS validation and should be treated as
+operator guidance, not shared template defaults.
+
+### Workload Identity details
+
+- The federated credential must use the **current AKS OIDC issuer URL** for the
+  cluster being deployed, not a stale issuer from an older cluster.
+- The `flux-system/kustomize-controller` service account must carry the Azure
+  Workload Identity annotations for the managed identity client and tenant.
+- Restart `kustomize-controller` after changing the service account annotation.
+
+### Small AKS cluster sizing and policy notes
+
+On smaller AKS dev clusters, some packages may require user-supplied overrides.
+Examples observed during validation:
+
+- reduced CPU and memory requests for:
+  - `istiod`
+  - `grafana`
+  - `monitoring`
+  - `tempo`
+  - `neuvector`
+- package-specific wait or hook jobs may need smaller requests
+- some pods may need:
+  - sidecar injection disabled where it is unnecessary
+  - `automountServiceAccountToken: false` where cluster policy requires it
+
+These should be passed as deployment-specific values and reviewed per
+environment.
+
+### Troubleshooting patterns observed on AKS
+
+If Flux or Big Bang packages do not converge on AKS, check these first:
+
+1. Flux / SOPS
+   - `GitRepository` ready
+   - `Kustomization` ready
+   - `kustomize-controller` has the right Workload Identity annotations
+   - test encrypted secret decrypts successfully in-cluster
+2. Cluster policy interactions
+   - required labels
+   - service-account token automount restrictions
+   - pod-sidecar injection policy
+3. Cluster capacity
+   - insufficient CPU for daemonsets, hooks, or mesh sidecars
+4. Package-specific service discovery
+   - internal headless services publishing addresses early enough for startup
+
+Document the exact overrides and operator actions used for each environment
+rather than making the shared template AKS-specific by default.
 
 ## Validation checklist
 
@@ -235,6 +342,7 @@ Before marking the AKS + Big Bang path complete, validate all of the following:
 4. ENBUILD validation
    - ENBUILD creates the GitLab deployment repo
    - the pipeline sees kubeconfig as a file
+   - Flux can decrypt an Azure-Key-Vault-encrypted test secret
    - Big Bang deploy runs successfully against AKS
 
 5. Runtime validation
@@ -250,6 +358,7 @@ For handoff or RTM evidence, collect:
 - managed identity name and client ID
 - federated credential creation evidence
 - service account annotation output
+- Flux test secret decryption output
 - encrypted/decrypted sample secret output
 - ENBUILD-generated GitLab repo and pipeline links
 - `kubectl -n bigbang get hr`
