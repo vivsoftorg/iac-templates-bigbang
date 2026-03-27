@@ -26,6 +26,23 @@ error_exit() {
   exit 1
 }
 
+sync_registry_secret() {
+  local source_namespace="$1"
+  local secret_name="$2"
+  local target_namespace="$3"
+
+  kubectl get namespace "${target_namespace}" >/dev/null 2>&1 || kubectl create namespace "${target_namespace}" >/dev/null
+  kubectl get secret "${secret_name}" -n "${source_namespace}" -o json | \
+    python3 -c 'import json, sys
+target_namespace = sys.argv[1]
+doc = json.load(sys.stdin)
+for key in ["uid", "resourceVersion", "creationTimestamp", "managedFields", "selfLink"]:
+    doc["metadata"].pop(key, None)
+doc["metadata"]["namespace"] = target_namespace
+doc["metadata"]["annotations"] = {}
+print(json.dumps(doc))' "${target_namespace}" | kubectl apply -f - >/dev/null
+}
+
 # Preflight checks
 for cmd in flux kubectl sops kustomize; do
   command -v $cmd >/dev/null 2>&1 || error_exit "$cmd not found in PATH"
@@ -62,6 +79,13 @@ kustomize build bigbang/envs/dev/ | kubectl apply -f - || error_exit "Failed to 
 
 log "Waiting for BigBang HelmRelease to be Ready (timeout 500s)"
 kubectl wait --for=condition=Ready=True --timeout=500s helmreleases bigbang -n bigbang || error_exit "BigBang HelmRelease not ready in time"
+
+log "Syncing private registry credentials to Big Bang target namespaces"
+kubectl get hr -n bigbang -o jsonpath='{range .items[*]}{.spec.targetNamespace}{"\n"}{end}' | sort -u | while read -r namespace; do
+  [[ -z "${namespace}" ]] && continue
+  sync_registry_secret "bigbang" "private-registry" "${namespace}"
+done
+success "Private registry credentials synced"
 
 # Wait for all dependent HelmReleases
 log "Waiting for all HelmReleases in bigbang namespace (timeout 3600s)"
