@@ -241,3 +241,19 @@ You also have to provide the right tls certificate and key for the same domain d
     You can also check the status of CI-CD run directly in the gitlab. 
     
     Go to the project created in gitlab and click on the CI-CD tab and check running/completed jobs.
+
+## Destroying BigBang
+
+Run the generated repo's `destroy-bigbang` job before destroying the backing EKS
+cluster.
+
+For AWS-backed clusters, the destroy flow now also cleans up the two Istio
+gateway classic ELBs (`public-ingressgateway` and
+`passthrough-ingressgateway`) and removes any leaked `k8s-elb-*` security
+groups that would otherwise block the final VPC teardown.
+
+Recommended order:
+
+1. Destroy the sample app stack
+2. Run `destroy-bigbang`
+3. Destroy the EKS stack
